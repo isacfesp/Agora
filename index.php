@@ -67,7 +67,5 @@ if(!isset($_SESSION['nombre'])){
     </script>
 </body>
 
-<footer>
-Dinosaurio Chino &copy
-</footer>
+
 </html>

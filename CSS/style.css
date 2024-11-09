@@ -108,12 +108,12 @@ body {
 }
 
 
-.btnC {
+.btnC{
   font-weight: 600;
   background-color: #fff;
   text-decoration: none;
   color: #ff0505;
-  padding: 15px;
+  padding: 10px;
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);

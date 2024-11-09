@@ -12,12 +12,8 @@
 </head>
 
 <body>
-  <div style="width: 400px;">
+  <div style="width: 700px;">
     <canvas id="canvas"></canvas>
-
-  </div>
-  <div style="width: 400px; position: absolute; right: 100px; top: 10px;">
-    <canvas id="canva"></canvas>
 
   </div>
 </body>
@@ -27,20 +23,6 @@
     type: "line",
     data: {
       labels: ["Enero", "Febrero", "Marzo", "etc.."],
-      datasets: [
-        {
-          label: "Alumnos inscritos",
-          backgroundColor: "rgba(0,0,0)",
-          data:[34, 54, 65, 43, 10]
-        }
-      ]
-    }
-  })
-  var canvas = document.getElementById("canva").getContext("2d");
-  var chart1 = new Chart(canvas, {
-    type: "line",
-    data: {
-      labels: ["Enero", "Febrero", "Marzo", "etc..."],
       datasets: [
         {
           label: "Alumnos inscritos",
