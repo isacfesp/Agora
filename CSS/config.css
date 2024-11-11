@@ -10,9 +10,10 @@ body {
     color: #333;
     padding: 0;
     margin: 0;
+    display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .info-container {
@@ -45,13 +46,23 @@ body {
     align-items: center;
     padding: 1rem;
     border-top: 1px solid #e0e0e0;
-    text-decoration: none;
-    color: inherit;
     width: 100%;
+    color: inherit;
+    text-decoration: none !important; /* Elimina subrayado */
 }
 
 .info-item:first-of-type {
     border-top: none;
+}
+
+.info-item a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    text-decoration: none !important;
+    color: inherit;
+    padding: 0;
 }
 
 .info-item label {
@@ -103,18 +114,18 @@ body {
     border: none;
 }
 
-
 .btnC:hover {
     background-color: #ff0505;
     color: #fff;
 }
 
-.leg{
-    text-decoration: none;
+.leg {
+    text-decoration: none !important;
     color: #000;
     margin-right: 50px;
+    padding: 0;
 }
 
-.leg:hover{
+.leg:hover {
     color: #ff0505;
 }
