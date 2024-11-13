@@ -48,7 +48,7 @@ if(!isset($_SESSION['nombre'])){
             <?php echo $_SESSION['nombre'];?> 
             <?php echo $_SESSION['email'];?> 
         </center>
-        <a href="" class="btnC">Cerrar Sesión</a>
+        <a href="logout.php" class="btnC">Cerrar Sesión</a>
     </div>
             </div>
         </div>
