@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pwd = "";
-$DB = "immoto";
+$DB = "agora";
 
 
 $connection = new mysqli($host, $user, $pwd, $DB);
