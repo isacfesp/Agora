@@ -26,10 +26,10 @@ if(!isset($_SESSION['nombre'])){
         <div class="menu-item" onclick="document.getElementById('main-frame').src='contactos.html'">
             <i class="fas fa-user"></i><span>Contactos</span>
         </div>
-        <div class="menu-item" onclick="document.getElementById('main-frame').src='estadisticas.html'">
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='Gestion_usuarios.html'">
             <i class="fas fa-chart-line"></i><span>Gestión de usuarios</span>
         </div>
-        <div class="menu-item" onclick="document.getElementById('main-frame').src='config.html'">
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='config.php'">
             <i class="fas fa-cog"></i><span>Configuraciones</span>
         </div>
     </div>
@@ -44,8 +44,8 @@ if(!isset($_SESSION['nombre'])){
                 <div class="config">
         <center>
             
-            <h2>bienvenido, </h2>
-            <?php echo $_SESSION['nombre'];?> 
+            <h2>bienvenido, <?php echo $_SESSION['nombre'];?> </h2>
+            
             <?php echo $_SESSION['email'];?> 
         </center>
         <a href="logout.php" class="btnC">Cerrar Sesión</a>

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,9 +26,9 @@
           <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
         </a>
 
-        <a href="config1Nombre.html" class="info-item d-flex justify-content-between align-items-center mb-3">
+        <a href="CRUD/config1.php" class="info-item d-flex justify-content-between align-items-center mb-3">
           <label>Nombre</label>
-          <span>nombre</span>
+          <span><?php echo $_SESSION['nombre'];?></span>
           <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
         </a>
 

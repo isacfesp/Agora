@@ -67,13 +67,13 @@ body {
 
 .info-item label {
     font-size: 0.9rem;
-    color: #5f6368;
+    color: #333;
     flex: 1;
 }
 
 .info-item span {
+    color: #5f6368;
     font-size: 1rem;
-    color: #333;
     font-weight: 500;
     flex: 2;
     text-align: left;
