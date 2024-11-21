@@ -17,9 +17,15 @@ $sql = "Select * from usuario where email='$mail'";
         $estado = $colum['estado'];
         $tipo_user = $colum['tipo_usuario'];
         if($mail2==$mail && $pwd==$pwd2){
+            $apa = $colum['apaterno'];
+            $ama = $colum['amaterno'];
             $nombre = $colum['nombre'];
             $_SESSION['nombre'] = $nombre;
             $_SESSION['email'] = $mail;
+            $_SESSION['apaterno'] = $apa;
+            $_SESSION['amaterno'] = $ama;
+            $_SESSION['password'] = $pwd;
+
             if($estado == 1){
 
                 switch($tipo_user){

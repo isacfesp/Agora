@@ -34,13 +34,13 @@ session_start();
 
         <a href="#" class="info-item d-flex justify-content-between align-items-center mb-3">
           <label>Apellido paterno</label>
-          <span>apaterno</span>
+          <span><?php echo $_SESSION['apaterno'];?></span>
           <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
         </a>
 
         <a href="#" class="info-item d-flex justify-content-between align-items-center mb-3">
           <label>Apellido materno</label>
-          <span>amaterno</span>
+          <span><?php echo $_SESSION['amaterno'];?></span>
           <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
         </a>
       </div>

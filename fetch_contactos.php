@@ -6,11 +6,11 @@ $dbname = 'agora';
 
 // Conexión a la base de datos
 $conn = new mysqli($host, $user, $password, $dbname);
-
+$conn->set_charset("utf8");
 if ($conn->connect_error) {
     die('Error de conexión: ' . $conn->connect_error);
 }
-mysqli_set_charset($conn, 'utf8mb4');
+
 
 // Inicialización de variables
 $start = $_GET['start'] ?? null;
