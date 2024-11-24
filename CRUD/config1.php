@@ -3,56 +3,99 @@ session_start();
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Edición</title>
-    <!-- Enlace a Bootstrap CSS -->
+    <title>Configuración de Nombre</title>
+    <!-- Enlace a Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .form-container {
+        body {
+            background-color: #f7f9fb;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-        }
-        .form-box {
-            width: 100%;
-            max-width: 600px; 
-            margin: 40px; 
-            padding: 100px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .btn-primary{
-            background-color: #BBCD5D;
-            border: #BBCD5D;
+            margin: 0;
         }
 
-        .btn-primary:hover{
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn-primary {
+            background-color: #BBCD5D;
+            border: none;
+        }
+
+        .btn-primary:hover {
             background-color: #aabb57;
-            border-color: #aabb57;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: #e9ecef;
+            color: #6c757d;
+            padding: 10px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-back:hover {
+            background-color: #d6dbdf;
+            color: #4a4a4a;
+        }
+
+        .btn-back i {
+            margin-right: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="container form-container">
-        <div class="form-box bg-light">
+    <div class="container">
+        <div class="form-container mx-auto">
+            <!-- Botón para regresar -->
+            <a href="javascript:history.back()" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Regresar
+            </a>
+
+            <h2 class="text-center mb-4">Configuración de Nombre</h2>
             <form>
                 <div class="form-group">
-                    <label for="dataField"><h1>Nombre:</h1></label>
-                    <input type="text" class="form-control" id="dataField" value="<?php echo $_SESSION['nombre'];?>">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" class="form-control" placeholder="Ingresa el nombre">
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a href="config.html" class="btn btn-danger">Cancelar</a>
+                </div>
             </form>
         </div>
     </div>
 
-    
-
-    <!-- Enlace a Bootstrap JS y dependencias -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <!-- Enlace a FontAwesome para los íconos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Enlace a Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

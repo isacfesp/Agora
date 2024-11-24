@@ -1,6 +1,7 @@
 <?php
 session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,67 +10,84 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Información Básica de Usuario</title>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="CSS/config.css">
+  <link rel="stylesheet" href="CSS/custom.css"> <!-- Incluimos el nuevo archivo CSS -->
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Estilos personalizados */
+.user-options {
+  margin-top: 30px; /* Ajustamos el margen superior */
+}
+
+.btnC {
+  text-decoration: none; /* Removemos subrayado */
+}
+
+.btnC:hover {
+  text-decoration: none; /* Aseguramos que no se subraye en hover */
+}
+
+.user-options .leg {
+  margin: 10px 0; /* Añadimos margen superior e inferior a los enlaces */
+}
+
+  </style>
 </head>
 
 <body>
-  <div class="container mt-5">
-    <div class="card mb-3">
-      <div class="card-body">
-        <h2 class="card-title">Información Básica</h2>
-        <a href="#" class="info-item d-flex justify-content-between align-items-center mb-3">
-          <label>Imagen de perfil</label>
-          <div class="flex items-center">
-            <img src="https://via.placeholder.com/50" alt="Imagen" class="img-thumbnail">
-          </div>
-          <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
-        </a>
+  <div class="container mt-4">
+    <div class="info-container">
+      <h2>Información Básica</h2>
+      <a href="#" class="info-item d-flex align-items-center">
+        <label>Imagen de perfil</label>
+        <div class="flex items-center">
+          <img src="https://via.placeholder.com/50" alt="Imagen">
+        </div>
+        <div class="arrow-icon ml-auto"><i class='bx bx-chevron-right'></i></div>
+      </a>
 
-        <a href="CRUD/config1.php" class="info-item d-flex justify-content-between align-items-center mb-3">
-          <label>Nombre</label>
-          <span><?php echo $_SESSION['nombre'];?></span>
-          <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
-        </a>
+      <a href="config1Nombre.html" class="info-item d-flex align-items-center">
+        <label>Nombre</label>
+        <span class="ml-auto"><?php echo $_SESSION['nombre'];?></span>
+        <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
+      </a>
 
-        <a href="#" class="info-item d-flex justify-content-between align-items-center mb-3">
-          <label>Apellido paterno</label>
-          <span><?php echo $_SESSION['apaterno'];?></span>
-          <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
-        </a>
+      <a href="#" class="info-item d-flex align-items-center">
+        <label>Apellido paterno</label>
+        <span class="ml-auto"><?php echo $_SESSION['apaterno'];?></span>
+        <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
+      </a>
 
-        <a href="#" class="info-item d-flex justify-content-between align-items-center mb-3">
-          <label>Apellido materno</label>
-          <span><?php echo $_SESSION['amaterno'];?></span>
-          <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
-        </a>
-      </div>
+      <a href="#" class="info-item d-flex align-items-center">
+        <label>Apellido materno</label>
+        <span class="ml-auto"><?php echo $_SESSION['amaterno'];?></span>
+        <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
+      </a>
     </div>
 
-    <div class="card mb-3">
-      <div class="card-body">
-        <h2 class="card-title">Contraseña</h2>
-        <a href="#" class="info-item d-flex justify-content-between align-items-center mb-3">
-          <label>Contraseña</label>
-          <span>**********</span>
-          <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
-        </a>
-      </div>
+    <div class="info-container mt-4">
+      <h2>Contraseña</h2>
+      <a href="#" class="info-item d-flex align-items-center">
+        <label>Contraseña</label>
+        <span class="ml-auto">**********</span>
+        <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
+      </a>
     </div>
-
-    <div class="card mb-3">
-      <div class="card-body">
-        <h2 class="card-title">Opciones de usuario</h2>
-        <a href="logout.php" class="btn btn-primary mb-3 btnC">Cerrar Sesión</a>
-        <br>
-        <a href="" class="btn btn-link leg">Términos y condiciones</a>
-        <a href="" class="btn btn-link leg">Política de privacidad</a>
-      </div>
+    
+    <div class="info-container user-options mt-4">
+      <h2>Opciones de usuario</h2>
+      <a href="#" class="btnC mt-2">Cerrar Sesión</a>
+      <br>
+      <br>
+      <a href="#" class="leg d-block mt-2">Términos y condiciones</a>
+      <a href="#" class="leg d-block mt-2">Política de privacidad</a>
     </div>
   </div>
 
+  <!-- Bootstrap JavaScript and dependencies -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 

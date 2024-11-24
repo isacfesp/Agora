@@ -8,80 +8,110 @@
     <!-- Enlace a Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #f7f9fb;
+        }
+
         .form-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         .form-box {
             width: 100%;
             max-width: 600px;
-            /* Hacer el div más grande */
-            margin: 40px;
-            /* Más espacio de margen */
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            /* Sombra */
+            margin: 20px;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary {
             background-color: #BBCD5D;
-            border: #BBCD5D;
+            border-color: #BBCD5D;
+            transition: all 0.3s ease-in-out;
         }
 
         .btn-primary:hover {
             background-color: #aabb57;
             border-color: #aabb57;
         }
+
+        .btn-back {
+            background-color: #e9ecef;
+            color: #6c757d;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .btn-back:hover {
+            background-color: #d6dbdf;
+            text-decoration: none;
+        }
+
+        .btn-back i {
+            margin-right: 5px;
+        }
     </style>
 </head>
 
 <body>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <div class="container form-container">
+        <div class="form-box">
+            <!-- Botón para regresar -->
+            <a href="javascript:history.back()" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Regresar
+            </a>
 
-        <div class="container form-container">
-            <div class="form-box bg-light">
-                <form>
-                    <div class="form-group">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" placeholder="Ingresa el nombre" required
-                            name="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="apaterno">Apellido Paterno:</label>
-                        <input type="text" class="form-control" id="apaterno" placeholder="Ingresa el apellido paterno"
-                            required name="apaterno">
-                    </div>
-                    <div class="form-group">
-                        <label for="amaterno">Apellido Materno:</label>
-                        <input type="text" class="form-control" id="amaterno" placeholder="Ingresa el apellido materno"
-                            required name="amaterno">
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Número Telefónico:</label>
-                        <input type="text" class="form-control" id="telefono" placeholder="Ingresa el número telefónico"
-                            maxlength="10" pattern="\d{10}" required name="num">
-                    </div>
-                    <div class="form-group">
-                        <label for="whatsapp">WhatsApp:</label>
-                        <select class="form-control" id="whatsapp" required name="whatsapp">
-                            <option value="">Selecciona una opción</option>
-                            <option value="Yes">Sí</option>
-                            <option value="No">No</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="formato">Formato:</label>
-                        <input type="text" class="form-control" id="formato" placeholder="Ingresa el formato" required
-                            name="formato">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block" name="submit">Guardar</button>
-                </form>
-            </div>
+
+            <!-- Formulario -->
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Ingresa el nombre" required name="name">
+                </div>
+                <div class="form-group">
+                    <label for="apaterno">Apellido Paterno:</label>
+                    <input type="text" class="form-control" id="apaterno" placeholder="Ingresa el apellido paterno" required name="apaterno">
+                </div>
+                <div class="form-group">
+                    <label for="amaterno">Apellido Materno:</label>
+                    <input type="text" class="form-control" id="amaterno" placeholder="Ingresa el apellido materno" required name="amaterno">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Número Telefónico:</label>
+                    <input type="text" class="form-control" id="telefono" placeholder="Ingresa el número telefónico" maxlength="10" pattern="\d{10}" required name="num">
+                </div>
+                <div class="form-group">
+                    <label for="whatsapp">WhatsApp:</label>
+                    <select class="form-control" id="whatsapp" required name="whatsapp">
+                        <option value="">Selecciona una opción</option>
+                        <option value="Yes">Sí</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="formato">Formato:</label>
+                    <input type="text" class="form-control" id="formato" placeholder="Ingresa el formato" required name="formato">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" name="submit">Guardar</button>
+            </form>
         </div>
-    </form>
+    </div>
+
+    <!-- Enlace a FontAwesome para el icono de la flecha -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+
 
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
