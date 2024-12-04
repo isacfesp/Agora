@@ -40,26 +40,30 @@
             border-color: #aabb57;
         }
 
-        .btn-back {
-            background-color: #e9ecef;
-            color: #6c757d;
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            padding: 10px 15px;
-            font-size: 0.9rem;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-bottom: 20px;
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
-        .btn-back:hover {
-            background-color: #d6dbdf;
-            text-decoration: none;
+        .modal-content {
+            text-align: center;
+            border-radius: 15px;
+            padding: 20px;
         }
 
-        .btn-back i {
-            margin-right: 5px;
+        .modal-icon {
+            font-size: 50px;
+            color: #BBCD5D;
+            animation: pop 0.5s ease;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
@@ -67,13 +71,9 @@
 <body>
     <div class="container form-container">
         <div class="form-box">
-            <!-- Botón para regresar -->
-            <a href="javascript:history.back()" class="btn-back">
+            <a href="javascript:history.back()" class="btn btn-secondary mb-3">
                 <i class="fas fa-arrow-left"></i> Regresar
             </a>
-
-
-            <!-- Formulario -->
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
@@ -108,53 +108,62 @@
         </div>
     </div>
 
-    <!-- Enlace a FontAwesome para el icono de la flecha -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-</body>
+    <!-- Modales -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <i class="modal-icon fas fa-check-circle"></i>
+                <h5 class="mt-3">Contacto creado con éxito</h5>
+                <button type="button" class="btn btn-primary mt-3" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
 
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <i class="modal-icon fas fa-times-circle text-danger"></i>
+                <h5 class="mt-3">Error al crear el contacto</h5>
+                <button type="button" class="btn btn-primary mt-3" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
 
+    <!-- Script PHP -->
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['submit'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+        $host = "localhost";
+        $user = "root";
+        $pwd = "";
+        $DB = "agora";
 
-            $host = "localhost";
-            $user = "root";
-            $pwd = "";
-            $DB = "agora";
+        $connection = new mysqli($host, $user, $pwd, $DB);
+        if ($connection->connect_errno) {
+            echo "<script>$(document).ready(function(){ $('#errorModal').modal('show'); });</script>";
+            exit;
+        }
 
+        $name = $_POST["name"];
+        $apaterno = $_POST["apaterno"];
+        $amaterno = $_POST["amaterno"];
+        $num = $_POST["num"];
+        $whatsapp = $_POST["whatsapp"];
+        $formato = $_POST["formato"];
 
-            $connection = new mysqli($host, $user, $pwd, $DB);
-
-            if ($connection->connect_errno) {
-                die("Conexión fallida: " . mysqli_connect_error());
-
-            }
-
-            $db = mysqli_select_db($connection, $DB);
-
-            $name = $_POST["name"];
-            $apaterno = $_POST["apaterno"];
-            $amaterno = $_POST["amaterno"];
-            $num = $_POST["num"];
-            $whatsapp = $_POST["whatsapp"];
-            $formato = $_POST["formato"];
-
-            $sql = mysqli_query($connection, "INSERT INTO contacto (nombre, apaterno, amaterno, numero_telefonico, whatsapp, formato) values ('$name', '$apaterno', '$amaterno', '$num', '$whatsapp', '$formato') ");
-            if ($sql) {
-                echo "Contacto creado";
-            } else {
-                echo "No se creó el contacto";
-            }
-
-
+        $sql = mysqli_query($connection, "INSERT INTO contacto (nombre, apaterno, amaterno, numero_telefonico, whatsapp, formato) VALUES ('$name', '$apaterno', '$amaterno', '$num', '$whatsapp', '$formato')");
+        if ($sql) {
+            echo "<script>$(document).ready(function(){ $('#successModal').modal('show'); });</script>";
+        } else {
+            echo "<script>$(document).ready(function(){ $('#errorModal').modal('show'); });</script>";
         }
     }
     ?>
 
-    <!-- Enlace a Bootstrap JS y dependencias -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Enlaces a JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- Usar la versión completa de jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </body>
 
 </html>
