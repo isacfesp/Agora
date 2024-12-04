@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="CSS/contactos.css">
+</head>
 
 <body>
     <div class="container">
@@ -42,17 +43,12 @@
         </table>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-
-
-
+    <!-- Modal de edición -->
     <div id="editar" class="overlay">
         <div class="popup">
             <h2>Edición de Datos</h2>
             <form id="formData">
+                <input type="hidden" id="contactoId" name="contactoId">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
 
@@ -68,9 +64,9 @@
                 <input type="text" id="telefono" name="telefono" placeholder="Ingrese su número telefónico" required>
 
                 <label for="whatsapp">Whatsapp:</label>
-                <select class="form-control" id="whatsapp" required name="whatsapp">
+                <select class="form-control" id="whatsapp" name="whatsapp" required>
                     <option value="">Selecciona una opción</option>
-                    <option value="í">Sí</option>
+                    <option value="Sí">Sí</option>
                     <option value="No">No</option>
                 </select>
 
@@ -78,14 +74,15 @@
                 <input type="text" id="formato" name="formato" placeholder="Ingrese el formato" required>
 
                 <div>
-                    <button type="button" class="btn-aceptar" onclick="aceptar()">Aceptar</button>
-                    <button type="button" class="btn-cancelar" onclick="cancelar()">Cancelar</button>
+                    <button type="button" class="btn btn-success" onclick="guardarEdicion()">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelar()">Cancelar</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="modal fade" id="borrar" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true" style="display: none;">
+    <!-- Modal de confirmación de eliminación -->
+    <div class="modal fade" id="borrar" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,28 +90,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar a este usuario?
+                    ¿Estás seguro de que deseas eliminar este contacto?
                 </div>
                 <div class="modal-footer">
-                    <!-- Botón Cancelar -->
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-                    <!-- Botón Eliminar -->
-                    <button type="button" class="btn btn-danger">Eliminar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">Eliminar</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
     <script>
         $(document).ready(function () {
-            // Inicializa el DataTable
             let table = $('#contactosTable').DataTable({
                 ajax: {
-                    url: 'fetch_contactos.php', // Archivo PHP para obtener los datos
-                    dataSrc: function (json) {
-                        console.log(json);  // Verifica en la consola si los datos se están recibiendo
-                        return json;  // Devuelve los datos tal cual
-                    }
+                    url: 'fetch_contactos.php',
+                    dataSrc: ''
                 },
                 columns: [
                     { data: 'id_contacto' },
@@ -127,67 +123,53 @@
                     { data: 'fecha_creacion' },
                     {
                         data: null,
-                        render: function (data, type, row) {
+                        render: function (data) {
                             return `
-                            <button onclick="editar()"class="btn btn-warning btn-sm edit-btn" data-id="${row.id_contacto}"><i class="fas fa-pencil-alt"></i></button>
-                            <button onclick="eliminar()"class="btn btn-danger btn-sm delete-btn" data-id="${row.id_contacto}"><i class="fas fa-trash-alt"></i></button>
-                        `;
+                                <button class="btn btn-warning btn-sm edit-btn" data-id="${data.id_contacto}" onclick="abrirEdicion('${data.id_contacto}')"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="${data.id_contacto}" onclick="confirmarEliminacion('${data.id_contacto}')"><i class="fas fa-trash-alt"></i></button>
+                            `;
                         }
                     }
-                ],
-                language: {
-                    processing: "Procesando...",
-                    search: "Buscar:",
-                    lengthMenu: "Mostrar _MENU_ registros",
-                    info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    infoFiltered: "(filtrado de un total de _MAX_ registros)",
-                    infoPostFix: "",
-                    loadingRecords: "Cargando...",
-                    zeroRecords: "No se encontraron resultados",
-                    emptyTable: "Ningún dato disponible en esta tabla",
-                    paginate: {
-                        first: "Primero",
-                        previous: "Anterior",
-                        next: "Siguiente",
-                        last: "Último"
-                    },
-                    aria: {
-                        sortAscending: ": Activar para ordenar la columna de manera ascendente",
-                        sortDescending: ": Activar para ordenar la columna de manera descendente"
-                    }
-                }
-            });
-
-            // Filtro de fechas
-            $('#filterDate').click(function () {
-                const startDate = $('#startDate').val();
-                const endDate = $('#endDate').val();
-                if (startDate && endDate) {
-                    table.ajax.url(`fetch_contactos.php?start=${startDate}&end=${endDate}`).load();
-                } else {
-                    table.ajax.url('fetch_contactos.php').load();  // Sin filtro de fechas
-                }
+                ]
             });
         });
 
-        // Ventanas emergentes 
-
-        function editar() {
-            document.getElementById('editar').style.display = "flex";
+        function abrirEdicion(id) {
+            // Simular datos traídos desde el servidor para edición
+            $.getJSON(`fetch_contacto.php?id=${id}`, function (data) {
+                $('#contactoId').val(data.id_contacto);
+                $('#nombre').val(data.nombre);
+                $('#apellidoPaterno').val(data.apaterno);
+                $('#apellidoMaterno').val(data.amaterno);
+                $('#telefono').val(data.numero_telefonico);
+                $('#whatsapp').val(data.whatsapp);
+                $('#formato').val(data.formato);
+                $('#editar').show();
+            });
         }
 
-        function eliminar() {
-            // Usando el método de Bootstrap para abrir el modal
-            var myModal = new bootstrap.Modal(document.getElementById('borrar'));
-            myModal.show();
+        function guardarEdicion() {
+            // Enviar datos al servidor para guardar cambios
+            let formData = $('#formData').serialize();
+            $.post('update_contacto.php', formData, function () {
+                $('#editar').hide();
+                $('#contactosTable').DataTable().ajax.reload();
+            });
+        }
+
+        function confirmarEliminacion(id) {
+            $('#confirmDelete').off().on('click', function () {
+                $.post(`delete_contacto.php`, { id }, function () {
+                    $('#borrar').modal('hide');
+                    $('#contactosTable').DataTable().ajax.reload();
+                });
+            });
+            $('#borrar').modal('show');
         }
 
         function cancelar() {
-            document.getElementById('editar').style.display = 'none';
-            document.getElementById('formData').reset();
+            $('#editar').hide();
         }
-
     </script>
 </body>
 
