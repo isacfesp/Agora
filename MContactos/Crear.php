@@ -95,7 +95,7 @@
                     <label for="whatsapp">WhatsApp:</label>
                     <select class="form-control" id="whatsapp" required name="whatsapp">
                         <option value="">Selecciona una opción</option>
-                        <option value="Yes">Sí</option>
+                        <option value="í">Sí</option>
                         <option value="No">No</option>
                     </select>
                 </div>
