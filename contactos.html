@@ -15,10 +15,12 @@
     <div class="container">
         <h2>Contactos</h2>
         <div class="filter-container mb-3 d-flex justify-content-between align-items-center">
-            <a href="MContactos/Crear.php" class="btn btn-primary" id="addRecord"><i class="fas fa-user-plus"></i> Crear Contacto</a>
+            <a href="MContactos/Crear.php" class="btn btn-primary" id="addRecord"><i class="fas fa-user-plus"></i> Crear
+                Contacto</a>
             <div class="d-flex">
                 <input type="date" id="startDate" class="form-control me-2" style="width: 160px;" placeholder="Desde">
-                <input type="date" id="endDate" class="form-control me-2" style="width: 160px;" placeholder="Hasta">
+                <input type="date" id="endDate" class="form-control me-2" style="width: 160px;" placeholder="Hasta"
+                    disabled>
                 <button class="btn btn-success" id="filterDate"><i class="fas fa-filter"></i> Filtrar</button>
             </div>
         </div>
@@ -41,47 +43,48 @@
             </tbody>
         </table>
     </div>
-<center>
+    <center>
 
-    <!-- Modal de edición -->
-    <div id="editar" class="overlay">
-        <div class="popup">
-            <h2>Edición de Datos</h2>
-            <form id="formData">
-                <input type="hidden" id="contactoId" name="contactoId">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
-                
-                <label for="apellidoPaterno">Apellido Paterno:</label>
-                <input type="text" id="apellidoPaterno" name="apellidoPaterno" placeholder="Ingrese su apellido paterno"
-                    required>
+        <!-- Modal de edición -->
+        <div id="editar" class="overlay">
+            <div class="popup">
+                <h2>Edición de Datos</h2>
+                <form id="formData">
+                    <input type="hidden" id="contactoId" name="contactoId">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
 
-                <label for="apellidoMaterno">Apellido Materno:</label>
-                <input type="text" id="apellidoMaterno" name="apellidoMaterno" placeholder="Ingrese su apellido materno"
-                required>
-                
-                <label for="telefono">Número Telefónico:</label>
-                <input type="text" id="telefono" name="telefono" placeholder="Ingrese su número telefónico" required>
-                
-                <label for="whatsapp">Whatsapp:</label>
-                <select class="form-control" id="whatsapp" name="whatsapp" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="Sí">Sí</option>
-                    <option value="No">No</option>
-                </select>
-                
-                <label for="formato">Formato:</label>
-                <input type="text" id="formato" name="formato" placeholder="Ingrese el formato" required>
+                    <label for="apellidoPaterno">Apellido Paterno:</label>
+                    <input type="text" id="apellidoPaterno" name="apellidoPaterno"
+                        placeholder="Ingrese su apellido paterno" required>
 
-                <div>
-                    <button type="button" class="btn btn-success" onclick="guardarEdicion()">Guardar</button>
-                    <button type="button" class="btn btn-secondary" onclick="cancelar()">Cancelar</button>
-                </div>
-            </form>
+                    <label for="apellidoMaterno">Apellido Materno:</label>
+                    <input type="text" id="apellidoMaterno" name="apellidoMaterno"
+                        placeholder="Ingrese su apellido materno" required>
+
+                    <label for="telefono">Número Telefónico:</label>
+                    <input type="text" id="telefono" name="telefono" placeholder="Ingrese su número telefónico"
+                        required>
+
+                    <label for="whatsapp">Whatsapp:</label>
+                    <select class="form-control" id="whatsapp" name="whatsapp" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="Sí">Sí</option>
+                        <option value="No">No</option>
+                    </select>
+
+                    <label for="formato">Formato:</label>
+                    <input type="text" id="formato" name="formato" placeholder="Ingrese el formato" required>
+
+                    <div>
+                        <button type="button" class="btn btn-success" onclick="guardarEdicion()">Guardar</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelar()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-</center>
-    
+    </center>
+
     <!-- Modal de confirmación de eliminación -->
     <div class="modal fade" id="borrar" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -108,10 +111,43 @@
 
     <script>
         $(document).ready(function () {
+
+            const startDateInput = $('#startDate');
+            const endDateInput = $('#endDate');
+
+            // Deshabilitar el input de fecha final por defecto
+            endDateInput.prop('disabled', true);
+
+            // Al seleccionar una fecha en el campo "Fecha Inicial"
+            startDateInput.on('change', function () {
+                const startDate = startDateInput.val();
+                if (startDate) {
+                    // Habilitar el campo de "Fecha Final"
+                    endDateInput.prop('disabled', false);
+
+                    // Establecer la fecha mínima del campo "Fecha Final" a la fecha seleccionada en "Fecha Inicial"
+                    endDateInput.attr('min', startDate);
+                } else {
+                    // Si no se selecciona una fecha en "Fecha Inicial", deshabilitar "Fecha Final"
+                    endDateInput.prop('disabled', true);
+                }
+            });
+
+            // Al seleccionar una fecha en el campo "Fecha Final"
+            endDateInput.on('change', function () {
+                const startDate = startDateInput.val();
+                const endDate = endDateInput.val();
+
+                if (startDate && new Date(endDate) < new Date(startDate)) {
+                    // Si la fecha final es anterior a la fecha inicial, mostrar un mensaje
+                    alert("La fecha final no puede ser antes de la fecha inicial.");
+                    endDateInput.val(''); // Limpiar el campo "Fecha Final"
+                }
+            });
             let table = $('#contactosTable').DataTable({
                 ajax: {
-                    url: 'fetch_contactos.php',
-                    dataSrc: ''
+                    url: 'fetch_contactos.php', // URL original
+                    dataSrc: '',
                 },
                 language: {
                     "decimal": ",",
@@ -155,6 +191,20 @@
                     }
                 ]
             });
+
+            // Filtrar por fecha
+            $('#filterDate').click(function () {
+                const startDate = $('#startDate').val();
+                const endDate = $('#endDate').val();
+
+                if (startDate && endDate) {
+                    // Si las fechas están seleccionadas, actualizar la URL con los parámetros de fecha
+                    table.ajax.url(`fetch_contactos.php?start=${startDate}&end=${endDate}`).load();
+                } else {
+                    // Si no hay filtros de fecha, recargar los datos sin ningún filtro
+                    table.ajax.url('fetch_contactos.php').load();
+                }
+            });
         });
 
         function abrirEdicion(id) {
@@ -192,6 +242,7 @@
             $('#editar').hide();
         }
     </script>
+
 
 </body>
 
