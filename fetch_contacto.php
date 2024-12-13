@@ -4,14 +4,12 @@ $user = 'root';
 $password = '';
 $dbname = 'agora';
 
-// Conexión a la base de datos
 $conn = new mysqli($host, $user, $password, $dbname);
 $conn->set_charset("utf8");
 if ($conn->connect_error) {
     die('Error de conexión: ' . $conn->connect_error);
 }
 
-// Obtener el ID del contacto
 $id = $_GET['id'] ?? null;
 
 if ($id) {

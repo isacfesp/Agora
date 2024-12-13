@@ -1,12 +1,13 @@
 <?php
 session_start();
-if(!isset($_SESSION['nombre'])){
+if (!isset($_SESSION['nombre'])) {
     header('Location: login.html');
     exit();
-} 
-?> 
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@ if(!isset($_SESSION['nombre'])){
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="CSS/style.css">
 </head>
+
 <body>
 
     <!-- Menú lateral -->
@@ -42,14 +44,14 @@ if(!isset($_SESSION['nombre'])){
                 <label for="btn-user"><i class="fas fa-user-circle icon"></i></label>
                 <input type="checkbox" id="btn-user" style="display: none;">
                 <div class="config">
-        <center>
-            
-            <h2>bienvenido, <?php echo $_SESSION['nombre'];?> </h2>
-            
-            <?php echo $_SESSION['email'];?> 
-        </center>
-        <a href="logout.php" class="btnC">Cerrar Sesión</a>
-    </div>
+                    <center>
+
+                        <h2>bienvenido, <?php echo $_SESSION['nombre']; ?> </h2>
+
+                        <?php echo $_SESSION['email']; ?>
+                    </center>
+                    <a href="logout.php" class="btnC">Cerrar Sesión</a>
+                </div>
             </div>
         </div>
 
@@ -57,7 +59,7 @@ if(!isset($_SESSION['nombre'])){
         <iframe id="main-frame" src="home.html"></iframe>
     </div>
 
-    
+
 
     <script>
         document.getElementById("menu-toggle").addEventListener("click", function() {

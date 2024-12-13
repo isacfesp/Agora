@@ -112,6 +112,7 @@ body {
 
 .popup {
     background-color: white;
+    margin-top: 10px;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -127,14 +128,13 @@ body {
 
 .popup label {
     display: block;
-    margin: 10px 0 5px;
     text-align: left;
 }
 
 .popup input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    padding: 6px;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 1rem;
@@ -142,7 +142,6 @@ body {
 
 .popup button {
     padding: 10px 20px;
-    margin: 10px 10px 0;
     font-size: 1rem;
     cursor: pointer;
     border: none;
@@ -162,7 +161,7 @@ body {
 }
 
 
-.popup .btn-cancelar {
+.popup .btn-secondary {
     background-color: #dc3545;
     color: white;
 }

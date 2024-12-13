@@ -50,7 +50,7 @@ body {
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   border-radius: 8px;
-  margin-bottom: 10px; /* Espaciado entre elementos del menú */
+  margin-bottom: 10px; 
 }
 
 .menu-item:hover {
@@ -71,15 +71,13 @@ body {
   margin-right: 0;
 }
 
-/* Contenedor principal con frames */
 #main-container {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Evita el desplazamiento adicional */
+  overflow: hidden;
 }
 
-/* Barra superior con ícono de usuario */
 #topbar {
   width: 100%;
   background-color: #3C4046;
@@ -99,12 +97,11 @@ body {
 }
 
 
-/* Frame del contenido principal */
 #main-frame {
   flex-grow: 1;
   border: none;
   width: 100%;
-  overflow-y: auto; /* Solo permitir scroll vertical */
+  overflow-y: auto; 
 }
 
 
@@ -118,6 +115,9 @@ body {
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
   position: absolute;
+  bottom: 20px;
+  left: 25%;
+  right: 25%;
 }
 
 
@@ -139,6 +139,8 @@ body {
   justify-content: center;
   visibility: hidden;
   opacity: 0;
+  align-items: center;
+  text-align: center;
 }
 
 #btn-user:checked ~ .config{

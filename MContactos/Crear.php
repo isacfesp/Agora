@@ -74,7 +74,6 @@
             display: block;
             stroke-width: 2;
             stroke: #BBCD5D;
-            /* Color de la palomita */
             stroke-miterlimit: 10;
             box-shadow: inset 0px 0px 0px #BBCD5D;
             animation: fill .4s ease-in-out forwards, scale .3s ease-in-out both;
@@ -86,7 +85,6 @@
             stroke-width: 2;
             stroke-miterlimit: 10;
             stroke: #BBCD5D;
-            /* Color de la palomita */
             fill: none;
             animation: stroke .6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
         }
@@ -119,7 +117,6 @@
         @keyframes fill {
             100% {
                 box-shadow: inset 0px 0px 0px 30px #BBCD5D;
-                /* Color de la palomita */
             }
         }
 
@@ -236,7 +233,6 @@
         @keyframes checkmark-fill {
             100% {
                 box-shadow: none;
-                /* Eliminamos el relleno en lugar de usar un box-shadow */
             }
         }
 
@@ -260,7 +256,6 @@
 <body>
     <div class="container form-container">
         <div class="form-box">
-            <!-- Botón para regresar -->
             <a href="/Agora/contactos.html" class="btn-back">
                 <i></i> Regresar
             </a>
@@ -309,7 +304,6 @@
 
 
 
-    <!-- Enlace a FontAwesome para el icono de la flecha -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 
     <?php
@@ -350,7 +344,6 @@
     }
     ?>
 
-    <!-- Enlace a Bootstrap JS y dependencias -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
