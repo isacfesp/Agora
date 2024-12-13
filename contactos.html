@@ -17,6 +17,7 @@
         <div class="filter-container mb-3 d-flex justify-content-between align-items-center">
             <a href="MContactos/Crear.php" class="btn btn-primary" id="addRecord"><i class="fas fa-user-plus"></i> Crear
                 Contacto</a>
+            <a href="" class="btn btn-danger" id="printPDF"><i class="fas fa-file-pdf"></i> Imprimir</a>
             <div class="d-flex">
                 <input type="date" id="startDate" class="form-control me-2" style="width: 160px;" placeholder="Desde">
                 <input type="date" id="endDate" class="form-control me-2" style="width: 160px;" placeholder="Hasta"
@@ -39,7 +40,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Aquí se llenarán los datos -->
+                <!-- Aquí se llenarán los datos xd -->
             </tbody>
         </table>
     </div>
@@ -115,38 +116,30 @@
             const startDateInput = $('#startDate');
             const endDateInput = $('#endDate');
 
-            // Deshabilitar el input de fecha final por defecto
             endDateInput.prop('disabled', true);
 
-            // Al seleccionar una fecha en el campo "Fecha Inicial"
             startDateInput.on('change', function () {
                 const startDate = startDateInput.val();
                 if (startDate) {
-                    // Habilitar el campo de "Fecha Final"
                     endDateInput.prop('disabled', false);
-
-                    // Establecer la fecha mínima del campo "Fecha Final" a la fecha seleccionada en "Fecha Inicial"
                     endDateInput.attr('min', startDate);
                 } else {
-                    // Si no se selecciona una fecha en "Fecha Inicial", deshabilitar "Fecha Final"
                     endDateInput.prop('disabled', true);
                 }
             });
 
-            // Al seleccionar una fecha en el campo "Fecha Final"
             endDateInput.on('change', function () {
                 const startDate = startDateInput.val();
                 const endDate = endDateInput.val();
 
                 if (startDate && new Date(endDate) < new Date(startDate)) {
-                    // Si la fecha final es anterior a la fecha inicial, mostrar un mensaje
                     alert("La fecha final no puede ser antes de la fecha inicial.");
-                    endDateInput.val(''); // Limpiar el campo "Fecha Final"
+                    endDateInput.val(''); 
                 }
             });
             let table = $('#contactosTable').DataTable({
                 ajax: {
-                    url: 'fetch_contactos.php', // URL original
+                    url: 'api_contactos.php',
                     dataSrc: '',
                 },
                 language: {
@@ -192,20 +185,32 @@
                 ]
             });
 
-            // Filtrar por fecha
             $('#filterDate').click(function () {
                 const startDate = $('#startDate').val();
                 const endDate = $('#endDate').val();
 
                 if (startDate && endDate) {
-                    // Si las fechas están seleccionadas, actualizar la URL con los parámetros de fecha
-                    table.ajax.url(`fetch_contactos.php?start=${startDate}&end=${endDate}`).load();
+                    table.ajax.url(`api_contactos.php?start=${startDate}&end=${endDate}`).load();
                 } else {
-                    // Si no hay filtros de fecha, recargar los datos sin ningún filtro
-                    table.ajax.url('fetch_contactos.php').load();
+                    table.ajax.url('api_contactos.php').load();
                 }
             });
         });
+
+
+        $('#printPDF').click(function () {
+            const startDate = $('#startDate').val();
+            const endDate = $('#endDate').val();
+            let url = 'reporte.php';
+
+            if (startDate && endDate) {
+                url += `?start=${startDate}&end=${endDate}`;
+            }
+
+            window.open(url, '_blank');
+        });
+
+
 
         function abrirEdicion(id) {
             $.getJSON(`fetch_contacto.php?id=${id}`, function (data) {
