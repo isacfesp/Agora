@@ -15,7 +15,7 @@ class PDF extends FPDF
 
     function Header()
     {
-        $this->Image('Images/LogoTrans.png', 170, 8, 35);
+        $this->Image('Images/LogoTrans.png', 175, 8, 25);
         $this->SetFont('Arial', 'B', 15);
         $this->Cell(80);
         $this->Cell(30, 50, 'Reporte Contactos', 0, 0, 'C');
@@ -25,7 +25,6 @@ class PDF extends FPDF
             $this->SetFont('Arial', 'I', 12);
             $this->Cell(0, 10, "Filtrado desde: {$this->start} hasta: {$this->end}", 0, 1, 'C');
         }
-
 
         $this->SetFont('Arial', 'B', 11);
         $this->Cell(10, 10, 'ID', 1, 0, 'C');
@@ -57,15 +56,27 @@ $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Arial', '', 10);
 
+$fill = false; // Variable para alternar el color de fondo
+
 foreach ($data as $row) {
-    $pdf->Cell(10, 10, $row['id_contacto'], 1, 0, 'C');
-    $pdf->Cell(30, 10, utf8_decode($row['nombre']), 1, 0, 'C');
-    $pdf->Cell(23, 10, utf8_decode($row['apaterno']), 1, 0, 'C');
-    $pdf->Cell(23, 10, utf8_decode($row['amaterno']), 1, 0, 'C');
-    $pdf->Cell(25, 10, $row['numero_telefonico'], 1, 0, 'C');
-    $pdf->Cell(22, 10, utf8_decode($row['whatsapp']), 1, 0, 'C');
-    $pdf->Cell(20, 10, utf8_decode($row['formato']), 1, 0, 'C');
-    $pdf->Cell(40, 10, $row['fecha_creacion'], 1, 1, 'C');
+    // Establecer el color de fondo
+    if ($fill) {
+        $pdf->SetFillColor(230, 230, 230); // Gris claro
+    } else {
+        $pdf->SetFillColor(255, 255, 255); // Blanco
+    }
+
+    $pdf->Cell(10, 10, $row['id_contacto'], 1, 0, 'C', true);
+    $pdf->Cell(30, 10, utf8_decode($row['nombre']), 1, 0, 'C', true);
+    $pdf->Cell(23, 10, utf8_decode($row['apaterno']), 1, 0, 'C', true);
+    $pdf->Cell(23, 10, utf8_decode($row['amaterno']), 1, 0, 'C', true);
+    $pdf->Cell(25, 10, $row['numero_telefonico'], 1, 0, 'C', true);
+    $pdf->Cell(22, 10, utf8_decode($row['whatsapp']), 1, 0, 'C', true);
+    $pdf->Cell(20, 10, utf8_decode($row['formato']), 1, 0, 'C', true);
+    $pdf->Cell(40, 10, $row['fecha_creacion'], 1, 1, 'C', true);
+
+    $fill = !$fill; // Alternar color de fondo
 }
 
 $pdf->Output('Reporte_Contactos.pdf', 'I');
+?>
