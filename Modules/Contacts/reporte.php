@@ -1,5 +1,5 @@
 <?php
-require('fpdf/fpdf.php');
+require('../../Config/fpdf/fpdf.php');
 
 class PDF extends FPDF
 {
@@ -15,7 +15,7 @@ class PDF extends FPDF
 
     function Header()
     {
-        $this->Image('Images/LogoTrans.png', 175, 8, 25);
+        $this->Image('../../Assets/Images/LogoTrans.png', 175, 8, 25);
         $this->SetFont('Arial', 'B', 15);
         $this->Cell(80);
         $this->Cell(30, 50, 'Reporte Contactos', 0, 0, 'C');

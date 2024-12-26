@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "conexion.php";
+include "../../Config/conexion.php";
 
 $mail = $_POST["email"]; 
 $pwd = $_POST["password"];
@@ -30,7 +30,7 @@ $sql = "Select * from usuario where email='$mail'";
 
                 switch($tipo_user){
                     case 1:
-                       header('Location: index.php'); 
+                        header('Location: ../../index.php');
                     break;
                     case 2:
                         echo "otro tipo de usuario";

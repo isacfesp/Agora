@@ -256,7 +256,7 @@
 <body>
     <div class="container form-container">
         <div class="form-box">
-            <a href="/Agora/contactos.html" class="btn-back">
+            <a href="../../Templates/contactos.html" class="btn-back">
                 <i></i> Regresar
             </a>
 
@@ -310,18 +310,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['submit'])) {
 
-            $host = "localhost";
-            $user = "root";
-            $pwd = "";
-            $DB = "agora";
-
-            $connection = new mysqli($host, $user, $pwd, $DB);
-
-            if ($connection->connect_errno) {
-                die("Conexión fallida: " . mysqli_connect_error());
-            }
-
-            $db = mysqli_select_db($connection, $DB);
+            require '../../Config/conexion.php';
 
             $name = $_POST["name"];
             $apaterno = $_POST["apaterno"];

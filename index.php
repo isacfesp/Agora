@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['nombre'])) {
-    header('Location: login.html');
+    header('Location: Templates/login.html');
     exit();
 }
 ?>
@@ -14,7 +14,7 @@ if (!isset($_SESSION['nombre'])) {
     <title>Agora</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="Assets/CSS/style.css">
 </head>
 
 <body>
@@ -22,16 +22,16 @@ if (!isset($_SESSION['nombre'])) {
     <!-- Menú lateral -->
     <div id="sidebar">
         <button id="menu-toggle"><i class="fas fa-bars"></i></button>
-        <div class="menu-item" onclick="document.getElementById('main-frame').src='home.html'">
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/home.html'">
             <i class="fas fa-home"></i><span>Inicio</span>
         </div>
-        <div class="menu-item" onclick="document.getElementById('main-frame').src='contactos.html'">
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/contactos.html'">
             <i class="fas fa-user"></i><span>Contactos</span>
         </div>
-        <div class="menu-item" onclick="document.getElementById('main-frame').src='Gestion_usuarios.html'">
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/Gestion_usuarios.html'">
             <i class="fas fa-chart-line"></i><span>Gestión de usuarios</span>
         </div>
-        <div class="menu-item" onclick="document.getElementById('main-frame').src='config.php'">
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Config_User/config.php'">
             <i class="fas fa-cog"></i><span>Configuraciones</span>
         </div>
     </div>
@@ -56,7 +56,7 @@ if (!isset($_SESSION['nombre'])) {
         </div>
 
         <!-- Frame principal para mostrar el contenido -->
-        <iframe id="main-frame" src="home.html"></iframe>
+        <iframe id="main-frame" src="Templates/home.html"></iframe>
     </div>
 
 
