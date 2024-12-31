@@ -17,9 +17,11 @@ $sql = "Select * from usuario where email='$mail'";
         $estado = $colum['estado'];
         $tipo_user = $colum['tipo_usuario'];
         if($mail2==$mail && $pwd==$pwd2){
+            $id_usuario = $colum['id_usuario'];
             $apa = $colum['apaterno'];
             $ama = $colum['amaterno'];
             $nombre = $colum['nombre'];
+            $_SESSION['id_usuario'] = $id_usuario;
             $_SESSION['nombre'] = $nombre;
             $_SESSION['email'] = $mail;
             $_SESSION['apaterno'] = $apa;
