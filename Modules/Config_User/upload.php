@@ -5,6 +5,8 @@ if (!isset($_SESSION['id_usuario'])) {
     die("No estás autenticado.");
 }
 
+define('BASE_URL', '/Modules/Config_User/uploads/'); // Cambia esta ruta según tu configuración del servidor
+
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -32,7 +34,7 @@ if ($uploadOk == 0) {
     echo "Lo siento, tu archivo no fue subido.";
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "El archivo ". basename($_FILES["fileToUpload"]["name"]). " ha sido subido.";
+        echo "El archivo " . basename($_FILES["fileToUpload"]["name"]) . " ha sido subido.";
 
         $conn = new mysqli("localhost", "root", "", "Agora");
         if ($conn->connect_error) {

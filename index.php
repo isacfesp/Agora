@@ -4,7 +4,34 @@ if (!isset($_SESSION['nombre'])) {
     header('Location: Templates/login.html');
     exit();
 }
+
+if (!isset($_SESSION['id_usuario'])) {
+    die("No estás autenticado.");
+}
+
+define('BASE_URL', '/Agora/Modules/Config_User/'); // Asegúrate de usar la misma constante
+
+$conn = new mysqli("localhost", "root", "", "Agora");
+
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+$usuario_id = $_SESSION['id_usuario'];
+
+$sql = "SELECT ruta FROM imagenes WHERE usuario_id = $usuario_id ORDER BY id DESC LIMIT 1";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $imagePath = BASE_URL . $row['ruta'];
+} else {
+    $imagePath = "https://via.placeholder.com/50";
+}
+
+$conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,17 +68,16 @@ if (!isset($_SESSION['nombre'])) {
         <!-- Barra superior -->
         <div id="topbar">
             <div>
-                <label for="btn-user"><i class="fas fa-user-circle icon"></i></label>
+                <label for="btn-user"><img src="<?php echo $imagePath; ?>" alt="" class="imgUser"></label>
                 <input type="checkbox" id="btn-user" style="display: none;">
-                <div class="config">
-                    <center>
-
-                        <h2>bienvenido, <?php echo $_SESSION['nombre']; ?> </h2>
-
-                        <?php echo $_SESSION['email']; ?>
-                    </center>
-                    <a href="Modules/Login/logout.php" class="btnC">Cerrar Sesión</a>
+                <div class="container config">
+                    <div class="text-center">
+                        <h2>Bienvenido, <?php echo $_SESSION['nombre']; ?></h2>
+                        <p><?php echo $_SESSION['email']; ?></p>
+                    </div>
+                    <a href="Modules/Login/logout.php" class="btn btnC">Cerrar Sesión</a>
                 </div>
+
             </div>
         </div>
 

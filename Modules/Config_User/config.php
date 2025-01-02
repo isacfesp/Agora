@@ -66,7 +66,7 @@ $conn->close();
                 <div class="arrow-icon ml-auto"><i class='bx bx-chevron-right'></i></div>
             </a>
 
-            <a href="config1Nombre.html" class="info-item d-flex align-items-center">
+            <a href="config1.php" class="info-item d-flex align-items-center">
                 <label>Nombre</label>
                 <span class="ml-auto"><?php echo $_SESSION['nombre']; ?></span>
                 <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
