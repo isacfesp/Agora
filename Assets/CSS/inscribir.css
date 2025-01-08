@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+h2{
+    text-align: center;
+}
+div{
+    display: flex;
+    padding-left: 5%;
+    padding-top: 5%;
+}
+h3{
+    padding-top: 2%;
+    padding-left: 5%;
+}
