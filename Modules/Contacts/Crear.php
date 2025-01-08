@@ -257,7 +257,7 @@
     <div class="container form-container">
         <div class="form-box">
             <a href="../../Templates/contactos.html" class="btn-back">
-                <i></i> Regresar
+                <i class="fas fa-arrow-left"></i> Regresar
             </a>
 
             <!-- Formulario -->

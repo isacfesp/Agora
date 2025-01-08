@@ -58,6 +58,9 @@ $conn->close();
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/Gestion_usuarios.html'">
             <i class="fas fa-chart-line"></i><span>Gestión de usuarios</span>
         </div>
+        <div class="menu-item" onclick="document.getElementById('main-frame').src=''">
+            <i class="fa-solid fa-file"></i><span>Inscribir</span>
+        </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Config_User/config.php'">
             <i class="fas fa-cog"></i><span>Configuraciones</span>
         </div>
