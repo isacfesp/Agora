@@ -2,10 +2,19 @@
     margin: 0;
     padding: 0;
 }
+.inscripcion{
+    border-radius: 10%;
+    border: solid rgb(255, 255, 235);
+    margin-top: 7%;
+    margin-bottom: 7%;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: 8px 8px 5px rgb(235, 235, 217);
+}
 h2{
     text-align: center;
 }
-div{
+.encabezado, .foto, .ubicacion, .fecha, .datos, .alumno, .dirección, .tutor, .emergencia{
     display: flex;
     padding-left: 10%;
     padding-top: 5%;
@@ -23,10 +32,10 @@ h3{
     padding-left: 5%;
 }
 .ubicacion{
-    margin-left: 75%;
+    margin-left: 25%;
 }
 .foto{
-    margin-right: 75%;
+    margin-right: 20%;
     align-items: center;
     border: solid black;
     padding-left: 2%;
