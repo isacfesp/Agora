@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+include "apiUsuario.php";
 
 if (!isset($_SESSION['id_usuario'])) {
     die("No estás autenticado.");
@@ -27,22 +28,7 @@ $conn->close();
 ?>
 
 
-<?php
-include "../../Config/conexion.php";
 
-$sql = "SELECT * FROM usuario WHERE id_usuario = $usuario_id";
-$result = mysqli_query($connection, $sql);
-
-if(mysqli_num_rows($result) > 0){
-$colum = mysqli_fetch_array($result);
-$nombres = $colum['nombre'];
-$apellidop = $colum['apaterno'];
-$apellidom = $colum['amaterno'];
-
-
-}
-
-?>
 
 <!DOCTYPE html>
 <html lang="es">
