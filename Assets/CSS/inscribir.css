@@ -7,10 +7,42 @@ h2{
 }
 div{
     display: flex;
-    padding-left: 5%;
+    padding-left: 10%;
     padding-top: 5%;
+    align-items: center;
+}
+label{
+    display:block;
+}
+label, input{
+    margin-left: 3%;
+    
 }
 h3{
     padding-top: 2%;
     padding-left: 5%;
+}
+.ubicacion{
+    margin-left: 75%;
+}
+.foto{
+    margin-right: 75%;
+    align-items: center;
+    border: solid black;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+.foto p{
+    text-align: center;
+}
+.fecha{
+    margin-left: 60%;
+}
+.linea{
+    border-bottom: solid black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }

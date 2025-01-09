@@ -7,77 +7,100 @@
     <link rel="stylesheet" href="../Assets/CSS/inscribir.css">
 </head>
 <body>
+    <div class="encabezado">
+        <div class="ubicacion">
+            <p>Plaza Coral, Local 2 <br>
+                Av. Industrias #2110 <br>
+                Col. Providencia <br>
+                C.P 78395 <br>
+                Tel. 444-873-34-2</p>
+        </div>
+        <div class="foto">
+            <p>FOTOGRAFÍA</p>
+        </div>
+    </div>
     <h2><strong>SOLICITUD DE INSCRIPCIÓN</strong></h2>
     <form>
-        <div>
+        <div class="fecha">
             <label>Fecha:</label>
-            <input type="text" name="fecha" class="linea"><br>
-            <label>Carrera/Especialidad/Cursos</label><br>
-        
-            <label>Horario</label><br>
-            <input type="text" name="horario" class="linea"><br>
-            <label>Matrícula</label>
-            <input type="text" name="matricula" class="linea"><br>
+            <input type="text" name="fecha" class="linea">
         </div>
-        <h3><strong>DATOS DEL ALUMNO:</strong></h3><br>
-        <div>
-            <label>Apellido Paterno</label><br>
-            <input type="text" name="apaterno" class="linea"><br>
-            <label>Apellido Materno</label><br>
-            <input type="text" name="amaterno" class="linea"><br>
-            <label>Nombre(s)</label><br>
-            <input type="text" name="nombre" class="linea"><br>
-            <label>Fecha de Nacimiento <br> DD/MM/AAAA</label><br>
-            <input type="text" name="nombre" class="linea"><br>
-            <label>Edad</label><br>
-            <input type="text" name="edad" class="linea"><br>
-            <label>CURP</label><br>
-            <input type="text" name="curp" class="linea"><br>
-            <label>Teléfono Fijo</label><br>
-            <input type="tel" name="telfijo" class="linea"><br>
-            <label>Teléfono Celular</label><br>
-            <input type="tel" name="celular" class="linea"><br>
-            <label>Correo Electrónico</label><br>
-            <input type="email" name="email" class="linea"><br>
+        <div class="datos">
+            <label>Carrera/Especialidad/Cursos: <br></label>
+            <label class="linea">Mecánica en Reparación de Motocicletas</label>
+            <label>Horario:</label>
+            <input type="text" name="horario" class="linea">
+            <label>Matrícula:</label>
+            <input type="text" name="matricula" class="linea">
         </div>
-        <h3><strong>DIRECCIÓN:</strong></h3>
-        <div>
-            <label>Calle y No.</label><br>
-            <input type="text" name="calle" class="linea"><br>
-            <label>Colonia</label><br>
-            <input type="text" name="colonia" class="linea"><br>
-            <label>C.P</label><br>
-            <input type="number" name="codpostal" class="linea"><br>
-            <label>Municipio</label><br>
-            <input type="text" name="municipio" class="linea"><br>
+        <br>
+        <h3><strong>DATOS DEL ALUMNO:</strong></h3>
+        <div class="alumno">
+            <label>Apellido Paterno:</label>
+            <input type="text" name="apaterno" class="linea">
+            <label>Apellido Materno:</label>
+            <input type="text" name="amaterno" class="linea">
+            <label>Nombre(s):</label>
+            <input type="text" name="nombre" class="linea">
         </div>
-        <h3><strong>DATOS DEL PADRE O TUTOR:</strong></h3>
-        <div>
-            <label>Apellido Paterno</label><br>
-            <input type="text" name="apaterno" class="linea"><br>
-            <label>Apellido Materno</label><br>
-            <input type="text" name="amaterno" class="linea"><br>
-            <label>Nombre(s)</label><br>
-            <input type="text" name="nombre" class="linea"><br>
-            <label>Teléfono Fijo</label><br>
-            <input type="tel" name="telfijo" class="linea"><br>
-            <label>Teléfono Celular</label><br>
-            <input type="tel" name="celular" class="linea"><br>
-            <label>Correo Electrónico</label><br>
-            <input type="email" name="email" class="linea"><br>
+        <div class="alumno">
+            <label>Fecha de Nacimiento: <br> DD/MM/AAAA</label>
+            <input type="text" name="nombre" class="linea">
+            <label>Edad:</label>
+            <input type="text" name="edad" class="linea">
+            <label>CURP:</label>
+            <input type="text" name="curp" class="linea">
         </div>
-        <h3><strong>EN CASO DE EMERGENCIA COMUNICARSE CON:</strong></h3>
-        <div>
-            <label>Apellido Paterno</label><br>
-            <input type="text" name="apaterno" class="linea"><br>
-            <label>Apellido Materno</label><br>
-            <input type="text" name="amaterno" class="linea"><br>
-            <label>Nombre(s)</label><br>
-            <input type="text" name="nombre" class="linea"><br>
-            <label>Parentesco</label><br>
-            <input type="text" name="parentesco" class="linea"><br>
-            <label>Teléfono</label><br>
-            <input type="tel" name="telefono" class="linea"><br>
+        <div class="alumno">
+            <label>Teléfono Fijo:</label>
+            <input type="tel" name="telfijo" class="linea">
+            <label>Teléfono Celular:</label>
+            <input type="tel" name="celular" class="linea">
+            <label>Correo Electrónico:</label>
+            <input type="email" name="email" class="linea">
+        </div>
+        <br><h3><strong>DIRECCIÓN:</strong></h3>
+        <div class="dirección">
+            <label>Calle y No.:</label>
+            <input type="text" name="calle" class="linea">
+            <label>Colonia:</label>
+            <input type="text" name="colonia" class="linea">
+            <label>C.P:</label>
+            <input type="number" name="codpostal" class="linea">
+            <label>Municipio:</label>
+            <input type="text" name="municipio" class="linea">
+        </div>
+        <br><h3><strong>DATOS DEL PADRE O TUTOR:</strong></h3>
+        <div class="tutor">
+            <label>Apellido Paterno:</label>
+            <input type="text" name="apaterno" class="linea">
+            <label>Apellido Materno:</label>
+            <input type="text" name="amaterno" class="linea">
+            <label>Nombre(s):</label>
+            <input type="text" name="nombre" class="linea">
+        </div>
+        <div class="tutor">
+            <label>Teléfono Fijo:</label>
+            <input type="tel" name="telfijo" class="linea">
+            <label>Teléfono Celular:</label>
+            <input type="tel" name="celular" class="linea">
+            <label>Correo Electrónico:</label>
+            <input type="email" name="email" class="linea">
+        </div>
+        <br><h3><strong>EN CASO DE EMERGENCIA COMUNICARSE CON:</strong></h3>
+        <div class="emergencia">
+            <label>Apellido Paterno:</label>
+            <input type="text" name="apaterno" class="linea">
+            <label>Apellido Materno:</label>
+            <input type="text" name="amaterno" class="linea">
+            <label>Nombre(s):</label>
+            <input type="text" name="nombre" class="linea">
+        </div>
+        <div class="emergencia">
+            <label>Parentesco:</label>
+            <input type="text" name="parentesco" class="linea">
+            <label>Teléfono:</label>
+            <input type="tel" name="telefono" class="linea">
         </div>
     </form>
 
