@@ -66,19 +66,19 @@ $conn->close();
                 <div class="arrow-icon ml-auto"><i class='bx bx-chevron-right'></i></div>
             </a>
 
-            <a href="config1.php" class="info-item d-flex align-items-center">
-                <label>Nombre</label>
+            <a href="configNom.php" class="info-item d-flex align-items-center">
+                <label>Nombre/s</label>
                 <span class="ml-auto"><?php echo $_SESSION['nombre']; ?></span>
                 <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
             </a>
 
-            <a href="#" class="info-item d-flex align-items-center">
+            <a href="configApa.php" class="info-item d-flex align-items-center">
                 <label>Apellido paterno</label>
                 <span class="ml-auto"><?php echo $_SESSION['apaterno']; ?></span>
                 <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
             </a>
 
-            <a href="#" class="info-item d-flex align-items-center">
+            <a href="configAma.php" class="info-item d-flex align-items-center">
                 <label>Apellido materno</label>
                 <span class="ml-auto"><?php echo $_SESSION['amaterno']; ?></span>
                 <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>

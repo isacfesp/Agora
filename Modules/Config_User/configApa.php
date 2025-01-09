@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuración de Nombre</title>
+    <title>Configuración de Apellido paterno</title>
     <!-- Enlace a Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -22,7 +22,7 @@ session_start();
 
         .form-container {
             background-color: #ffffff;
-            padding: 30px;
+            padding: 35px;
             border-radius: 10px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             width: 100%;
@@ -30,21 +30,13 @@ session_start();
         }
 
         .btn-primary {
-            background-color: #BBCD5D;
+            background-color: #3C4046;
             border: none;
+            margin-left: 75%;
         }
 
-        .btn-primary:hover {
-            background-color: #aabb57;
-        }
-
-        .btn-danger {
-            background-color: #e74c3c;
-            border: none;
-        }
-
-        .btn-danger:hover {
-            background-color: #c0392b;
+        .btn-primary:hover{
+            background-color: #3C4046;
         }
 
         .btn-back {
@@ -79,15 +71,13 @@ session_start();
                 <i class="fas fa-arrow-left"></i> Regresar
             </a>
 
-            <h2 class="text-center mb-4">Configuración de Nombre</h2>
             <form>
                 <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" class="form-control" placeholder="Ingresa el nombre">
+                    <label for="nombre" style="font-size: 24px; margin-bottom: 10%">Apellido paterno:</label>
+                    <input type="text" id="nombre" class="form-control" placeholder="Ingresa el apellido paterno" value="<?php echo $_SESSION['apaterno']; ?>">
                 </div>
                 <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                    <a href="config.html" class="btn btn-danger">Cancelar</a>
+                    <a href="config.html" class="btn btn-primary">Guardar</a>
                 </div>
             </form>
         </div>
@@ -98,4 +88,12 @@ session_start();
     <!-- Enlace a Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
+
+<?php
+require "../../Config/conexion.php";
+
+
+?>
+
 </html>
