@@ -71,13 +71,13 @@ session_start();
                 <i class="fas fa-arrow-left"></i> Regresar
             </a>
 
-            <form>
+            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <div class="form-group">
                     <label for="nombre" style="font-size: 24px; margin-bottom: 10%">Nombre:</label>
-                    <input type="text" id="nombre" class="form-control" placeholder="Ingresa el nombre" value="<?php echo $_SESSION['nombre']; ?>">
+                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingresa el nombre" value="<?php echo $_SESSION['nombre']; ?>">
                 </div>
                 <div class="d-flex justify-content-between">
-                    <a href="config.html" class="btn btn-primary">Guardar</a>
+                <input type="submit" name="submit" class="btn btn-primary" value="Guardar">
                 </div>
             </form>
         </div>
@@ -88,4 +88,26 @@ session_start();
     <!-- Enlace a Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['submit'])) {
+        include "../../Config/conexion.php";
+        $userId = $_SESSION['id_usuario'];
+        $nom = $_POST['nombre'];
+
+        $stmt = $connection->prepare("UPDATE usuario SET nombre = ? WHERE id_usuario = ?");
+        $stmt->bind_param("si", $nom, $userId);
+
+        if ($stmt->execute()) {
+            echo "Se ha actualizado el nombre con éxito.";
+        } else {
+            echo "Error al actualizar el nombre.";
+        }
+
+        $stmt->close();
+        $connection->close();
+    }
+}
+?>
 </html>

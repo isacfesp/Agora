@@ -4,6 +4,7 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +36,7 @@ session_start();
             margin-left: 75%;
         }
 
-        .btn-primary:hover{
+        .btn-primary:hover {
             background-color: #3C4046;
         }
 
@@ -63,6 +64,7 @@ session_start();
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="form-container mx-auto">
@@ -71,13 +73,14 @@ session_start();
                 <i class="fas fa-arrow-left"></i> Regresar
             </a>
 
-            <form>
+            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <div class="form-group">
                     <label for="nombre" style="font-size: 24px; margin-bottom: 10%">Apellido paterno:</label>
-                    <input type="text" id="nombre" class="form-control" placeholder="Ingresa el apellido paterno" value="<?php echo $_SESSION['apaterno']; ?>">
+                    <input type="text" id="nombre" class="form-control" name="apaterno" placeholder="Ingresa el apellido paterno"
+                        value="<?php echo $_SESSION['apaterno']; ?>">
                 </div>
                 <div class="d-flex justify-content-between">
-                    <a href="config.html" class="btn btn-primary">Guardar</a>
+                    <input type="submit" name="submit" class="btn btn-primary" value="Guardar">
                 </div>
             </form>
         </div>
@@ -89,11 +92,27 @@ session_start();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
-
 <?php
-require "../../Config/conexion.php";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['submit'])) {
+        include "../../Config/conexion.php";
+        $userId = $_SESSION['id_usuario'];
+        $apa = $_POST['apaterno'];
 
+        $stmt = $connection->prepare("UPDATE usuario SET apaterno = ? WHERE id_usuario = ?");
+        $stmt->bind_param("si", $apa, $userId);
 
+        if ($stmt->execute()) {
+            echo "Se ha actualizado el apellido paterno con éxito.";
+        } else {
+            echo "Error al actualizar el apellido paterno.";
+        }
+
+        $stmt->close();
+        $connection->close();
+    }
+}
 ?>
+
 
 </html>

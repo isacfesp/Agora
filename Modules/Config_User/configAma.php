@@ -71,13 +71,13 @@ session_start();
                 <i class="fas fa-arrow-left"></i> Regresar
             </a>
 
-            <form>
+            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <div class="form-group">
                     <label for="nombre" style="font-size: 24px; margin-bottom: 10%">Apellido materno:</label>
-                    <input type="text" id="nombre" class="form-control" placeholder="Ingresa el apellido materno" value="<?php echo $_SESSION['amaterno']; ?>">
+                    <input type="text" id="nombre" name="amaterno" class="form-control" placeholder="Ingresa el apellido materno" value="<?php echo $_SESSION['amaterno']; ?>">
                 </div>
                 <div class="d-flex justify-content-between">
-                    <a href="config.html" class="btn btn-primary">Guardar</a>
+                <input type="submit" name="submit" class="btn btn-primary" value="Guardar">
                 </div>
             </form>
         </div>
@@ -88,4 +88,26 @@ session_start();
     <!-- Enlace a Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['submit'])) {
+        include "../../Config/conexion.php";
+        $userId = $_SESSION['id_usuario'];
+        $ama = $_POST['amaterno'];
+
+        $stmt = $connection->prepare("UPDATE usuario SET amaterno = ? WHERE id_usuario = ?");
+        $stmt->bind_param("si", $ama, $userId);
+
+        if ($stmt->execute()) {
+            echo "Se ha actualizado el apellido materno con éxito.";
+        } else {
+            echo "Error al actualizar el apellido materno.";
+        }
+
+        $stmt->close();
+        $connection->close();
+    }
+}
+?>
 </html>

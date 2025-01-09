@@ -26,6 +26,24 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
+
+<?php
+include "../../Config/conexion.php";
+
+$sql = "SELECT * FROM usuario WHERE id_usuario = $usuario_id";
+$result = mysqli_query($connection, $sql);
+
+if(mysqli_num_rows($result) > 0){
+$colum = mysqli_fetch_array($result);
+$nombres = $colum['nombre'];
+$apellidop = $colum['apaterno'];
+$apellidom = $colum['amaterno'];
+
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -68,19 +86,19 @@ $conn->close();
 
             <a href="configNom.php" class="info-item d-flex align-items-center">
                 <label>Nombre/s</label>
-                <span class="ml-auto"><?php echo $_SESSION['nombre']; ?></span>
+                <span class="ml-auto"><?php echo $nombres; ?></span>
                 <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
             </a>
 
             <a href="configApa.php" class="info-item d-flex align-items-center">
                 <label>Apellido paterno</label>
-                <span class="ml-auto"><?php echo $_SESSION['apaterno']; ?></span>
+                <span class="ml-auto"><?php echo $apellidop; ?></span>
                 <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
             </a>
 
             <a href="configAma.php" class="info-item d-flex align-items-center">
                 <label>Apellido materno</label>
-                <span class="ml-auto"><?php echo $_SESSION['amaterno']; ?></span>
+                <span class="ml-auto"><?php echo $apellidom; ?></span>
                 <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
             </a>
         </div>
@@ -102,6 +120,7 @@ $conn->close();
             <a href="#" class="leg d-block mt-2">Términos y condiciones</a>
             <a href="#" class="leg d-block mt-2">Política de privacidad</a>
         </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
