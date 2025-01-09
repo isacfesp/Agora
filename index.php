@@ -9,7 +9,7 @@ if (!isset($_SESSION['id_usuario'])) {
     die("No estás autenticado.");
 }
 
-define('BASE_URL', '/Agora/Modules/Config_User/'); // Asegúrate de usar la misma constante
+define('BASE_URL', '/Agora/Modules/Config_User/');
 
 $conn = new mysqli("localhost", "root", "", "Agora");
 
@@ -26,7 +26,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $imagePath = BASE_URL . $row['ruta'];
 } else {
-    $imagePath = "https://via.placeholder.com/50";
+    $imagePath = "Assets/Images/user.png";
 }
 
 $conn->close();
@@ -71,7 +71,7 @@ $conn->close();
         <!-- Barra superior -->
         <div id="topbar">
             <div>
-                <label for="btn-user"><img src="<?php echo $imagePath; ?>" alt="" class="imgUser"></label>
+                <label for="btn-user"><img src="<?php echo $imagePath; ?>" alt="" class="imgUser" style="background: #fff;"></label>
                 <input type="checkbox" id="btn-user" style="display: none;">
                 <div class="container config">
                     <div class="text-center">

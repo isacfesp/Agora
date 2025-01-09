@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $imagePath = $row['ruta'];
 } else {
-    $imagePath = "https://via.placeholder.com/50";
+    $imagePath = "../../Assets/Images/user.png";
 }
 
 $conn->close();
