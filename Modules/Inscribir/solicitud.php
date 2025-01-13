@@ -6,8 +6,15 @@ class PDF extends FPDF
     // Encabezado
     function Header()
     {
+        //Linea Horizontal
+        $this->SetDrawColor(187, 205, 93); 
+        $this->SetLineWidth(1.3); 
+        $this->Line(55, 15, 200, 15); 
+        $this->Ln(8);
+
+
         // Logo
-       $this->Image('../../Assets/Images/LogoTrans.png', 5, 0, 50); // Cambia 'logo.png' por la ruta de tu imagen
+        $this->Image('../../Assets/Images/LogoTrans.png', 5, 0, 50);
         $this->SetFont('Times', '', 10);
         $this->SetTextColor(0, 0, 0);
         $this->Cell(0, 4, 'Plaza Coral, Local 2', 0, 1, 'R');
@@ -17,11 +24,14 @@ class PDF extends FPDF
         $this->Cell(0, 4, 'Tel. 444-873-34-2', 0, 1, 'R');
 
         // Cuadro para fotografía
-        $this->SetXY(92, 10);
-        $this->Cell(27, 30, '', 1, 1, 'C'); // Marco para la foto
+        $this->SetFont('Times', '', 10);
+        $this->SetLineWidth(0.3);
+        $this->SetDrawColor(0, 0, 0);
+        $this->SetXY(92, 17);
+        $this->Cell(25, 30, '', 1, 1, 'C');
         $this->SetXY(90, 40);
         $this->Cell(30, 5, 'FOTOGRAFIA', 0, 1, 'C');
-        $this->Ln(5);
+        $this->Ln(10);
     }
 
     // Pie de página
@@ -29,33 +39,32 @@ class PDF extends FPDF
     {
         $this->SetY(-15);
         $this->SetFont('Arial', 'I', 9);
-        $this->Cell(0, 10, utf8_decode( 'Página ') . $this->PageNo(), 0, 0, 'C');
+        $this->Cell(0, 10, utf8_decode('Página ') . $this->PageNo(), 0, 0, 'C');
     }
-
     // Cuerpo del documento
     function Body()
     {
-        // Título
+
         $this->SetFont('Times', 'B', 12);
-        $this->Cell(0, 0, 'SOLICITUD DE INSCRIPCION', 0, 1, 'C');
+        $this->Cell(0, 0, utf8_decode('SOLICITUD DE INSCRIPCIÓN'), 0, 1, 'C');
         $this->Ln(5);
 
-        // Fecha
+
         $this->SetFont('Times', 'B', 11);
         $this->Cell(130, 5, 'Fecha:', 0, 0, 'R');
         $this->Cell(50, 5, '________________________', 0, 1, 'R');
         $this->Ln(5);
 
-        // Subtítulo
+
         $this->SetFont('Times', '', 11);
-        $this->Cell(0, 0, 'Mecanica en Reparacion de Motocicletas                                                                                                ', 0, 1, 'C');
+        $this->Cell(0, 0, 'Mecanica en Reparacion de Motocicletas                                                                                                          ', 0, 1, 'C');
         $this->SetFont('Times', 'B', 14);
-        $this->Cell(0, 3, '____________________________________________________________________', 0, 1, 'C');
-        $this->SetFont('Times', '', 9);
-        $this->Cell(0, 5, 'Carrera / Especialidad / Cursos                                                 Horario                                               Matricula', 0, 1, 'C');
+        $this->Cell(0, 1, '______________________________________________________________________    ', 0, 1, 'C');
+        $this->SetFont('Times', 'B', 8);
+        $this->Cell(0, 7, 'Carrera / Especialidad / Cursos                                                            Horario                                                    Matricula     ', 0, 1, 'C');
         $this->Ln(10);
 
-        // Datos del alumno
+
         $this->SetFont('Arial', 'B', 10);
         $this->Cell(0, 5, 'DATOS DEL ALUMNO:', 0, 1);
 
@@ -84,7 +93,6 @@ class PDF extends FPDF
         $this->Cell(50, 5, '__________________________', 0, 1);
         $this->Ln(5);
 
-        // Dirección
         $this->SetFont('Arial', 'B', 10);
         $this->Cell(0, 5, 'DIRECCION:', 0, 1);
 
@@ -100,15 +108,12 @@ class PDF extends FPDF
         $this->Cell(50, 5, '__________________', 0, 1);
         $this->Ln(10);
 
-        // Firmas
         $this->Cell(0, 5, 'Nombre y Firma del Alumno: _________________________', 0, 1);
         $this->Cell(0, 5, 'Nombre y Firma del Padre o Tutor: __________________', 0, 1);
     }
 }
 
-// Crear PDF
 $pdf = new PDF();
 $pdf->AddPage();
 $pdf->Body();
-$pdf->Output();
-?>
+$pdf->Output(utf8_decode('Solicitud de Inscripción'), 'I');
