@@ -2,30 +2,70 @@
     margin: 0;
     padding: 0;
 }
+body{
+    background-color: #f8f9fa;
+}
 .inscripcion{
     border-radius: 10%;
-    border: solid rgb(255, 255, 235);
+    border: solid #f8f9fa;
     margin-top: 7%;
     margin-bottom: 7%;
     margin-left: 10%;
     margin-right: 10%;
-    box-shadow: 8px 8px 5px rgb(235, 235, 217);
+    background-color: white;
+    box-shadow: 8px 8px 5px white;
 }
 h2{
     text-align: center;
 }
-.encabezado, .foto, .ubicacion, .fecha, .datos, .alumno, .dirección, .tutor, .emergencia{
+h3{
+    padding-left: 10%;
+}
+.encabezado, .fecha, .ubicacion, .foto, .alumno, .amaterno, .nombre, .nacimiento, .edad, .curp, .telfijo, .email, .datos, .datos1, .datos2, .dirección, .dirección1, .dirección2, .dirección3, .tutor, .tutor2, .tutor4, .emergencia, .emergencia1, .emergencia2, .emergencia3, .emergencia4{
     display: flex;
     padding-left: 10%;
     padding-top: 5%;
     align-items: center;
+}
+.nombre input{
+    margin-left: 6.5%;
+}
+.emergencia2 input, .emergencia3 input, .tutor2 input{
+    margin-left: 7%;
+}
+.dirección2 input{
+    margin-left: 7.5%;
+}
+.emergencia4 input{
+    margin-left: 8%;
+}
+.curp input{
+    margin-left: 9%;
+}
+.edad input{
+    margin-left: 9.5%;
+}
+.tutor3 input, .telfijo input{
+    margin-left: 5.5%;
+}
+.espacio {
+    margin-left: 10%;
+}
+#amaterno{
+    margin-left: 5%;
+}
+.tutor4 input, .dirección3 input, .celular input, .datos2 input{
+    margin-left: 4%;
+}
+.dirección1 input{
+    margin-left: 5%;
 }
 label{
     display:block;
 }
 label, input{
     margin-left: 3%;
-    
+    display: flex;
 }
 h3{
     padding-top: 2%;
@@ -49,9 +89,4 @@ h3{
 .fecha{
     margin-left: 60%;
 }
-.linea{
-    border-bottom: solid black;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-}
+

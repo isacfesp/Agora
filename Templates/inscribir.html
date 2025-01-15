@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="inscripcion">
-        <div class="encabezado">
+   <!-- <div class="encabezado">
             <div class="foto">
                 <p>FOTOGRAFÍA</p>
             </div>
@@ -18,90 +18,113 @@
                     Col. Providencia <br>
                     C.P 78395 <br>
                     Tel. 444-873-34-2</p>
-            </div>
-        </div>
+            </div> 
+        </div> -->
+        <br><br>
         <h2><strong>SOLICITUD DE INSCRIPCIÓN</strong></h2>
         <form>
-            <div class="fecha">
+       <!--     <div class="fecha">
                 <label>Fecha:</label>
                 <input type="text" name="fecha" class="linea">
-            </div>
+            </div>  -->
             <div class="datos">
                 <label>Carrera/Especialidad/Cursos: <br></label>
-                <label class="linea">Mecánica en Reparación de Motocicletas</label>
+                <label class="linea"><u>Mecánica en Reparación de Motocicletas</u></label>
+            </div>
+            <div class="datos2">
                 <label>Horario:</label>
-                <input type="text" name="horario" class="linea">
+                <input type="text" name="horario" placeholder="Horario" class="linea">
+            </div>
+            <div class="datos1">
                 <label>Matrícula:</label>
-                <input type="text" name="matricula" class="linea">
+                <input type="text" name="matricula" placeholder="Matrícula" class="linea">
             </div>
             <br>
             <h3><strong>DATOS DEL ALUMNO:</strong></h3>
             <div class="alumno">
                 <label>Apellido Paterno:</label>
-                <input type="text" name="apaterno" class="linea">
-                <label>Apellido Materno:</label>
-                <input type="text" name="amaterno" class="linea">
+                <input type="text" name="apaterno" placeholder="Apellido Paterno" class="linea">
+                <label class="espacio">Apellido Materno:</label>
+                <input type="text" name="amaterno" placeholder="Apellido Materno" class="espacio">
+            </div>
+            <div class="nombre">
                 <label>Nombre(s):</label>
-                <input type="text" name="nombre" class="linea">
+                <input type="text" name="nombre" placeholder="Nombre(s)" class="linea">
+                <label class="espacio">Fecha de Nacimiento: <br> DD/MM/AAAA</label>
+                <input type="date" name="nacimiento" placeholder="" class="espacio">
             </div>
-            <div class="alumno">
-                <label>Fecha de Nacimiento: <br> DD/MM/AAAA</label>
-                <input type="text" name="nombre" class="linea">
+            <div class="edad">
                 <label>Edad:</label>
-                <input type="text" name="edad" class="linea">
-                <label>CURP:</label>
-                <input type="text" name="curp" class="linea">
+                <input type="text" name="edad" placeholder="Edad" class="linea">
+                <label class="espacio">CURP:</label>
+                <input type="text" name="curp" placeholder="CURP" class="espacio">
             </div>
-            <div class="alumno">
+            <div class="telfijo">
                 <label>Teléfono Fijo:</label>
-                <input type="tel" name="telfijo" class="linea">
-                <label>Teléfono Celular:</label>
-                <input type="tel" name="celular" class="linea">
+                <input type="tel" name="telfijo" placeholder="Teléfono Fijo" class="linea">
+                <label class="espacio">Teléfono Celular:</label>
+                <input type="tel" name="celular" placeholder="Teléfono Celular" class="espacio">
+            </div>
+            <div class="email">
                 <label>Correo Electrónico:</label>
-                <input type="email" name="email" class="linea">
+                <input type="email" name="email" placeholder="Email" class="linea">
             </div>
             <br><h3><strong>DIRECCIÓN:</strong></h3>
             <div class="dirección">
                 <label>Calle y No.:</label>
-                <input type="text" name="calle" class="linea">
+                <input type="text" name="calle" placeholder="Calle" class="linea">
+            </div>
+            <div class="dirección1">
                 <label>Colonia:</label>
-                <input type="text" name="colonia" class="linea">
+                <input type="text" name="colonia" placeholder="Colonia" class="linea">
+            </div>
+            <div class="dirección2">
                 <label>C.P:</label>
-                <input type="number" name="codpostal" class="linea">
+                <input type="number" name="codpostal" placeholder="Código Postal" class="linea">
+            </div>
+            <div class="dirección3">
                 <label>Municipio:</label>
-                <input type="text" name="municipio" class="linea">
+                <input type="text" name="municipio" placeholder="Municipio" class="linea">
             </div>
             <br><h3><strong>DATOS DEL PADRE O TUTOR:</strong></h3>
             <div class="tutor">
                 <label>Apellido Paterno:</label>
-                <input type="text" name="apaterno" class="linea">
-                <label>Apellido Materno:</label>
-                <input type="text" name="amaterno" class="linea">
-                <label>Nombre(s):</label>
-                <input type="text" name="nombre" class="linea">
+                <input type="text" name="apaterno" placeholder="Apellido Paterno" class="linea">
+                <label class="espacio">Apellido Materno:</label>
+                <input type="text" name="amaterno" placeholder="Apellido Materno" id="amaterno" class="espacio">
             </div>
-            <div class="tutor">
-                <label>Teléfono Fijo:</label>
-                <input type="tel" name="telfijo" class="linea">
+            <div class="tutor2">
+                <label>Nombre(s):</label>
+                <input type="text" name="nombre" placeholder="Nombre(s)" class="linea">
+                <label class="espacio">Teléfono Fijo:</label>
+                <input type="tel" name="telfijo" placeholder="Teléfono Fijo" class="espacio">
+            </div>
+            <div class="tutor4">
                 <label>Teléfono Celular:</label>
-                <input type="tel" name="celular" class="linea">
-                <label>Correo Electrónico:</label>
-                <input type="email" name="email" class="linea">
+                <input type="tel" name="celular" placeholder="Teléfono Celular" class="linea">
+                <label class="espacio">Correo Electrónico:</label>
+                <input type="email" name="email" placeholder="Email" class="espacio">
             </div>
             <br><h3><strong>EN CASO DE EMERGENCIA COMUNICARSE CON:</strong></h3>
             <div class="emergencia">
                 <label>Apellido Paterno:</label>
-                <input type="text" name="apaterno" class="linea">
-                <label>Apellido Materno:</label>
-                <input type="text" name="amaterno" class="linea">
-                <label>Nombre(s):</label>
-                <input type="text" name="nombre" class="linea">
+                <input type="text" name="apaterno" placeholder="Apellido Paterno" class="linea">
             </div>
-            <div class="emergencia">
+            <div class="emergencia1">
+                <label>Apellido Materno:</label>
+                <input type="text" name="amaterno" placeholder="Apellido Materno" class="linea">
+            </div>
+            <div class="emergencia2">
+                <label>Nombre(s):</label>
+                <input type="text" name="nombre" placeholder="Nombre(s)" class="linea">
+            </div>
+            <div class="emergencia3">
                 <label>Parentesco:</label>
-                <input type="text" name="parentesco" class="linea">
+                <input type="text" name="parentesco" placeholder="Parentesco" class="linea">
+            </div>
+            <div class="emergencia4">
                 <label>Teléfono:</label>
-                <input type="tel" name="telefono" class="linea">
+                <input type="tel" name="telefono" placeholder="Teléfono" class="linea">
             </div>
         </form>
     </div>
