@@ -1,132 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscribir</title>
-    <link rel="stylesheet" href="../Assets/CSS/inscribir.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f9fb;
+        }
+
+        .custom-container {
+            background-color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 10%;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="inscripcion">
-   <!-- <div class="encabezado">
-            <div class="foto">
-                <p>FOTOGRAFÍA</p>
-            </div>
-            <div class="ubicacion">
-                <p>Plaza Coral, Local 2 <br>
-                    Av. Industrias #2110 <br>
-                    Col. Providencia <br>
-                    C.P 78395 <br>
-                    Tel. 444-873-34-2</p>
-            </div> 
-        </div> -->
-        <br><br>
-        <h2><strong>SOLICITUD DE INSCRIPCIÓN</strong></h2>
-        <form>
-       <!--     <div class="fecha">
-                <label>Fecha:</label>
-                <input type="text" name="fecha" class="linea">
-            </div>  -->
-            <div class="datos">
-                <label>Carrera/Especialidad/Cursos: <br></label>
-                <label class="linea"><u>Mecánica en Reparación de Motocicletas</u></label>
-            </div>
-            <div class="datos2">
-                <label>Horario:</label>
-                <input type="text" name="horario" placeholder="Horario" class="linea">
-            </div>
-            <div class="datos1">
-                <label>Matrícula:</label>
-                <input type="text" name="matricula" placeholder="Matrícula" class="linea">
-            </div>
-            <br>
-            <h3><strong>DATOS DEL ALUMNO:</strong></h3>
-            <div class="alumno">
-                <label>Apellido Paterno:</label>
-                <input type="text" name="apaterno" placeholder="Apellido Paterno" class="linea">
-                <label class="espacio">Apellido Materno:</label>
-                <input type="text" name="amaterno" placeholder="Apellido Materno" class="espacio">
-            </div>
-            <div class="nombre">
-                <label>Nombre(s):</label>
-                <input type="text" name="nombre" placeholder="Nombre(s)" class="linea">
-                <label class="espacio">Fecha de Nacimiento: <br> DD/MM/AAAA</label>
-                <input type="date" name="nacimiento" placeholder="" class="espacio">
-            </div>
-            <div class="edad">
-                <label>Edad:</label>
-                <input type="text" name="edad" placeholder="Edad" class="linea">
-                <label class="espacio">CURP:</label>
-                <input type="text" name="curp" placeholder="CURP" class="espacio">
-            </div>
-            <div class="telfijo">
-                <label>Teléfono Fijo:</label>
-                <input type="tel" name="telfijo" placeholder="Teléfono Fijo" class="linea">
-                <label class="espacio">Teléfono Celular:</label>
-                <input type="tel" name="celular" placeholder="Teléfono Celular" class="espacio">
-            </div>
-            <div class="email">
-                <label>Correo Electrónico:</label>
-                <input type="email" name="email" placeholder="Email" class="linea">
-            </div>
-            <br><h3><strong>DIRECCIÓN:</strong></h3>
-            <div class="dirección">
-                <label>Calle y No.:</label>
-                <input type="text" name="calle" placeholder="Calle" class="linea">
-            </div>
-            <div class="dirección1">
-                <label>Colonia:</label>
-                <input type="text" name="colonia" placeholder="Colonia" class="linea">
-            </div>
-            <div class="dirección2">
-                <label>C.P:</label>
-                <input type="number" name="codpostal" placeholder="Código Postal" class="linea">
-            </div>
-            <div class="dirección3">
-                <label>Municipio:</label>
-                <input type="text" name="municipio" placeholder="Municipio" class="linea">
-            </div>
-            <br><h3><strong>DATOS DEL PADRE O TUTOR:</strong></h3>
-            <div class="tutor">
-                <label>Apellido Paterno:</label>
-                <input type="text" name="apaterno" placeholder="Apellido Paterno" class="linea">
-                <label class="espacio">Apellido Materno:</label>
-                <input type="text" name="amaterno" placeholder="Apellido Materno" id="amaterno" class="espacio">
-            </div>
-            <div class="tutor2">
-                <label>Nombre(s):</label>
-                <input type="text" name="nombre" placeholder="Nombre(s)" class="linea">
-                <label class="espacio">Teléfono Fijo:</label>
-                <input type="tel" name="telfijo" placeholder="Teléfono Fijo" class="espacio">
-            </div>
-            <div class="tutor4">
-                <label>Teléfono Celular:</label>
-                <input type="tel" name="celular" placeholder="Teléfono Celular" class="linea">
-                <label class="espacio">Correo Electrónico:</label>
-                <input type="email" name="email" placeholder="Email" class="espacio">
-            </div>
-            <br><h3><strong>EN CASO DE EMERGENCIA COMUNICARSE CON:</strong></h3>
-            <div class="emergencia">
-                <label>Apellido Paterno:</label>
-                <input type="text" name="apaterno" placeholder="Apellido Paterno" class="linea">
-            </div>
-            <div class="emergencia1">
-                <label>Apellido Materno:</label>
-                <input type="text" name="amaterno" placeholder="Apellido Materno" class="linea">
-            </div>
-            <div class="emergencia2">
-                <label>Nombre(s):</label>
-                <input type="text" name="nombre" placeholder="Nombre(s)" class="linea">
-            </div>
-            <div class="emergencia3">
-                <label>Parentesco:</label>
-                <input type="text" name="parentesco" placeholder="Parentesco" class="linea">
-            </div>
-            <div class="emergencia4">
-                <label>Teléfono:</label>
-                <input type="tel" name="telefono" placeholder="Teléfono" class="linea">
-            </div>
-        </form>
+    <div class="container mt-5">
+        <div class="custom-container p-4">
+            <h4 class="text-center"><strong>SOLICITUD DE INSCRIPCIÓN</strong></h4>
+            <form>
+                <div class="form-group">
+                    <label>Carrera/Especialidad/Cursos:</label>
+                    <p class="form-control-plaintext"><u>Mecánica en Reparación de Motocicletas</u></p>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="horario">Horario:</label>
+                        <input type="text" class="form-control" id="horario" placeholder="Horario">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="matricula">Matrícula:</label>
+                        <input type="text" class="form-control" id="matricula" placeholder="Matrícula">
+                    </div>
+                </div>
+                <h5><strong>DATOS DEL ALUMNO:</strong></h5>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="apaterno">Apellido Paterno:</label>
+                        <input type="text" class="form-control" id="apaterno" placeholder="Apellido Paterno">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="amaterno">Apellido Materno:</label>
+                        <input type="text" class="form-control" id="amaterno" placeholder="Apellido Materno">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nombre">Nombre(s):</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Nombre(s)">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="nacimiento">Fecha de Nacimiento:</label>
+                        <input type="date" class="form-control" id="nacimiento" placeholder="DD/MM/AAAA">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="edad">Edad:</label>
+                        <input type="text" class="form-control" id="edad" placeholder="Edad">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="curp">CURP:</label>
+                        <input type="text" class="form-control" id="curp" placeholder="CURP">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="telfijo">Teléfono Fijo:</label>
+                        <input type="tel" class="form-control" id="telfijo" placeholder="Teléfono Fijo">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="celular">Teléfono Celular:</label>
+                        <input type="tel" class="form-control" id="celular" placeholder="Teléfono Celular">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                </div>
+                <h5><strong>DIRECCIÓN:</strong></h5>
+                <div class="form-group">
+                    <label for="calle">Calle y No.:</label>
+                    <input type="text" class="form-control" id="calle" placeholder="Calle">
+                </div>
+                <div class="form-group">
+                    <label for="colonia">Colonia:</label>
+                    <input type="text" class="form-control" id="colonia" placeholder="Colonia">
+                </div>
+                <div class="form-group">
+                    <label for="codpostal">C.P:</label>
+                    <input type="number" class="form-control" id="codpostal" placeholder="Código Postal">
+                </div>
+                <div class="form-group">
+                    <label for="municipio">Municipio:</label>
+                    <input type="text" class="form-control" id="municipio" placeholder="Municipio">
+                </div>
+                <h5><strong>DATOS DEL PADRE O TUTOR:</strong></h5>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="tutor_apaterno">Apellido Paterno:</label>
+                        <input type="text" class="form-control" id="tutor_apaterno" placeholder="Apellido Paterno">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="tutor_amaterno">Apellido Materno:</label>
+                        <input type="text" class="form-control" id="tutor_amaterno" placeholder="Apellido Materno">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="tutor_nombre">Nombre(s):</label>
+                        <input type="text" class="form-control" id="tutor_nombre" placeholder="Nombre(s)">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="tutor_telfijo">Teléfono Fijo:</label>
+                        <input type="tel" class="form-control" id="tutor_telfijo" placeholder="Teléfono Fijo">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="tutor_celular">Teléfono Celular:</label>
+                        <input type="tel" class="form-control" id="tutor_celular" placeholder="Teléfono Celular">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="tutor_email">Correo Electrónico:</label>
+                        <input type="email" class="form-control" id="tutor_email" placeholder="Email">
+                    </div>
+                </div>
+                <h5><strong>EN CASO DE EMERGENCIA COMUNICARSE CON:</strong></h5>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="emergencia_apaterno">Apellido Paterno:</label>
+                        <input type="text" class="form-control" id="emergencia_apaterno" placeholder="Apellido Paterno">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="emergencia_amaterno">Apellido Materno:</label>
+                        <input type="text" class="form-control" id="emergencia_amaterno" placeholder="Apellido Materno">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="emergencia_nombre">Nombre(s):</label>
+                        <input type="text" class="form-control" id="emergencia_nombre" placeholder="Nombre(s)">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="parentesco">Parentesco:</label>
+                        <input type="text" class="form-control" id="parentesco" placeholder="Parentesco">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="emergencia_telefono">Teléfono:</label>
+                    <input type="tel" class="form-control" id="emergencia_telefono" placeholder="Teléfono">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <button type="button" class="btn btn-secondary btn-block">Botón 2</button>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <button type="button" class="btn btn-secondary btn-block">Botón 3</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
