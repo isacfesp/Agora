@@ -144,10 +144,7 @@ body {
   color: #fff;
 }
 
-#topbar .imgUser{
-  background: #fff;
-  border: #333333 solid 5px;
-}
+
 
 /* Estilo responsive para pantallas pequeñas */
 @media (max-width: 767px) {

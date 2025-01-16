@@ -26,7 +26,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $imagePath = BASE_URL . $row['ruta'];
 } else {
-    $imagePath = "Assets/Images/user.png";
+    $imagePath = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
 }
 
 $conn->close();
@@ -71,7 +71,7 @@ $conn->close();
         <!-- Barra superior -->
         <div id="topbar">
             <div>
-                <label for="btn-user"><img src="<?php echo $imagePath; ?>" alt="" class="imgUser" style="background: #fff;"></label>
+                <label for="btn-user"><img src="<?php echo $imagePath; ?>" alt="" ></label>
                 <input type="checkbox" id="btn-user" style="display: none;">
                 <div class="container config">
                     <div class="text-center">
