@@ -1,36 +1,9 @@
 <?php
+session_start();
 require('../../Config/fpdf/fpdf.php');
 
 
-$datos = [
-    'horario' => $_POST['horario'],
-    'matricula' => $_POST['matricula'],
-    'apaterno' => $_POST['apaterno'],
-    'amaterno' => $_POST['amaterno'],
-    'nombre' => $_POST['nombre'],
-    'nacimiento' => $_POST['nacimiento'],
-    'edad' => $_POST['edad'],
-    'curp' => $_POST['curp'],
-    'telfijo' => $_POST['telfijo'],
-    'celular' => $_POST['celular'],
-    'email' => $_POST['email'],
-    'calle' => $_POST['calle'],
-    'colonia' => $_POST['colonia'],
-    'codpostal' => $_POST['codpostal'],
-    'municipio' => $_POST['municipio'],
-    'tutor_apaterno' => $_POST['tutor_apaterno'],
-    'tutor_amaterno' => $_POST['tutor_amaterno'],
-    'tutor_nombre' => $_POST['tutor_nombre'],
-    'tutor_telfijo' => $_POST['tutor_telfijo'],
-    'tutor_celular' => $_POST['tutor_celular'],
-    'tutor_email' => $_POST['tutor_email'],
-    'emergencia_apaterno' => $_POST['emergencia_apaterno'],
-    'emergencia_amaterno' => $_POST['emergencia_amaterno'],
-    'emergencia_nombre' => $_POST['emergencia_nombre'],
-    'parentesco' => $_POST['parentesco'],
-    'emergencia_telefono' => $_POST['emergencia_telefono'],
-];
-
+$datos = $_SESSION['datos'];
 
 class PDF extends FPDF
 {
@@ -72,8 +45,8 @@ class PDF extends FPDF
     {
 
 
-        $fecha = $_POST['nacimiento'];
-        $date = new DateTime($fecha);
+        $fecha = $datos['nacimiento']; 
+        $date = new DateTime($fecha); 
         $fechaNac = $date->format('d/m/Y');
 
 

@@ -40,15 +40,120 @@
             border-color: #aabb57;
         }
 
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
+        .popup {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: popup-animation 0.3s ease-in-out;
+        }
+
+        @keyframes popup-animation {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .checkmark {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 20px;
+            display: block;
+            stroke-width: 2;
+            stroke: #BBCD5D;
+            stroke-miterlimit: 10;
+            fill: none;
+            animation: checkmark-fill 0.4s ease-in-out 0.4s forwards, checkmark-scale 0.3s ease-in-out 0.9s both;
+        }
+
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke: #BBCD5D;
+            fill: none;
+            animation: checkmark-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark-check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            stroke: #BBCD5D;
+            animation: checkmark-check-animation 0.4s cubic-bezier(0.65, 0, 0.45, 1) 1s forwards;
+        }
+
+        @keyframes checkmark-stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes checkmark-check-animation {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes checkmark-scale {
+
+            0%,
+            100% {
+                transform: none;
+            }
+
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+
+        @keyframes checkmark-fill {
+            100% {
+                box-shadow: none;
+            }
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            background-color: #BBCD5D;
+            border-color: #BBCD5D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #aabb57;
+            border-color: #aabb57;
+        }
     </style>
 </head>
 
 <body>
     <div class="container mt-5">
-        <div class="custom-container p-4"> 
+        <div class="custom-container p-4">
             <button class="btn print-button" onclick="openPDF()"><i class="fas fa-file-pdf"></i> Imprimir</button>
-            <form action="../Modules/Inscribir/inscribir.php" method="post" target="_blank">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" >
                 <div class="form-group">
                     <label>Carrera/Especialidad/Cursos:</label> <br>
                     <label>Mecánica en Reparación de Motocicletas</label>
@@ -75,7 +180,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="amaterno">Apellido Materno:</label>
-                        <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Apellido Materno"  pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required>
+                        <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Apellido Materno" pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required>
                     </div>
                 </div>
                 <div class="form-row">
@@ -133,7 +238,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="tutor_apaterno">Apellido Paterno:</label>
-                        <input type="text" class="form-control" id="tutor_apaterno" name="tutor_apaterno"  placeholder="Apellido Paterno" pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required>
+                        <input type="text" class="form-control" id="tutor_apaterno" name="tutor_apaterno" placeholder="Apellido Paterno" pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="tutor_amaterno">Apellido Materno:</label>
@@ -187,16 +292,16 @@
                         <input type="tel" class="form-control" minlength="10" pattern="[+()0-9\s-]+" id="emergencia_telefono" title="Debe contener al menos 10 dígitos" name="emergencia_telefono" placeholder="Teléfono" maxlength="20" required>
                     </div>
                     <div class="form-group col-md-6 mt-3 d-flex justify-content-start">
-                        <button type="submit" class="btn btn-success btn-aceptar mr-2">Guardar</button>
+                        <button type="submit" class="btn btn-success btn-aceptar mr-2" name="submit">Guardar</button>
                         <button class="btn print-button" type="button" onclick="document.forms[0].submit();"><i class="fas fa-file-pdf"></i> Imprimir</button>
                     </div>
-                    
-        </div>
-        </form>
-        <!-- Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+                </div>
+            </form>
+            <!-- Bootstrap JS -->
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 <script>
@@ -208,14 +313,92 @@
 
 
     function calcularEdad() {
-    const nacimientoInput = document.getElementById('nacimiento').value;
-    const nacimiento = new Date(nacimientoInput);
-    const actual = new Date();
-    let edad = actual.getFullYear() - nacimiento.getFullYear();
+        const nacimientoInput = document.getElementById('nacimiento').value;
+        const nacimiento = new Date(nacimientoInput);
+        const actual = new Date();
+        let edad = actual.getFullYear() - nacimiento.getFullYear();
 
-    document.getElementById('edad').value = edad;
-}
-
+        document.getElementById('edad').value = edad;
+    }
+    function closePopup() {
+        document.getElementById('overlay').style.display = 'none';
+    }
 </script>
+
+
+<!--Ventanas emergentes -->
+<div class="overlay" id="overlay" style="display: none;">
+    <div class="popup">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+            <path class="checkmark-check" fill="none" stroke="#BBCD5D" stroke-width="5"
+                d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+        </svg>
+        <p>¡Operación exitosa!</p>
+        <button class="btn-primary" onclick="closePopup()">Aceptar</button>
+        <a href="solicitudLlenado.php">imprimir</a>
+    </div>
+</div>
+
+
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['submit'])) {
+
+
+        $datos = [
+            'horario' => $_POST['horario'],
+            'matricula' => $_POST['matricula'],
+            'apaterno' => $_POST['apaterno'],
+            'amaterno' => $_POST['amaterno'],
+            'nombre' => $_POST['nombre'],
+            'nacimiento' => $_POST['nacimiento'],
+            'edad' => $_POST['edad'],
+            'curp' => $_POST['curp'],
+            'telfijo' => $_POST['telfijo'],
+            'celular' => $_POST['celular'],
+            'email' => $_POST['email'],
+            'calle' => $_POST['calle'],
+            'colonia' => $_POST['colonia'],
+            'codpostal' => $_POST['codpostal'],
+            'municipio' => $_POST['municipio'],
+            'tutor_apaterno' => $_POST['tutor_apaterno'],
+            'tutor_amaterno' => $_POST['tutor_amaterno'],
+            'tutor_nombre' => $_POST['tutor_nombre'],
+            'tutor_telfijo' => $_POST['tutor_telfijo'],
+            'tutor_celular' => $_POST['tutor_celular'],
+            'tutor_email' => $_POST['tutor_email'],
+            'emergencia_apaterno' => $_POST['emergencia_apaterno'],
+            'emergencia_amaterno' => $_POST['emergencia_amaterno'],
+            'emergencia_nombre' => $_POST['emergencia_nombre'],
+            'parentesco' => $_POST['parentesco'],
+            'emergencia_telefono' => $_POST['emergencia_telefono'],
+        ];
+
+
+        include "../../Config/conexion.php";
+
+        $sql = "INSERT INTO alumno (horario, matricula, apaterno, amaterno, nombre, nacimiento, edad, curp, tel_fijo, tel_celular, email, calle, colonia, cp, municipio, tutor_apaterno, tutor_amaterno, tutor_nombre, tutor_tel_fijo, tutor_tel_celular, tutor_email, emergencia_apaterno, emergencia_amaterno, emergencia_nombre, parentesco, emergencia_tel) 
+VALUES ('" . $datos['horario'] . "', '" . $datos['matricula'] . "', '" . $datos['apaterno'] . "', '" . $datos['amaterno'] . "', '" . $datos['nombre'] . "', '" . $datos['nacimiento'] . "', '" . $datos['edad'] . "', '" . $datos['curp'] . "', '" . $datos['telfijo'] . "', '" . $datos['celular'] . "', '" . $datos['email'] . "', '" . $datos['calle'] . "', '" . $datos['colonia'] . "', '" . $datos['codpostal'] . "', '" . $datos['municipio'] . "', '" . $datos['tutor_apaterno'] . "', '" . $datos['tutor_amaterno'] . "', '" . $datos['tutor_nombre'] . "', '" . $datos['tutor_telfijo'] . "', '" . $datos['tutor_celular'] . "', '" . $datos['tutor_email'] . "', '" . $datos['emergencia_apaterno'] . "', '" . $datos['emergencia_amaterno'] . "', '" . $datos['emergencia_nombre'] . "', '" . $datos['parentesco'] . "', '" . $datos['emergencia_telefono'] . "')";
+
+        if ($connection->query($sql) === TRUE) {
+            $_SESSION['datos'] = $datos;
+
+            header("Location: solicitudLlenado.php");
+            echo "<script>
+        window.onload = function() {
+            document.getElementById('overlay').style.display = 'flex';
+        }
+        </script>";
+            exit();
+        } else {
+            echo "Error: " . $sql . "<br>" . $connection->error;
+        }
+
+        $connection->close();
+    }
+}
+?>
 
 </html>

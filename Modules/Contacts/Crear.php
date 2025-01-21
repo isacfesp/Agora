@@ -241,8 +241,15 @@
                 </div>
                 <div class="form-group">
                     <label for="formato">Formato:</label>
-                    <input type="text" class="form-control" id="formato" placeholder="Ingresa el formato" required
-                        name="formato">
+                    <select class="form-control" id="whatsapp" required name="formato">
+                        <option value="">Selecciona una opción</option>
+                        <option value="Sí">Facebook</option>
+                        <option value="No">Familiar</option>
+                        <option value="No">Instagram</option>
+                        <option value="No">Tik Tok</option>
+                        <option value="No">Conocido</option>
+                        <option value="No">Otro</option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block" name="submit">Guardar</button>
             </form>
