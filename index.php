@@ -61,6 +61,9 @@ $conn->close();
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Inscribir/inscribir.php'">
             <i class="fa-solid fa-file"></i><span>Inscribir</span>
         </div>
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/alumnos.html'">
+            <i class="fa-solid fa-file"></i><span>Alumnos</span>
+        </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Config_User/config.php'">
             <i class="fas fa-cog"></i><span>Configuraciones</span>
         </div>

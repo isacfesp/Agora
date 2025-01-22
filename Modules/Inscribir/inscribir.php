@@ -162,14 +162,14 @@
                     <div class="form-group col-md-6">
                         <label for="horario">Horario:</label>
                         <select class="form-control" name="horario" id="horario" required>
-                            <option value="">Selecciona una opción</option>
-                            <option value="Semanal">Semanal</option>
-                            <option value="Sabatino">Sabatino</option>
+                            <option value="0">Selecciona una opción</option>
+                            <option value="1" >Semanal</option>
+                            <option value="2" >Sabatino</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="matricula">Matrícula:</label>
-                        <input type="text" class="form-control" id="matricula" name="matricula" placeholder="Matrícula" required>
+                        <input type="text" class="form-control" id="matricula" name="matricula" placeholder="Matrícula" required readonly>
                     </div>
                 </div>
                 <h5><strong>DATOS DEL ALUMNO:</strong></h5>
@@ -304,6 +304,17 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
+<?php
+include '../../Config/conexion.php';
+
+$sql = "SELECT MAX(matricula) FROM alumno";
+$result = $connection->query($sql);
+$matricula = $result->fetch_row()[0];
+$matriculaDB = $matricula + 1;
+?>
+
+
+
 <script>
     function openPDF() {
         var pdfUrl = '../Modules/Inscribir/solicitud.php';
@@ -323,6 +334,25 @@
     function closePopup() {
         document.getElementById('overlay').style.display = 'none';
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        function matricula() {
+            const today = new Date();
+            let mes = today.getMonth() + 1;
+            let anio = today.getFullYear();
+
+            mes = (mes < 10) ? '0' + mes : mes;
+            anio = (anio < 10) ? '0' + anio : anio;
+            let año = anio.toString().slice(-2);
+            let matriculaDB = "<?php echo "$matriculaDB" ?>";
+
+            var hH = document.getElementById('horario').value;
+            var mM = document.getElementById('matricula');
+            mM.value = hH !== "0" ? hH + mes + año + matriculaDB: "";
+        }
+
+        document.getElementById('horario').addEventListener('change', matricula);
+    });
 </script>
 
 
@@ -336,7 +366,7 @@
         </svg>
         <p>¡Operación exitosa!</p>
         <button class="btn-primary" onclick="closePopup()">Aceptar</button>
-        <a href="solicitudLlenado.php">imprimir</a>
+        <a href="../../Templates/alumnos.html" class="btn-primary">Mostrar</a>
     </div>
 </div>
 
@@ -379,7 +409,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         include "../../Config/conexion.php";
 
-        $sql = "INSERT INTO alumno (horario, matricula, apaterno, amaterno, nombre, nacimiento, edad, curp, tel_fijo, tel_celular, email, calle, colonia, cp, municipio, tutor_apaterno, tutor_amaterno, tutor_nombre, tutor_tel_fijo, tutor_tel_celular, tutor_email, emergencia_apaterno, emergencia_amaterno, emergencia_nombre, parentesco, emergencia_tel) 
+        $sql = "INSERT INTO alumno (horario, matricula, apaterno, amaterno, nombre, nacimiento, edad, curp, tel_fijo, tel_celular, email, calle, colonia, cp, municipio, tutor_apaterno, tutor_amaterno, tutor_nombre, tutor_tel_fijo, tutor_tel_celular, tutor_email, emergencia_apaterno, emergencia_amaterno, emergencia_nombre, emergencia_parentesco, emergencia_tel) 
 VALUES ('" . $datos['horario'] . "', '" . $datos['matricula'] . "', '" . $datos['apaterno'] . "', '" . $datos['amaterno'] . "', '" . $datos['nombre'] . "', '" . $datos['nacimiento'] . "', '" . $datos['edad'] . "', '" . $datos['curp'] . "', '" . $datos['telfijo'] . "', '" . $datos['celular'] . "', '" . $datos['email'] . "', '" . $datos['calle'] . "', '" . $datos['colonia'] . "', '" . $datos['codpostal'] . "', '" . $datos['municipio'] . "', '" . $datos['tutor_apaterno'] . "', '" . $datos['tutor_amaterno'] . "', '" . $datos['tutor_nombre'] . "', '" . $datos['tutor_telfijo'] . "', '" . $datos['tutor_celular'] . "', '" . $datos['tutor_email'] . "', '" . $datos['emergencia_apaterno'] . "', '" . $datos['emergencia_amaterno'] . "', '" . $datos['emergencia_nombre'] . "', '" . $datos['parentesco'] . "', '" . $datos['emergencia_telefono'] . "')";
 
         if ($connection->query($sql) === TRUE) {
