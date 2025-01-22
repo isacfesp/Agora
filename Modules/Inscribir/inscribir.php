@@ -311,6 +311,7 @@ $sql = "SELECT MAX(matricula) FROM alumno";
 $result = $connection->query($sql);
 $matricula = $result->fetch_row()[0];
 $matriculaDB = $matricula + 1;
+
 ?>
 
 

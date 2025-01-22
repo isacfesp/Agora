@@ -61,8 +61,13 @@ $conn->close();
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Inscribir/inscribir.php'">
             <i class="fa-solid fa-file"></i><span>Inscribir</span>
         </div>
+<<<<<<< HEAD
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/alumnos.html'">
             <i class="fa-solid fa-file"></i><span>Alumnos</span>
+=======
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/alumnos.php'">
+        <i class="fa-solid fa-person"></i><span>Alumnos</span>
+>>>>>>> 0656162032df3eeb645a85d8a6f1eaf57b957b96
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Config_User/config.php'">
             <i class="fas fa-cog"></i><span>Configuraciones</span>
