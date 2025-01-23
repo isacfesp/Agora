@@ -349,7 +349,10 @@ $matriculaDB = $matricula + 1;
 
             var hH = document.getElementById('horario').value;
             var mM = document.getElementById('matricula');
-            mM.value = hH !== "0" ? hH + mes + año + matriculaDB: "";
+
+            matriculaDB = (matriculaDB < 10 ) ? '00' + matriculaDB : (matriculaDB > 9 && matriculaDB < 100 ) ? '0' +matriculaDB : matriculaDB;
+
+            mM.value = hH !== "0" ? mes + año + hH + matriculaDB: "";
         }
 
         document.getElementById('horario').addEventListener('change', matricula);
