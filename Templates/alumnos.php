@@ -44,39 +44,51 @@ include("../Config/conexion.php");
 
     <script>
         $(document).ready(function (){
-            let table = $('#alumnostable').DataTable({
-                language: {
-                    "decimal": ",",
-                    "emptyTable": "No hay datos disponibles en la tabla",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
-                    "infoFiltered": "(filtrado de _MAX_ entradas en total)",
-                    "lengthMenu": "Mostrar _MENU_ entradas",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "search": "Buscar:",
-                    "zeroRecords": "No se han encontrado resultados",
-                    "paginate": {
-                        "first": "Primera",
-                        "last": "Última",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    },
-                    "aria": {
-                        "sortAscending": ": activar para ordenar la columna de manera ascendente",
-                        "sortDescending": ": activar para ordenar la columna de manera descendente"
-                    }
-                },
-                columns: [
-                    {data: 'id_alumno'},
-                    {data: 'matricula'},
-                    {data: 'apaterno'},
-                    {data: 'amaterno'},
-                    {data: 'nombre'},
-                    {data: 'acciones'}
-                ]
-            })
-        })
+    let table = $('#alumnostable').DataTable({
+        ajax: {
+            url: '../Modules/Alumnos/fetch_alumnos.php',
+            dataSrc: '',
+        },
+        language: {
+            "decimal": ",",
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+            "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+            "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+            "lengthMenu": "Mostrar _MENU_ entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "No se han encontrado resultados",
+            "paginate": {
+                "first": "Primera",
+                "last": "Última",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": activar para ordenar la columna de manera ascendente",
+                "sortDescending": ": activar para ordenar la columna de manera descendente"
+            }
+        },
+        columns: [
+            { data: 'id_alumno' },
+            { data: 'matricula' },
+            { data: 'apaterno' },
+            { data: 'amaterno' },
+            { data: 'nombre' },
+            {
+                data: null,
+                render: function (data) {
+                    return `
+                        <button class="btn btn-warning btn-sm edit-btn" data-id="${data.id_alumno}" onclick="abrirEdicion('${data.id_alumno}')"><i class="fas fa-pencil-alt"></i></button>
+                        <button class="btn btn-danger btn-sm delete-btn" data-id="${data.id_alumno}" onclick="confirmarEliminacion('${data.id_alumno}')"><i class="fas fa-trash-alt"></i></button>
+                    `;
+                }
+            }
+        ]
+    });
+});
     </script>
 </body>
 </html>

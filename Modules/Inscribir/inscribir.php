@@ -344,12 +344,14 @@ $matriculaDB = $matricula + 1;
 
             mes = (mes < 10) ? '0' + mes : mes;
             anio = (anio < 10) ? '0' + anio : anio;
+            
             let año = anio.toString().slice(-2);
             let matriculaDB = "<?php echo "$matriculaDB" ?>";
-
+            
+            matriculaDB = (matriculaDB < 10) ? '00' + matriculaDB: (matriculaDB < 100 && matriculaDB > 10 ) ? '0' + matriculaDB : matriculaDB;
             var hH = document.getElementById('horario').value;
             var mM = document.getElementById('matricula');
-            mM.value = hH !== "0" ? hH + mes + año + matriculaDB: "";
+            mM.value = hH !== "0" ? mes + año + hH + matriculaDB: "";
         }
 
         document.getElementById('horario').addEventListener('change', matricula);
