@@ -153,7 +153,7 @@
     <div class="container mt-5">
         <div class="custom-container p-4">
             <button class="btn print-button" onclick="openPDF()"><i class="fas fa-file-pdf"></i> Imprimir</button>
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" >
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <div class="form-group">
                     <label>Carrera/Especialidad/Cursos:</label> <br>
                     <label>Mecánica en Reparación de Motocicletas</label>
@@ -163,8 +163,8 @@
                         <label for="horario">Horario:</label>
                         <select class="form-control" name="horario" id="horario" required>
                             <option value="0">Selecciona una opción</option>
-                            <option value="1" >Semanal</option>
-                            <option value="2" >Sabatino</option>
+                            <option value="1">Semanal</option>
+                            <option value="2">Sabatino</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
@@ -332,6 +332,7 @@ $matriculaDB = $matricula + 1;
 
         document.getElementById('edad').value = edad;
     }
+
     function closePopup() {
         document.getElementById('overlay').style.display = 'none';
     }
@@ -344,14 +345,15 @@ $matriculaDB = $matricula + 1;
 
             mes = (mes < 10) ? '0' + mes : mes;
             anio = (anio < 10) ? '0' + anio : anio;
-            
+
             let año = anio.toString().slice(-2);
             let matriculaDB = "<?php echo "$matriculaDB" ?>";
-            
-            matriculaDB = (matriculaDB < 10) ? '00' + matriculaDB: (matriculaDB < 100 && matriculaDB > 10 ) ? '0' + matriculaDB : matriculaDB;
+
+            matriculaDB = (matriculaDB < 10) ? '00' + matriculaDB : (matriculaDB < 100 && matriculaDB > 10) ? '0' + matriculaDB : matriculaDB;
             var hH = document.getElementById('horario').value;
             var mM = document.getElementById('matricula');
-            mM.value = hH !== "0" ? mes + año + hH + matriculaDB: "";
+            matriculaDB = (matriculaDB < 10) ? '00' + matriculaDB : (matriculaDB > 9 && matriculaDB < 100) ? '0' + matriculaDB : matriculaDB;
+            mM.value = hH !== "0" ? mes + año + hH + matriculaDB : "";
         }
 
         document.getElementById('horario').addEventListener('change', matricula);
