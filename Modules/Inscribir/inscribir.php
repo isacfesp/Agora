@@ -307,7 +307,7 @@
 <?php
 include '../../Config/conexion.php';
 
-$sql = "SELECT MAX(matricula) FROM alumno";
+$sql = "SELECT MAX(id_alumno) FROM alumno";
 $result = $connection->query($sql);
 $matricula = $result->fetch_row()[0];
 $matriculaDB = $matricula + 1;
@@ -352,7 +352,6 @@ $matriculaDB = $matricula + 1;
             matriculaDB = (matriculaDB < 10) ? '00' + matriculaDB : (matriculaDB < 100 && matriculaDB > 10) ? '0' + matriculaDB : matriculaDB;
             var hH = document.getElementById('horario').value;
             var mM = document.getElementById('matricula');
-            matriculaDB = (matriculaDB < 10) ? '00' + matriculaDB : (matriculaDB > 9 && matriculaDB < 100) ? '0' + matriculaDB : matriculaDB;
             mM.value = hH !== "0" ? mes + año + hH + matriculaDB : "";
         }
 
@@ -371,7 +370,7 @@ $matriculaDB = $matricula + 1;
         </svg>
         <p>¡Operación exitosa!</p>
         <button class="btn-primary" onclick="closePopup()">Aceptar</button>
-        <a href="../../Templates/alumnos.html" class="btn-primary">Mostrar</a>
+        <a href="../../Templates/alumnos.php" class="btn-primary">Mostrar</a>
     </div>
 </div>
 
