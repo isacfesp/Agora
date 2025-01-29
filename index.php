@@ -63,10 +63,6 @@ $conn->close();
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/alumnos.php'">
         <i class="fa-solid fa-person"></i><span>Alumnos</span>
-<<<<<<< HEAD
-=======
-
->>>>>>> 1643c6adbda92aa6bf61704d2f0d5db25f036b06
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Config_User/config.php'">
             <i class="fas fa-cog"></i><span>Configuraciones</span>
@@ -78,7 +74,7 @@ $conn->close();
         <!-- Barra superior -->
         <div id="topbar">
             <div>
-                <label for="btn-user"><img src="<?php echo $imagePath; ?>" alt="" ></label>
+                <label for="btn-user"><img src="<?php echo $imagePath; ?>" alt="" class="rounded-circle border mt-3" width="50" height="50" style="object-fit: cover; display: block; margin-left: auto; margin-right: auto;"></label>
                 <input type="checkbox" id="btn-user" style="display: none;">
                 <div class="container config">
                     <div class="text-center">

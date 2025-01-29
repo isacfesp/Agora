@@ -9,7 +9,8 @@ body {
   display: flex;
   height: 100vh;
   background-color: #ffffff;
-  overflow-x: hidden; /* Evita el desplazamiento horizontal */
+  overflow-x: hidden;
+  /* Evita el desplazamiento horizontal */
 }
 
 /* Barra lateral */
@@ -50,7 +51,7 @@ body {
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   border-radius: 8px;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 
 .menu-item:hover {
@@ -90,27 +91,21 @@ body {
   height: 10vh;
 }
 
-#topbar .icon {
-  font-size: 24px;
-  cursor: pointer;
-  color: #fff;
-  transition: color 0.3s;
-}
-
 
 #main-frame {
   flex-grow: 1;
   border: none;
   width: 100%;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
-
 
 .config {
   position: absolute;
   background-color: #fff;
-  width: 80%; /* Ajustar para que ocupe un porcentaje en pantallas pequeñas */
-  max-width: 250px; /* Límite máximo para pantallas grandes */
+  width: 80%;
+  /* Ajustar para que ocupe un porcentaje en pantallas pequeñas */
+  max-width: 250px;
+  /* Límite máximo para pantallas grandes */
   height: auto;
   top: 10%;
   transform: translateX(-100%);
@@ -132,9 +127,12 @@ body {
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
   display: block;
-  margin-top: 20px; /* Margen superior para el botón */
-  width: auto; /* Asegura que el ancho del botón se ajuste */
-  max-width: 150px; /* Limita el ancho máximo del botón */
+  margin-top: 20px;
+  /* Margen superior para el botón */
+  width: auto;
+  /* Asegura que el ancho del botón se ajuste */
+  max-width: 150px;
+  /* Limita el ancho máximo del botón */
   margin-left: auto;
   margin-right: auto;
 }
@@ -144,28 +142,28 @@ body {
   color: #fff;
 }
 
-
+#topbar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
 /* Estilo responsive para pantallas pequeñas */
 @media (max-width: 767px) {
   .config {
-      font-size: 13px;
-      width: 50%; /* Más ancho en pantallas pequeñas */
-      max-width: 200px;
-      padding: 20px;
-      transform: translateX(-80%);
-      top: 10%;
+    font-size: 13px;
+    width: 50%;
+    /* Más ancho en pantallas pequeñas */
+    max-width: 200px;
+    padding: 20px;
+    transform: translateX(-80%);
+    top: 10%;
   }
 }
 
-#topbar img{
-  width: 40px;
-  border-radius: 50px;
-  cursor: pointer;
-}
 
-#btn-user:checked ~ .config{
+#btn-user:checked~.config {
   opacity: 1;
   visibility: visible;
 }
-
