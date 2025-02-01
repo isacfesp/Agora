@@ -1,18 +1,21 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #fff;
+    background-color: #f7f9fb;
 }
 
 .container {
-    max-width: 1200px;
-    margin-top: 50px;
+    background: #ffffff;
+    max-width: 95%;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
 }
 
 h2 {
     color: #343a40;
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 20px;
 }
 
 /* Color del encabezado de la tabla */
@@ -91,11 +94,6 @@ td {
     border-color: #3C4046;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-    margin: 0;
-}
 
 .overlay {
     position: fixed;
@@ -168,4 +166,31 @@ body {
 
 .popup button:hover {
     opacity: 0.9;
+}
+
+.metrics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    padding: 1.5rem;
+    border: 1px solid #c7c7c7;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin: 0.5rem 0;
+}
+
+.metric-label {
+    color: var(--color-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
 }
