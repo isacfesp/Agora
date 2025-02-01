@@ -81,7 +81,7 @@ include("../Config/conexion.php");
                 data: null,
                 render: function (data) {
                     return `
-                        <button class="btn btn-warning btn-sm edit-btn" data-id="${data.id_alumno}" onclick="abrirEdicion('${data.id_alumno}')"><i class="fas fa-pencil-alt"></i></button>
+                        <button><i class="fas fa-pencil-alt"><a href="../Modules/Alumnos/alumno.php">Config</a></i></button>
                         <button class="btn btn-danger btn-sm delete-btn" data-id="${data.id_alumno}" onclick="confirmarEliminacion('${data.id_alumno}')"><i class="fas fa-trash-alt"></i></button>
                     `;
                 }
@@ -90,5 +90,6 @@ include("../Config/conexion.php");
     });
 });
     </script>
+    <button ></button>
 </body>
 </html>
