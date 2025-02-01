@@ -17,11 +17,9 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $imagePath = $row['ruta'];
-    $estadoFoto = 'Cambiar foto';
     $mostrarEliminar = true;
 } else {
     $imagePath = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-    $estadoFoto = 'Agregar foto de perfil';
     $mostrarEliminar = false;
 }
 
@@ -34,127 +32,177 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información Básica de Usuario</title>
+    <title>Configuración de Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../../Assets/CSS/config.css">
-    <link rel="stylesheet" href="CSS/custom.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        img{
-            object-fit: cover; /* Escala la imagen y corta si es necesario */
-            object-position: center; /* Centra la imagen dentro del contenedor */
-        }
-    </style>
 </head>
 
 <body>
-    <div class="container mt-4">
-        <div class="info-container">
-            <h2>Información Básica</h2>
-            
-            <!-- Imagen de perfil -->
-            <a href="#" class="info-item d-flex align-items-center" data-toggle="modal" data-target="#profileImageModal">
-                <label>Imagen de perfil</label>
-                <div class="flex items-center">
-                    <img id="profile-image" src="<?php echo $imagePath; ?>" alt="Imagen" class="rounded-circle border" width="50" height="50">
+    <div class="config-container">
+        <!-- Sección de Información Básica -->
+        <div class="section-header">
+            <h2><i class='bx bx-user'></i>Información Básica</h2>
+        </div>
+        <div class="section-body">
+            <!-- Foto de Perfil -->
+            <div class="config-item" data-bs-toggle="modal" data-bs-target="#profileModal">
+                <div class="item-label">
+                    <i class='bx bx-camera'></i>
+                    <span>Foto de perfil</span>
                 </div>
-                <div class=" arrow-icon ml-auto"><i class='bx bx-chevron-right'></i></div>
-            </a>
-
-            <!-- Datos personales -->
-            <a href="configNom.php" class="info-item d-flex align-items-center">
-                <label>Nombre/s</label>
-                <span class="ml-auto"><?php echo $nombres; ?></span>
-                <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
-            </a>
-
-            <a href="configApa.php" class="info-item d-flex align-items-center">
-                <label>Apellido paterno</label>
-                <span class="ml-auto"><?php echo $apellidop; ?></span>
-                <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
-            </a>
-
-            <a href="configAma.php" class="info-item d-flex align-items-center">
-                <label>Apellido materno</label>
-                <span class="ml-auto"><?php echo $apellidom; ?></span>
-                <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
-            </a>
-        </div>
-
-        <div class="info-container mt-4">
-            <h2>Contraseña</h2>
-            <a href="#" class="info-item d-flex align-items-center">
-                <label>Contraseña</label>
-                <span class="ml-auto">**********</span>
-                <div class="arrow-icon"><i class='bx bx-chevron-right'></i></div>
-            </a>
-        </div>
-
-        <div class="info-container user-options mt-4">
-            <h2>Opciones de usuario</h2>
-            <a href="#" class="btnC mt-2">Cerrar Sesión</a>
-            <a href="#" class="leg">Términos y condiciones</a>
-            <a href="#" class="leg">Política de privacidad</a>
-        </div>
-    </div>
-
-    <!-- Modal para Imagen de Perfil -->
-    <div class="modal fade" id="profileImageModal" tabindex="-1" aria-labelledby="profileImageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content p-4">
-                <div class="modal-body text-center">
-                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                        <h2 class="h5">Imagen de perfil</h2>
-                        <p class="text-muted">Añade una foto para que otros puedan reconocerte.</p>
-                        <img id="previewImage" src="<?php echo $imagePath; ?>" class="rounded-circle border mt-3" width="150" height="150" style="object-fit: cover; display: block; margin-left: auto; margin-right: auto;" />
-                       
-                        <div class="form-group mt-3">
-                            <label class="btn btn-secondary">
-                                <input type="file" name="fileToUpload" id="fileToUpload" class="d-none" accept="image/*">
-                                <span id="estado_foto"><?php echo $estadoFoto; ?></span>
-                            </label>
-                        </div>
-
-                        <div class="mt-3">
-                            <button class="btn btn-primary" type="submit" id="guardarBtn" disabled>Guardar</button>
-                            <?php if ($mostrarEliminar) { ?>
-                                <button type="button" class="btn btn-danger" onclick="eliminarImagen()">Eliminar</button>
-                            <?php } ?>
-                        </div>
-                    </form>
+                <div class="d-flex align-items-center gap-3">
+                    <img src="<?php echo $imagePath; ?>" 
+                         class="profile-picture"
+                         alt="Foto de perfil"
+                         onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'">
+                    <div class="btn-add-photo">
+                        <i class='bx bx-plus'></i>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Nombre -->
+            <div class="config-item">
+                <div class="item-label">
+                    <i class='bx bx-id-card'></i>
+                    <span>Nombre</span>
+                </div>
+                <span class="item-value"><?php echo $nombres; ?></span>
+                <i class='bx bx-chevron-right'></i>
+            </div>
+
+            <!-- Apellido Paterno -->
+            <div class="config-item">
+                <div class="item-label">
+                    <i class='bx bx-user-pin'></i>
+                    <span>Apellido Paterno</span>
+                </div>
+                <span class="item-value"><?php echo $apellidop; ?></span>
+                <i class='bx bx-chevron-right'></i>
+            </div>
+
+            <!-- Apellido Materno -->
+            <div class="config-item">
+                <div class="item-label">
+                    <i class='bx bx-user-voice'></i>
+                    <span>Apellido Materno</span>
+                </div>
+                <span class="item-value"><?php echo $apellidom; ?></span>
+                <i class='bx bx-chevron-right'></i>
+            </div>
+        </div>
+
+        <!-- Sección de Contraseña -->
+        <div class="section-header">
+            <h2><i class='bx bx-lock-alt'></i>Seguridad</h2>
+        </div>
+        <div class="section-body">
+            <div class="config-item">
+                <div class="item-label">
+                    <i class='bx bx-key'></i>
+                    <span>Contraseña</span>
+                </div>
+                <span class="item-value">**********</span>
+                <i class='bx bx-chevron-right'></i>
+            </div>
+        </div>
+
+        <!-- Sección de Opciones -->
+        <div class="section-body">
+            <button class="btn-logout">
+                <i class='bx bx-log-out'></i>
+                Cerrar Sesión
+            </button>
+            <div class="legal-links">
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Activar botón "Guardar" solo cuando se seleccione una imagen
-            $("#fileToUpload").on("change", function(event) {
-                previewImage(event);
-                $("#guardarBtn").prop("disabled", false);
-            });
-        });
+    <!-- Modal de Foto de Perfil Mejorado -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center gap-2">
+                        <i class='bx bx-camera'></i>
+                        Foto de perfil
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="profileForm" action="upload.php" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="text-center mb-4">
+                            <div class="profile-preview-container">
+                                <img id="modalProfileImage" src="<?php echo $imagePath; ?>" 
+                                     class="profile-preview-image"
+                                     alt="Foto de perfil"
+                                     onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'">
+                                <div class="edit-overlay" onclick="document.getElementById('fileInput').click()">
+                                    <i class='bx bx-edit'></i>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="d-flex flex-column gap-2">
+                            <label class="btn btn-outline-primary w-100" for="fileInput">
+                                <i class='bx bx-upload'></i>
+                                Subir nueva foto
+                            </label>
+                            <input type="file" id="fileInput" name="fileToUpload" class="d-none" accept="image/*" onchange="previewImage(event)">
+                            
+                            <?php if ($mostrarEliminar) { ?>
+                            <button type="button" class="btn btn-outline-danger w-100" onclick="eliminarImagen()">
+                                <i class='bx bx-trash'></i>
+                                Eliminar foto actual
+                            </button>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="saveButton" disabled>
+                            <i class='bx bx-save'></i>
+                            Guardar cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
         function previewImage(event) {
-            var input = event.target;
-            if (input.files && input.files.length > 0) {
-                var reader = new FileReader();
+            const input = event.target;
+            const preview = document.getElementById('modalProfileImage');
+            const saveButton = document.getElementById('saveButton');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
                 reader.onload = function(e) {
-                    $("#previewImage").attr("src", e.target.result);
+                    preview.src = e.target.result;
+                    saveButton.disabled = false;
                 };
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
         function eliminarImagen() {
-            if (confirm('¿Estás seguro de que deseas eliminar tu imagen de perfil?')) {
+            if (confirm('¿Estás seguro de que deseas eliminar tu foto de perfil?')) {
                 window.location.href = 'deleteImage.php';
             }
         }
+
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) {
+                e.preventDefault();
+                alert('Por favor, selecciona una imagen antes de guardar.');
+            }
+        });
     </script>
 </body>
 
