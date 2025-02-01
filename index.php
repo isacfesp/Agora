@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['nombre'])) {
-    header('Location: Templates/login.html');
+    header('Location: Templates/login.php');
     exit();
 }
 
