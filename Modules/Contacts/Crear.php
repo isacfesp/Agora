@@ -205,7 +205,7 @@
 <body>
     <div class="container form-container">
         <div class="form-box">
-            <a href="../../Templates/contactos.html" class="btn-back">
+            <a href="../../Templates/contactos.php" class="btn-back">
                 <i class="fas fa-arrow-left"></i> Regresar
             </a>
 

@@ -1,3 +1,7 @@
+<?php
+include "../Modules/Contacts/metricasContactos.php";
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -20,15 +24,15 @@
         </div>
         <div class="metrics-container">
             <div class="metric-card">
-                <div class="metric-value">1,250</div>
+                <div class="metric-value"><?php echo $contador; ?></div>
                 <div class="metric-label">Contactos totales</div>
             </div>
             <div class="metric-card">
-                <div class="metric-value">92%</div>
-                <div class="metric-label">Activos</div>
+                <div class="metric-value"></div>
+                <div class="metric-label"></div>
             </div>
             <div class="metric-card">
-                <div class="metric-value">45</div>
+                <div class="metric-value"><?php echo $conteoMes; ?></div>
                 <div class="metric-label">Nuevos este mes</div>
             </div>
         </div>

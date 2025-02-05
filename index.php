@@ -52,7 +52,7 @@ $conn->close();
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/home.html'">
             <i class="fas fa-home"></i><span>Inicio</span>
         </div>
-        <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/contactos.html'">
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/contactos.php'">
             <i class="fas fa-user"></i><span>Contactos</span>
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/Gestion_usuarios.html'">
