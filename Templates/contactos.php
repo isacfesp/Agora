@@ -128,7 +128,6 @@ include "../Modules/Contacts/metricasContactos.php";
     </div>
 
     <center>
-
         <!--Inscribir-->
         <div id="inscribir" class="overlay">
             <div class="popup">
