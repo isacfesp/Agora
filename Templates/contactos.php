@@ -132,6 +132,7 @@ include "../Modules/Contacts/metricasContactos.php";
         <div id="inscribir" class="overlay">
             <div class="popup">
                 <form action="../Modules/Inscribir/inscribir.php" method="post" target="_blank">
+                    <h4><strong>Inscribir Contacto</strong></h4>
                     <div class="form-group">
                         <label>Carrera/Especialidad/Cursos:</label> <br>
                         <label>Mecánica en Reparación de Motocicletas</label>
