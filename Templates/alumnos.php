@@ -13,29 +13,47 @@ include("../Config/conexion.php");
     <link rel="stylesheet" href="../Assets/CSS/alumnos.css">
 </head>
 <body>
-    <div class="contenedor">
-        <h2>Alumnos</h2>
+    <div class="container">
+    <div class="header-section">
+            <br>
+            <h2 style="font-weight: 600; margin: 40px 0; font-size: 1.5rem;">Gestión de Alumnos</h2>
+
+        </div>
+        <div class="metrics-container">
+            <div class="metric-card">
+                <div class="metric-value">1,250</div>
+                <div class="metric-label">Contactos totales</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">92%</div>
+                <div class="metric-label">Activos</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">45</div>
+                <div class="metric-label">Nuevos este mes</div>
+            </div>
+        </div>
     <!--    <div class="filter-container mb-3 d-flex justify-content-between align-items-center">
                 <button class="btn btn-success" id="filterDate"><i class="fas fa-filter"></i> Filtrar</button>
             </div>  -->
+            <table id="alumnostable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Matrícula</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                 //   $query="Select * from alumnos";
+                    ?>
+                </tbody>
+            </table>
         </div>
-        <table id="alumnostable" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Matrícula</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
-                    <th>Nombre</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-             //   $query="Select * from alumnos";
-                ?>
-            </tbody>
-        </table>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
@@ -81,8 +99,7 @@ include("../Config/conexion.php");
                 data: null,
                 render: function (data) {
                     return `
-                        <button><i class="fas fa-pencil-alt"><a href="../Modules/Alumnos/alumno.php">Config</a></i></button>
-                        <button class="btn btn-danger btn-sm delete-btn" data-id="${data.id_alumno}" onclick="confirmarEliminacion('${data.id_alumno}')"><i class="fas fa-trash-alt"></i></button>
+                        <a href="../Modules/Alumnos/alumno.php"><i class="fa-solid fa-sliders"></i></a>
                     `;
                 }
             }
@@ -90,6 +107,5 @@ include("../Config/conexion.php");
     });
 });
     </script>
-    <button ></button>
 </body>
 </html>
