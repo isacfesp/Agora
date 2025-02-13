@@ -244,10 +244,10 @@
                             <h5 class="data-header">Información Académica</h5>
                             <dl class="row">
                                 <dt class="col-sm-4 text-secondary">Programa</dt>
-                                <dd class="col-sm-8">Licenciatura en Administración</dd>
+                                <dd class="col-sm-8">Inyección electrónica</dd>
                                 
                                 <dt class="col-sm-4 text-secondary">Matrícula</dt>
-                                <dd class="col-sm-8">ABC12345</dd>
+                                <dd class="col-sm-8">02251001</dd>
                                 
                                 <dt class="col-sm-4 text-secondary">Promedio</dt>
                                 <dd class="col-sm-8">8.9</dd>
@@ -264,8 +264,8 @@
                         <div class="col-md-4">
                             <select class="form-select">
                                 <option>Filtrar por periodo</option>
-                                <option>2023-1</option>
-                                <option>2023-2</option>
+                                <option>02/25</option>
+                                <option>01/25</option>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -303,8 +303,8 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>15/03/2023</td>
-                                <td>Colegiatura Marzo 2023</td>
+                                <td>16/02/2025</td>
+                                <td>Colegiatura febrero 2025</td>
                                 <td>$2,500.00</td>
                                 <td><span class="badge bg-success">Completado</span></td>
                                 <td>
@@ -325,8 +325,8 @@
                         <div class="col-md-4">
                             <select class="form-select">
                                 <option>Seleccionar Periodo</option>
-                                <option>2023-1</option>
-                                <option>2023-2</option>
+                                <option>01/25</option>
+                                <option>02/25</option>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -355,7 +355,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Matemáticas Financieras</td>
+                                <td>Materia</td>
                                 <td>9.5</td>
                                 <td><span class="badge bg-success">Aprobado</span></td>
                                 <td>
@@ -380,7 +380,7 @@
                     <div class="col-md-4">
                         <div class="data-card h-100">
                             <h5 class="data-header">Baja Temporal</h5>
-                            <p class="text-secondary mb-4">Suspensión temporal de actividades académicas por hasta 2 periodos</p>
+                            <p class="text-secondary mb-4">Suspensión temporal de actividades académicas</p>
                             <button class="btn-primary w-100">
                                 <i class="fas fa-pause me-2"></i>Solicitar Baja
                             </button>
@@ -401,7 +401,7 @@
                         <div class="data-card h-100">
                             <h5 class="data-header">Reactivación</h5>
                             <p class="text-secondary mb-4">Reincorporación al programa académico después de baja temporal</p>
-                            <button class="btn-primary w-100 bg-success border-success">
+                            <button class="btn-primary w-100 bg-success border-success" disabled >
                                 <i class="fas fa-redo me-2"></i>Solicitar Reactivación
                             </button>
                         </div>
