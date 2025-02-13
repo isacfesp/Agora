@@ -328,9 +328,23 @@ $matriculaDB = $matricula + 1;
         const nacimientoInput = document.getElementById('nacimiento').value;
         const nacimiento = new Date(nacimientoInput);
         const actual = new Date();
-        let edad = actual.getFullYear() - nacimiento.getFullYear();
+        if(actual.getMonth() >= nacimiento.getMonth()){
+            if(actual.getDate() >= nacimiento.getDate()){
+                let edad = actual.getFullYear() - nacimiento.getFullYear();
 
-        document.getElementById('edad').value = edad;
+                document.getElementById('edad').value = edad;
+            } else{
+                let edad = actual.getFullYear() - nacimiento.getFullYear() - 1;
+
+                document.getElementById('edad').value = edad;
+            }
+        }
+        else{
+            let edad = actual.getFullYear() - nacimiento.getFullYear() - 1;
+
+            document.getElementById('edad').value = edad;
+        }
+        
     }
 
     function closePopup() {

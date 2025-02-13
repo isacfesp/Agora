@@ -131,7 +131,7 @@ include "../Modules/Contacts/metricasContactos.php";
         <!--Inscribir-->
         <div id="inscribir" class="overlay">
             <div class="popup">
-                <form action="../Modules/Inscribir/inscribir.php" method="post" target="_blank">
+                <form id="formI" action="../Modules/Inscribir/inscribir.php" method="post" target="_blank">
                     <h4><strong>Inscribir Contacto</strong></h4>
                     <div class="form-group">
                         <label>Carrera/Especialidad/Cursos:</label> <br>
@@ -165,7 +165,7 @@ include "../Modules/Contacts/metricasContactos.php";
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="nombre">Nombre(s):</label>
-                            <input type="text" class="form-control" id="nom" name="nombre" placeholder="Nombre(s)" pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required>
+                            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nombre(s)" pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="nacimiento">Fecha de Nacimiento:</label>
@@ -272,6 +272,7 @@ include "../Modules/Contacts/metricasContactos.php";
                         </div> 
                         <div>
                             <button type="submit" class="btn btn-success" onclick="guardarInscripcion()">Guardar</button>
+                            <button type="submit" class="btn btn-danger" onclick="cancelarInscripcion()">Cancelar</button>
                         </div> 
                     </div>
                 </form>
@@ -428,7 +429,38 @@ include "../Modules/Contacts/metricasContactos.php";
             });
         }
 
+        function calcularEdad() {
+        const nacimientoInput = document.getElementById('nacimiento').value;
+        const nacimiento = new Date(nacimientoInput);
+        const actual = new Date();
+        if(actual.getMonth() >= nacimiento.getMonth()){
+            if(actual.getDate() >=nacimiento.getDate()){
+                let edad = actual.getFullYear() - nacimiento.getFullYear();
+
+                document.getElementById('edad').value = edad;
+            } else{
+                let edad = actual.getFullYear() - nacimiento.getFullYear() - 1;
+
+                document.getElementById('edad').value = edad;
+            }
+        }
+        else{
+            let edad = actual.getFullYear() - nacimiento.getFullYear() - 1;
+
+            document.getElementById('edad').value = edad;
+        }
+        
+    }
+
         function guardarInscripcion(){
+            let formI = $('#formI').serialize();
+            $.post('../Modules/Contacts/Inscribir.php', formI, function(){
+                $('#inscribir').hide();
+                $('#alumnosTable').DataTable().ajax.url('alumnos.php').load();
+            });
+        }
+
+        function cancelarInscripcion(){
             $('#inscribir').hide();
         }
 
