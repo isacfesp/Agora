@@ -48,9 +48,7 @@ include("../Config/conexion.php");
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                 //   $query="Select * from alumnos";
-                    ?>
+                    
                 </tbody>
             </table>
         </div>

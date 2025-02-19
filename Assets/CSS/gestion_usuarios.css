@@ -1,0 +1,6 @@
+form{
+    display: flex;
+}
+label, input, select, button{
+    margin-left: 1.2%;
+}

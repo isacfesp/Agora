@@ -131,7 +131,7 @@ include "../Modules/Contacts/metricasContactos.php";
         <!--Inscribir-->
         <div id="inscribir" class="overlay">
             <div class="popup">
-                <form id="formI" action="../Modules/Inscribir/inscribir.php" method="post" target="_blank">
+                <form id="formI" action="../Modules/Contacts/inscribir.php" method="post" target="_blank">
                     <h4><strong>Inscribir Contacto</strong></h4>
                     <div class="form-group">
                         <label>Carrera/Especialidad/Cursos:</label> <br>
@@ -452,6 +452,7 @@ include "../Modules/Contacts/metricasContactos.php";
         
     }
 
+
         function guardarInscripcion(){
             let formI = $('#formI').serialize();
             $.post('../Modules/Contacts/Inscribir.php', formI, function(){
@@ -459,6 +460,8 @@ include "../Modules/Contacts/metricasContactos.php";
                 $('#alumnosTable').DataTable().ajax.url('alumnos.php').load();
             });
         }
+
+        
 
         function cancelarInscripcion(){
             $('#inscribir').hide();
