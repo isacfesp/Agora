@@ -67,8 +67,8 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="matricula">Matrícula:</label>
-                        <input type="text" class="form-control" id="matricula" name="matricula" placeholder="Matrícula" required readonly>
+                        <label for="periodo">Periodo:</label>
+                        <input type="text" class="form-control" id="periodo" name="periodo" placeholder="Periodo" required readonly>
                     </div>
                 </div>
                 <h5><strong>DATOS DEL ALUMNO:</strong></h5>
