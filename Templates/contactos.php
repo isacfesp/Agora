@@ -419,13 +419,10 @@ include "../Modules/Contacts/metricasContactos.php";
             $('#borrar').modal('show');
         }
 
-        function inscribirContacto(id){
-            $.getJSON(`../Modules/Contacts/fetch_contacto.php?id=${id}`, function (data){
-                $('#apaterno').val(data.apaterno);
-                $('#amaterno').val(data.amaterno);
-                $('#nom').val(data.nombre);
-                $('#celular').val(data.numero_telefonico);
-                $('#inscribir').show();
+        function inscribirContacto(id) {
+            $.getJSON(`../Modules/Contacts/fetch_contacto.php?id=${id}`, function (data) {
+                const url = `../Modules/Inscribir/inscribir.php?apaterno=${data.apaterno}&amaterno=${data.amaterno}&nombre=${data.nombre}&celular=${data.numero_telefonico}`;
+                window.location.href = url;
             });
         }
 

@@ -1,10 +1,16 @@
+<?php
+$apaterno = isset($_GET['apaterno']) ? $_GET['apaterno'] : '';
+$amaterno = isset($_GET['amaterno']) ? $_GET['amaterno'] : '';
+$nombre = isset($_GET['nombre']) ? $_GET['nombre'] : '';
+$celular = isset($_GET['celular']) ? $_GET['celular'] : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscribir</title> <!-- Bootstrap CSS -->
+    <title>Inscribir</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -39,113 +45,6 @@
             background-color: #aabb57;
             border-color: #aabb57;
         }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .popup {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            animation: popup-animation 0.3s ease-in-out;
-        }
-
-        @keyframes popup-animation {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .checkmark {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 20px;
-            display: block;
-            stroke-width: 2;
-            stroke: #BBCD5D;
-            stroke-miterlimit: 10;
-            fill: none;
-            animation: checkmark-fill 0.4s ease-in-out 0.4s forwards, checkmark-scale 0.3s ease-in-out 0.9s both;
-        }
-
-        .checkmark-circle {
-            stroke-dasharray: 166;
-            stroke-dashoffset: 166;
-            stroke-width: 2;
-            stroke: #BBCD5D;
-            fill: none;
-            animation: checkmark-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-        }
-
-        .checkmark-check {
-            transform-origin: 50% 50%;
-            stroke-dasharray: 48;
-            stroke-dashoffset: 48;
-            stroke: #BBCD5D;
-            animation: checkmark-check-animation 0.4s cubic-bezier(0.65, 0, 0.45, 1) 1s forwards;
-        }
-
-        @keyframes checkmark-stroke {
-            100% {
-                stroke-dashoffset: 0;
-            }
-        }
-
-        @keyframes checkmark-check-animation {
-            100% {
-                stroke-dashoffset: 0;
-            }
-        }
-
-        @keyframes checkmark-scale {
-
-            0%,
-            100% {
-                transform: none;
-            }
-
-            50% {
-                transform: scale3d(1.1, 1.1, 1);
-            }
-        }
-
-        @keyframes checkmark-fill {
-            100% {
-                box-shadow: none;
-            }
-        }
-
-        .btn-primary {
-            padding: 10px 20px;
-            background-color: #BBCD5D;
-            border-color: #BBCD5D;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background-color: #aabb57;
-            border-color: #aabb57;
-        }
     </style>
 </head>
 
@@ -176,17 +75,17 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="apaterno">Apellido Paterno:</label>
-                        <input type="text" class="form-control" id="apaterno" name="apaterno" placeholder="Apellido Paterno" pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required>
+                        <input type="text" class="form-control" id="apaterno" name="apaterno" placeholder="Apellido Paterno" pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required value="<?php echo $apaterno; ?>">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="amaterno">Apellido Materno:</label>
-                        <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Apellido Materno" pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required>
+                        <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Apellido Materno" pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required value="<?php echo $amaterno; ?>">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nombre">Nombre(s):</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre(s)" pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre(s)" pattern="[A-Za-z\s]+" title="Solo caracteres alfabéticos" maxlength="150" required value="<?php echo $nombre; ?>">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="nacimiento">Fecha de Nacimiento:</label>
@@ -206,11 +105,11 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="telfijo">Teléfono Fijo:</label>
-                        <input type="tel" class="form-control" id="telfijo" pattern="[+()0-9\s-]+" name="telfijo" placeholder="Teléfono Fijo" title="Debe contener al menos 10 dígitos" minlength="10" maxlength="20" required>
+                        <input type="tel" class="form-control" id="telfijo" pattern="[+()0-9\s-]+" name="telfijo" placeholder="Teléfono Fijo" title="Debe contener al menos 10 dígitos" minlength="10" maxlength="20">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="celular">Teléfono Celular:</label>
-                        <input type="tel" class="form-control" id="celular" pattern="[+()0-9\s-]+" name="celular" placeholder="Teléfono Celular" title="Debe contener al menos 10 dígitos" minlength="10" maxlength="20" required>
+                        <input type="tel" class="form-control" id="celular" pattern="[+()0-9\s-]+" name="celular" placeholder="Teléfono Celular" title="Debe contener al menos 10 dígitos" minlength="10" maxlength="20" required value="<?php echo $celular; ?>">
                     </div>
                 </div>
                 <div class="form-group">
@@ -314,37 +213,28 @@ $matriculaDB = $matricula + 1;
 
 ?>
 
-
-
 <script>
     function openPDF() {
         var pdfUrl = '../Modules/Inscribir/solicitud.php';
         window.open(pdfUrl, '_blank');
     }
 
-
-
     function calcularEdad() {
         const nacimientoInput = document.getElementById('nacimiento').value;
         const nacimiento = new Date(nacimientoInput);
         const actual = new Date();
-        if(actual.getMonth() >= nacimiento.getMonth()){
-            if(actual.getDate() >= nacimiento.getDate()){
+        if (actual.getMonth() >= nacimiento.getMonth()) {
+            if (actual.getDate() >= nacimiento.getDate()) {
                 let edad = actual.getFullYear() - nacimiento.getFullYear();
-
                 document.getElementById('edad').value = edad;
-            } else{
+            } else {
                 let edad = actual.getFullYear() - nacimiento.getFullYear() - 1;
-
                 document.getElementById('edad').value = edad;
             }
-        }
-        else{
+        } else {
             let edad = actual.getFullYear() - nacimiento.getFullYear() - 1;
-
             document.getElementById('edad').value = edad;
         }
-        
     }
 
     function closePopup() {
@@ -373,14 +263,12 @@ $matriculaDB = $matricula + 1;
     });
 </script>
 
-
 <!--Ventanas emergentes -->
 <div class="overlay" id="overlay" style="display: none;">
     <div class="popup">
         <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
             <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
-            <path class="checkmark-check" fill="none" stroke="#BBCD5D" stroke-width="5"
-                d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+            <path class="checkmark-check" fill="none" stroke="#BBCD5D" stroke-width="5" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
         </svg>
         <p>¡Operación exitosa!</p>
         <button class="btn-primary" onclick="closePopup()">Aceptar</button>
@@ -388,12 +276,9 @@ $matriculaDB = $matricula + 1;
     </div>
 </div>
 
-
-
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['submit'])) {
-
 
         $datos = [
             'horario' => $_POST['horario'],
@@ -423,7 +308,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'parentesco' => $_POST['parentesco'],
             'emergencia_telefono' => $_POST['emergencia_telefono'],
         ];
-
 
         include "../../Config/conexion.php";
 
