@@ -124,7 +124,7 @@ include("../Config/conexion.php");
                         data: null,
                         render: function (data) {
                             return `
-                                <a href="../Modules/Alumnos/alumno.php"><i class="fa-solid fa-sliders"></i></a>
+                                <button class="btn btn-default btn-sm historial-btn" data-id="${data.id_alumno}" onclick="historial('${data.id_alumno}')"><i class="fa-solid fa-sliders"></i></button>
                             `;
                         }
                     }
@@ -142,6 +142,13 @@ include("../Config/conexion.php");
                 }  */
             });
         });
+
+        function historial(id){
+            $.getJSON(`../Modules/Alumnos/fetch_alumno.php?id=${id}`, function (data) {
+                const url = `../Modules/Alumnos/alumno.php?apaterno=${data.apaterno}&amaterno=${data.amaterno}&nombre=${data.nombre}&nacimiento=${data.nacimiento}&edad=${data.edad}&curp=${data.curp}&email=${data.email}&celular=${data.tel_celular}&telefono=${data.tel_fijo}&calle=${data.calle}&colonia=${data.colonia}&cp=${data.cp}&municipio=${data.municipio}&t_apaterno=${data.tutor_apaterno}&t_amaterno=${data.tutor_amaterno}&t_nombre=${data.tutor_nombre}&t_email=${data.tutor_email}&e_apaterno=${data.emergencia_apaterno}&e_amaterno=${data.emergencia_amaterno}&e_nombre=${data.emergencia_nombre}&e_parentesco=${data.emergencia_parentesco}&e_telefono=${data.emergencia_tel}`;
+                window.location.href = url;
+            });
+        }
     </script>
 </body>
 </html>

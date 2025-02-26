@@ -1,3 +1,29 @@
+<?php
+$apaterno = isset($_GET['apaterno']) ? $_GET['apaterno'] : '';
+$amaterno = isset($_GET['amaterno']) ? $_GET['amaterno'] : '';
+$nombre = isset($_GET['nombre']) ? $_GET['nombre'] : '';
+$nacimiento = isset($_GET['nacimiento']) ? $_GET['nacimiento'] : '';
+$edad = isset($_GET['edad']) ? $_GET['edad'] : '';
+$curp = isset($_GET['curp']) ? $_GET['curp'] : '';
+$celular = isset($_GET['celular']) ? $_GET['celular'] : '';
+$email = isset($_GET['email']) ? $_GET['email'] : '';
+$telefono = isset($_GET['telefono']) ? $_GET['telefono'] : '';
+$calle = isset($_GET['calle']) ? $_GET['calle'] : '';
+$colonia = isset($_GET['colonia']) ? $_GET['colonia'] : '';
+$cp = isset($_GET['cp']) ? $_GET['cp'] : '';
+$municipio = isset($_GET['municipio']) ? $_GET['municipio'] : '';
+$t_apaterno = isset($_GET['t_apaterno']) ? $_GET['t_apaterno'] : '';
+$t_amaterno = isset($_GET['t_amaterno']) ? $_GET['t_amaterno'] : '';
+$t_nombre = isset($_GET['t_nombre']) ? $_GET['t_nombre'] : '';
+$t_telefono = isset($_GET['t_telefono']) ? $_GET['t_telefono'] : '';
+$t_celular = isset($_GET['t_celular']) ? $_GET['t_celular'] : '';
+$t_email = isset($_GET['t_email']) ? $_GET['t_email'] : '';
+$e_apaterno = isset($_GET['e_apaterno']) ? $_GET['e_apaterno'] : '';
+$e_amaterno = isset($_GET['e_amaterno']) ? $_GET['e_amaterno'] : '';
+$e_nombre = isset($_GET['e_nombre']) ? $_GET['e_nombre'] : '';
+$e_parentesco = isset($_GET['e_parentesco']) ? $_GET['e_parentesco'] : '';
+$e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -225,20 +251,35 @@
                             <h5 class="data-header">Información Personal</h5>
                             <dl class="row">
                                 <dt class="col-sm-4 text-secondary">Nombre completo</dt>
-                                <dd class="col-sm-8">Juan Pérez López</dd>
+                                <dd class="col-sm-8"><?php echo $nombre . ' ' . $apaterno . ' ' . $amaterno ?></dd>
                                 
                                 <dt class="col-sm-4 text-secondary">Fecha de nacimiento</dt>
-                                <dd class="col-sm-8">15/03/1995</dd>
-                                
+                                <dd class="col-sm-8"><?php echo $nacimiento ?></dd>
+
+                                <dt class="col-sm-4 text-secondary">Edad</dt>
+                                <dd class="col-sm-8"><?php echo $edad ?></dd>
+
+                                <dt class="col-sm-4 text-secondary">Curp</dt>
+                                <dd class="col-sm-8"><?php echo $curp ?></dd>
+
                                 <dt class="col-sm-4 text-secondary">Contacto</dt>
                                 <dd class="col-sm-8">
-                                    <div>55 1234 5678</div>
-                                    <div>juan.perez@instituto.edu</div>
+                                    <div><?php echo $celular ?></div>
+                                    <div><?php echo $telefono ?></div>
+                                    <div><?php echo $email ?></div>
+                                </dd>
+
+                                <dt class="col-sm-4 text-secondary">Dirección</dt>
+                                <dd class="col-sm-8">
+                                    <div><?php echo $calle ?></div>
+                                    <div><?php echo $colonia ?></div>
+                                    <div><?php echo $cp ?></div>
+                                    <div><?php echo $municipio ?></div>
                                 </dd>
                             </dl>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6">
                         <div class="data-card">
                             <h5 class="data-header">Información Académica</h5>
@@ -254,6 +295,40 @@
                             </dl>
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="data-card">
+                            <h5 class="data-header">Información del Tutor</h5>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-secondary">Nombre Completo</dt>
+                                <dd class="col-sm-8"><?php echo $t_nombre . ' ' . $t_apaterno . ' ' . $t_amaterno ?></dd>
+                                
+                                <dt class="col-sm-4 text-secondary">Contacto</dt>
+                                <dd class="col-sm-8">
+                                    <div><?php echo $t_celular ?></div>
+                                    <div><?php echo $t_telefono ?></div>
+                                    <div><?php echo $t_email ?></div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="data-card">
+                            <h5 class="data-header">Información de Emergencia</h5>
+                            <dl class="row">
+                                <dt class="col-sm-4 text-secondary">Nombre Completo</dt>
+                                <dd class="col-sm-8"><?php echo $e_nombre . ' ' . $e_apaterno . ' ' . $e_amaterno ?></dd>
+                                
+                                <dt class="col-sm-4 text-secondary">Contacto</dt>
+                                <dd class="col-sm-8">
+                                    <div><?php echo $e_parentesco . ' del alumn@' ?></div>
+                                    <div><?php echo $e_telefono ?></div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
 

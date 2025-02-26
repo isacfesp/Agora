@@ -22,7 +22,7 @@ if ($id) {
         $data = $result->fetch_assoc();
         echo json_encode($data);
     } else {
-        echo json_encode(['error' => 'Contacto no encontrado']);
+        echo json_encode(['error' => 'Alumno no encontrado']);
     }
     $stmt->close();
 } else {
