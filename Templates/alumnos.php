@@ -1,5 +1,6 @@
 <?php
 include("../Config/conexion.php");
+include("../Modules/Alumnos/metricasAlumnos.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,7 +22,7 @@ include("../Config/conexion.php");
         </div>
         <div class="metrics-container">
             <div class="metric-card">
-                <div class="metric-value">1,250</div>
+                <div class="metric-value"><?php echo $contar ?></div>
                 <div class="metric-label">Contactos totales</div>
             </div>
             <div class="metric-card">

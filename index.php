@@ -49,7 +49,7 @@ $conn->close();
     <!-- Menú lateral -->
     <div id="sidebar">
         <button id="menu-toggle"><i class="fas fa-bars"></i></button>
-        <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/home.html'">
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/home.php'">
             <i class="fas fa-home"></i><span>Inicio</span>
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/contactos.php'">
@@ -88,7 +88,7 @@ $conn->close();
         </div>
 
         <!-- Frame principal para mostrar el contenido -->
-        <iframe id="main-frame" src="Templates/home.html"></iframe>
+        <iframe id="main-frame" src="Templates/home.php"></iframe>
     </div>
 
 
