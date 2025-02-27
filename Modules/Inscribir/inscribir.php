@@ -158,13 +158,39 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                         <label for="emergencia_telefono">Teléfono:</label>
                         <input type="tel" class="form-control" minlength="10" pattern="[+()0-9\s-]+" id="emergencia_telefono" title="Debe contener al menos 10 dígitos" name="emergencia_telefono" placeholder="Teléfono" maxlength="20" required>
                     </div>
-                    <div class="form-group col-md-6 mt-3 d-flex justify-content-start">
-                        <button type="submit" class="btn btn-success btn-aceptar mr-2" name="submit">Guardar</button>
-                        <button class="btn print-button" type="button" onclick="document.forms[0].submit();"><i class="fas fa-file-pdf"></i> Imprimir</button>
-                    </div>
-
+                    
                 </div>
             </form>
+            <h5><strong>VALIDACIÓN DE DOCUMENTOS:</strong></h5>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="documento1" name="documento1">
+                    <label class="form-check-label" for="documento1">Documento 1</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="documento2" name="documento2">
+                    <label class="form-check-label" for="documento2">Documento 2</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="documento3" name="documento3">
+                    <label class="form-check-label" for="documento3">Documento 3</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="documento4" name="documento4">
+                    <label class="form-check-label" for="documento4">Documento 4</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="documento5" name="documento5">
+                    <label class="form-check-label" for="documento5">Documento 5</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="documento6" name="documento6">
+                    <label class="form-check-label" for="documento6">Documento 6</label>
+                </div>
+                <div class="form-group col-md-6 mt-3 d-flex justify-content-start">
+                        <button type="submit" class="btn btn-success btn-aceptar mr-2" name="submit">Guardar</button>
+                    </div>
+            </div>
             <!-- Bootstrap JS -->
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -183,7 +209,7 @@ $matriculaDB = $matricula + 1;
 
 <script>
     function openPDF() {
-        var pdfUrl = '../Modules/Inscribir/solicitud.php';
+        var pdfUrl = 'solicitud.php';
         window.open(pdfUrl, '_blank');
     }
 
