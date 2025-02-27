@@ -3,6 +3,8 @@ include "../Modules/Contacts/metricasContactos.php";
 include("../Modules/Alumnos/metricasAlumnos.php");
 $interesados = intval($contador);
 $inscritos = intval($contar);
+$semanal = intval($semana);
+$sabatino = intval($sabado);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -126,7 +128,7 @@ $inscritos = intval($contar);
       labels: ['Semanal', 'Sabatino'],
       datasets: [{
         label: 'Inscripciones',
-        data: [300, 150],
+        data: [<?php echo $semanal . ',' . $sabatino ?>],
         backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)'],
         borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
         borderWidth: 1
