@@ -36,7 +36,24 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                     </div>
                     <div class="form-group col-md-6">
                         <label for="periodo">Periodo:</label>
-                        <input type="text" class="form-control" id="periodo" name="periodo" placeholder="Periodo" required readonly>
+                        <select id="curso" name="curso" class="form-control">
+                            <option value="0">Selecciona una opción</option>
+                            <?php require '../../Config/conexion.php';
+                            $sql = "SELECT * FROM curso";
+                            $result = mysqli_query($connection, $sql);
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $curso = $row['periodo'];
+                                $sqlP = "SELECT * from periodo WHERE id_periodo = '$curso' ";
+                                $resultP = mysqli_query($connection, $sqlP);
+                                if (mysqli_num_rows($resultP) > 0) {
+                                    while ($row_p = mysqli_fetch_assoc($resultP)) {
+                                        echo '<option value="' . $row_p['id_periodo'] . '">' . $row_p['descripcion'] .  '</option>';
+                                    }
+                                } else {
+                                    echo '<option value="0">No hay periodos disponibles</option>';
+                                }
+                            } ?>
+                        </select>
                     </div>
                 </div>
                 <h5><strong>DATOS DEL ALUMNO:</strong></h5>
@@ -158,7 +175,10 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                         <label for="emergencia_telefono">Teléfono:</label>
                         <input type="tel" class="form-control" minlength="10" pattern="[+()0-9\s-]+" id="emergencia_telefono" title="Debe contener al menos 10 dígitos" name="emergencia_telefono" placeholder="Teléfono" maxlength="20" required>
                     </div>
-                    
+
+                </div>
+                <div class="form-group col-md-6 mt-3 d-flex justify-content-start">
+                    <button type="submit" class="btn btn-success btn-aceptar mr-2" name="submit">Guardar</button>
                 </div>
             </form>
             <h5><strong>VALIDACIÓN DE DOCUMENTOS:</strong></h5>
@@ -187,15 +207,17 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                     <input class="form-check-input" type="checkbox" id="documento6" name="documento6">
                     <label class="form-check-label" for="documento6">Documento 6</label>
                 </div>
-                <div class="form-group col-md-6 mt-3 d-flex justify-content-start">
-                        <button type="submit" class="btn btn-success btn-aceptar mr-2" name="submit">Guardar</button>
-                    </div>
             </div>
             <!-- Bootstrap JS -->
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
+
+<script>
+    const horarioU = document.getElementById('horario');
+</script>
 
 <?php
 include '../../Config/conexion.php';
@@ -204,6 +226,19 @@ $sql = "SELECT MAX(id_alumno) FROM alumno";
 $result = $connection->query($sql);
 $matricula = $result->fetch_row()[0];
 $matriculaDB = $matricula + 1;
+if ($matriculaDB < 10) {
+    $matriculaDB = "000" . $matriculaDB;
+} elseif ($matriculaDB < 100) {
+    $matriculaDB = "00" . $matriculaDB;
+} elseif ($matriculaDB < 1000) {
+    $matriculaDB = "0" . $matriculaDB;
+}
+
+$sql = "SELECT fecha FROM periodo WHERE id_periodo = '$curso'";
+$result = $connection->query($sql);
+$fecha = $result->fetch_row()[0];
+$horarioU = "<script>horarioU</script>";
+$matriculaU = $fecha . $horarioU . $matriculaDB;
 
 ?>
 
@@ -235,26 +270,7 @@ $matriculaDB = $matricula + 1;
         document.getElementById('overlay').style.display = 'none';
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        function matricula() {
-            const today = new Date();
-            let mes = today.getMonth() + 1;
-            let anio = today.getFullYear();
-
-            mes = (mes < 10) ? '0' + mes : mes;
-            anio = (anio < 10) ? '0' + anio : anio;
-
-            let año = anio.toString().slice(-2);
-            let matriculaDB = "<?php echo "$matriculaDB" ?>";
-
-            matriculaDB = (matriculaDB < 10) ? '00' + matriculaDB : (matriculaDB < 100 && matriculaDB > 10) ? '0' + matriculaDB : matriculaDB;
-            var hH = document.getElementById('horario').value;
-            var mM = document.getElementById('matricula');
-            mM.value = hH !== "0" ? mes + año + hH + matriculaDB : "";
-        }
-
-        document.getElementById('horario').addEventListener('change', matricula);
-    });
+    
 </script>
 
 <!--Ventanas emergentes -->
@@ -274,9 +290,12 @@ $matriculaDB = $matricula + 1;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['submit'])) {
 
+
+
+
         $datos = [
             'horario' => $_POST['horario'],
-            'matricula' => $_POST['matricula'],
+            'matricula' => $matriculaU,
             'apaterno' => $_POST['apaterno'],
             'amaterno' => $_POST['amaterno'],
             'nombre' => $_POST['nombre'],
@@ -301,23 +320,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'emergencia_nombre' => $_POST['emergencia_nombre'],
             'parentesco' => $_POST['parentesco'],
             'emergencia_telefono' => $_POST['emergencia_telefono'],
+            'curso' => $_POST['curso'],
+            'estado' => 0,
         ];
 
         include "../../Config/conexion.php";
 
-        $sql = "INSERT INTO alumno (horario, matricula, apaterno, amaterno, nombre, nacimiento, edad, curp, tel_fijo, tel_celular, email, calle, colonia, cp, municipio, tutor_apaterno, tutor_amaterno, tutor_nombre, tutor_tel_fijo, tutor_tel_celular, tutor_email, emergencia_apaterno, emergencia_amaterno, emergencia_nombre, emergencia_parentesco, emergencia_tel) 
-VALUES ('" . $datos['horario'] . "', '" . $datos['matricula'] . "', '" . $datos['apaterno'] . "', '" . $datos['amaterno'] . "', '" . $datos['nombre'] . "', '" . $datos['nacimiento'] . "', '" . $datos['edad'] . "', '" . $datos['curp'] . "', '" . $datos['telfijo'] . "', '" . $datos['celular'] . "', '" . $datos['email'] . "', '" . $datos['calle'] . "', '" . $datos['colonia'] . "', '" . $datos['codpostal'] . "', '" . $datos['municipio'] . "', '" . $datos['tutor_apaterno'] . "', '" . $datos['tutor_amaterno'] . "', '" . $datos['tutor_nombre'] . "', '" . $datos['tutor_telfijo'] . "', '" . $datos['tutor_celular'] . "', '" . $datos['tutor_email'] . "', '" . $datos['emergencia_apaterno'] . "', '" . $datos['emergencia_amaterno'] . "', '" . $datos['emergencia_nombre'] . "', '" . $datos['parentesco'] . "', '" . $datos['emergencia_telefono'] . "')";
+        $sql = "INSERT INTO alumno (horario, matricula, apaterno, amaterno, nombre, nacimiento, edad, curp, tel_fijo, tel_celular, email, calle, colonia, cp, municipio, tutor_apaterno, tutor_amaterno, tutor_nombre, tutor_tel_fijo, tutor_tel_celular, tutor_email, emergencia_apaterno, emergencia_amaterno, emergencia_nombre, emergencia_parentesco, emergencia_tel, estado, curso) 
+VALUES ('" . $datos['horario'] . "', '" . $datos['matricula'] . "', '" . $datos['apaterno'] . "', '" . $datos['amaterno'] . "', '" . $datos['nombre'] . "', '" . $datos['nacimiento'] . "', '" . $datos['edad'] . "', '" . $datos['curp'] . "', '" . $datos['telfijo'] . "', '" . $datos['celular'] . "', '" . $datos['email'] . "', '" . $datos['calle'] . "', '" . $datos['colonia'] . "',
+ '" . $datos['codpostal'] . "', '" . $datos['municipio'] . "', '" . $datos['tutor_apaterno'] . "', '" . $datos['tutor_amaterno'] . "', '" . $datos['tutor_nombre'] . "', '" . $datos['tutor_telfijo'] . "', '" . $datos['tutor_celular'] . "', '" . $datos['tutor_email'] . "', '" . $datos['emergencia_apaterno'] . "', '" . $datos['emergencia_amaterno'] . "', '" . $datos['emergencia_nombre'] . "',
+  '" . $datos['parentesco'] . "', '" . $datos['emergencia_telefono'] . "', '" . $datos['estado'] . "', '" . $datos['curso'] . "')";
 
         if ($connection->query($sql) === TRUE) {
             $_SESSION['datos'] = $datos;
 
-            header("Location: solicitudLlenado.php");
             echo "<script>
         window.onload = function() {
             document.getElementById('overlay').style.display = 'flex';
         }
         </script>";
-            exit();
         } else {
             echo "Error: " . $sql . "<br>" . $connection->error;
         }
