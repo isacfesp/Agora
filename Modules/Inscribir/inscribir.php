@@ -13,39 +13,7 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
     <title>Inscribir</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            background-color: #f7f9fb;
-        }
-
-        .custom-container {
-            background-color: white;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 10%;
-            position: relative;
-        }
-
-        .print-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: red;
-            color: white;
-        }
-
-        .btn-aceptar {
-            background-color: #BBCD5D;
-            border: #BBCD5D;
-            color: #fff;
-        }
-
-        .btn-aceptar:hover {
-            background-color: #aabb57;
-            border-color: #aabb57;
-        }
-    </style>
+    <link rel="stylesheet" href="../../Assets/CSS/inscribir.css">
 </head>
 
 <body>

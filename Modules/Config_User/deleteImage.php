@@ -27,5 +27,5 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-header("Location: perfil.php"); // Redirige al perfil
+header("Location: config.php"); // Redirige al perfil
 ?>
