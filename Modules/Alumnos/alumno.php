@@ -24,6 +24,7 @@ $e_nombre = isset($_GET['e_nombre']) ? $_GET['e_nombre'] : '';
 $e_parentesco = isset($_GET['e_parentesco']) ? $_GET['e_parentesco'] : '';
 $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,17 +35,17 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #BBCD5D;
-            --primary-hover: #A8B850;
-            --secondary: #2D3436;
-            --success: #28A745;
-            --danger: #DC3545;
-            --warning: #FFC107;
-            --text-primary: #2D3436;
-            --text-secondary: #636E72;
-            --border: #E0E5E9;
+            --primary: #2C3E50;
+            --primary-hover: #1A252F;
+            --secondary: #34495E;
+            --success: #27AE60;
+            --danger: #E74C3C;
+            --warning: #F1C40F;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --border: #BDC3C7;
             --surface: #FFFFFF;
-            --background: #f7f9fb;
+            --background: #ECF0F1;
         }
 
         body {
@@ -59,15 +60,14 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
             margin: 2rem auto;
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 12px;
             overflow: hidden;
         }
 
-        /* Navegación mejorada */
         .nav-tabs {
             border-bottom: 2px solid var(--border);
             padding: 0 1.5rem;
-            background: #FCFCFC;
+            background: var(--surface);
         }
 
         .nav-link {
@@ -82,37 +82,26 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
 
         .nav-link.active {
             background: var(--primary);
-            color: #BBCD5D;
-            border-radius: 4px 4px 0 0;
+            color: var(--surface);
+            border-radius: 8px 8px 0 0;
             border: none;
             box-shadow: 0 -2px 4px rgba(0,0,0,0.03);
-        }
-
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--surface);
         }
 
         .nav-link:hover:not(.active) {
             background: #F5F5F5;
         }
 
-        /* Secciones de contenido */
         .tab-content {
             padding: 2rem;
         }
 
-        /* Componentes de datos */
         .data-card {
             padding: 1.5rem;
-            border-radius: 6px;
+            border-radius: 8px;
             margin-bottom: 1.5rem;
             background: var(--surface);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .data-header {
@@ -125,13 +114,12 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
             border-bottom: 1px solid var(--border);
         }
 
-        /* Sistema de botones */
         .btn-primary {
             background: var(--primary);
             border: none;
             color: var(--surface);
             padding: 0.75rem 1.5rem;
-            border-radius: 4px;
+            border-radius: 6px;
             transition: all 0.2s ease;
         }
 
@@ -145,13 +133,12 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
             border: 1px solid var(--border);
             color: var(--text-primary);
             padding: 0.75rem 1.5rem;
-            border-radius: 4px;
+            border-radius: 6px;
         }
 
-        /* Tablas profesionales */
         .table-custom {
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 8px;
             overflow: hidden;
         }
 
@@ -171,11 +158,10 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
             vertical-align: middle;
         }
 
-        /* Sistema de alertas */
         .alert-card {
             padding: 1.5rem;
             border-left: 4px solid;
-            border-radius: 4px;
+            border-radius: 6px;
             margin-bottom: 1.5rem;
         }
 
@@ -194,18 +180,42 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
             background: #E8F5E9;
         }
 
-        /* Filtros y controles */
         .filter-container {
             background: #FAFAFA;
             padding: 1.5rem;
-            border-radius: 6px;
+            border-radius: 8px;
             margin-bottom: 2rem;
         }
 
         .form-select {
             border: 1px solid var(--border);
-            border-radius: 4px;
+            border-radius: 6px;
             padding: 0.75rem 1rem;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-section img {
+            margin-left: 2%;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 1.5rem;
+        }
+
+        .profile-section h2 {
+            margin: 0;
+            font-size: 1.75rem;
+            color: var(--text-primary);
+        }
+
+        .profile-section p {
+            margin: 0;
+            color: var(--text-secondary);
         }
     </style>
 </head>
@@ -245,19 +255,24 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
         <div class="tab-content">
             <!-- Sección Datos -->
             <div class="tab-pane fade show active" id="datos">
+                <div class="profile-section">
+                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Foto del Alumno">
+                    <div>
+                        <h2><?php echo $nombre . ' ' . $apaterno . ' ' . $amaterno ?></h2>
+                        <p>Matrícula: 02251001</p>
+                    </div>
+                </div>
+
                 <div class="row g-4">
                     <div class="col-md-6">
                         <div class="data-card">
                             <h5 class="data-header">Información Personal</h5>
                             <dl class="row">
-                                <dt class="col-sm-4 text-secondary">Nombre completo</dt>
-                                <dd class="col-sm-8"><?php echo $nombre . ' ' . $apaterno . ' ' . $amaterno ?></dd>
-                                
                                 <dt class="col-sm-4 text-secondary">Fecha de nacimiento</dt>
                                 <dd class="col-sm-8"><?php echo $nacimiento ?></dd>
 
                                 <dt class="col-sm-4 text-secondary">Edad</dt>
-                                <dd class="col-sm-8"><?php echo $edad ?></dd>
+                                <dd class="col-sm-8"><?php echo $edad ?> años</dd>
 
                                 <dt class="col-sm-4 text-secondary">Curp</dt>
                                 <dd class="col-sm-8"><?php echo $curp ?></dd>
@@ -287,16 +302,11 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
                                 <dt class="col-sm-4 text-secondary">Programa</dt>
                                 <dd class="col-sm-8">Inyección electrónica</dd>
                                 
-                                <dt class="col-sm-4 text-secondary">Matrícula</dt>
-                                <dd class="col-sm-8">02251001</dd>
-                                
                                 <dt class="col-sm-4 text-secondary">Promedio</dt>
                                 <dd class="col-sm-8">8.9</dd>
                             </dl>
                         </div>
-                    </div>
 
-                    <div class="col-md-6">
                         <div class="data-card">
                             <h5 class="data-header">Información del Tutor</h5>
                             <dl class="row">
@@ -311,9 +321,7 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
                                 </dd>
                             </dl>
                         </div>
-                    </div>
 
-                    <div class="col-md-6">
                         <div class="data-card">
                             <h5 class="data-header">Información de Emergencia</h5>
                             <dl class="row">
@@ -328,7 +336,6 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
                             </dl>
                         </div>
                     </div>
-                    
                 </div>
             </div>
 
