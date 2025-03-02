@@ -114,6 +114,10 @@ $conn->close();
                 <i class='bx bx-log-out'></i>
                 Cerrar Sesión
             </button>
+            <a href="../../Templates/ajustes_avanzados.php" class="btn-advanced-settings">
+                <i class='bx bx-cog'></i>
+                Ajustes Avanzados
+            </a>
             <div class="legal-links">
                 <a href="#">Términos y Condiciones</a>
                 <a href="#">Política de Privacidad</a>
