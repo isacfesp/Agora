@@ -42,7 +42,7 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                             $sql = "SELECT * FROM curso";
                             $result = mysqli_query($connection, $sql);
                             while ($row = mysqli_fetch_assoc($result)) {
-                                $curso = $row['id_periodo'];
+                                $curso = $row['periodo'];
                                 $sqlP = "SELECT * from periodo WHERE id_periodo = '$curso' ";
                                 $resultP = mysqli_query($connection, $sqlP);
                                 if (mysqli_num_rows($resultP) > 0) {
@@ -222,7 +222,7 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
 <?php
 include '../../Config/conexion.php';
 
-// Get sequential number
+
 $sql = "SELECT MAX(id_alumno) FROM alumno";
 $result = $connection->query($sql);
 $lastId = $result->fetch_row()[0];
@@ -233,15 +233,13 @@ if ($secuencial < 10) {
     $secuencial = "0" . $secuencial;
 }
 
-// Get year from periodo table based on selected curso
 if (isset($_POST['curso'])) {
     $curso_id = $_POST['curso'];
     $sqlPeriodo = "SELECT fecha FROM periodo WHERE id_periodo = '$curso_id'";
-    $resultPeriodo = $connection->query($sqlPeriodo);
-    if ($rowPeriodo = $resultPeriodo->fetch_assoc()) {
-        $year = substr($rowPeriodo['fecha'], 0, 4);
-        // Create matricula: YYYY + horario + sequential number
-        $matriculaU = $year . $_POST['horario'] . $secuencial;
+    $result = mysqli_query($connection, $sqlPeriodo);
+    if ($rowPeriodo =mysqli_fetch_assoc($result)) {
+        $fecha = $rowPeriodo['fecha'];
+        $matriculaU = $fecha . $_POST['horario'] . $secuencial;
     }
 }
 ?>
@@ -278,7 +276,7 @@ if (isset($_POST['curso'])) {
 </script>
 
 <!--Ventanas emergentes -->
-<div class="overlay" id="overlay" style="display: none;">
+<div class="overlay" id="overlay" style="display: flex;">
     <div class="popup">
         <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
             <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />

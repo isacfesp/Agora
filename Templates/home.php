@@ -24,7 +24,7 @@ $sabatino = isset($sabado) ? intval($sabado) : 0;
       overflow-x: hidden;
     }
     .container {
-      max-width: 1200px;
+      max-width: 95%;
       margin: 0 auto;
     }
     h1 {
