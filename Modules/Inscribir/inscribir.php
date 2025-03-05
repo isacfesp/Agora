@@ -254,7 +254,11 @@ if (isset($_POST['curso'])) {
         const nacimientoInput = document.getElementById('nacimiento').value;
         const nacimiento = new Date(nacimientoInput);
         const actual = new Date();
-        if (actual.getMonth() >= nacimiento.getMonth()) {
+        if(actual.getMonth() > nacimiento.getMonth()){
+            let edad = actual.getFullYear() - nacimiento.getFullYear();
+            document.getElementById('edad').value = edad;
+        }
+        else if (actual.getMonth() == nacimiento.getMonth()) {
             if (actual.getDate() >= nacimiento.getDate()) {
                 let edad = actual.getFullYear() - nacimiento.getFullYear();
                 document.getElementById('edad').value = edad;
