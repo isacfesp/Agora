@@ -35,10 +35,17 @@ include("../Modules/Alumnos/metricasAlumnos.php");
             </div>
         </div>
         <div class="filter-container mb-3 d-flex justify-content-between align-items-center">
-        <input type="date" id="startDate" class="form-control me-2" style="width: 160px;" placeholder="Desde">
-                <input type="date" id="endDate" class="form-control me-2" style="width: 160px;" placeholder="Hasta" disabled>
-                <button class="btn btn-success" id="filterDate"><i class="fas fa-filter"></i> Filtrar</button>
-            </div>  
+            <select id="periodoFilter" class="form-control me-2" style="width: 200px;">
+                <option value="">Todos los periodos</option>
+                <?php 
+                $sqlPeriodos = "SELECT * FROM periodo";
+                $resultPeriodos = mysqli_query($connection, $sqlPeriodos);
+                while ($rowPeriodo = mysqli_fetch_assoc($resultPeriodos)) {
+                    echo '<option value="' . $rowPeriodo['id_periodo'] . '">' . $rowPeriodo['descripcion'] . '</option>';
+                }
+                ?>
+            </select>
+        </div>  
             <table id="alumnostable" class="table table-striped">
                 <thead>
                     <tr>
@@ -92,6 +99,9 @@ include("../Modules/Alumnos/metricasAlumnos.php");
                     ajax: {
                         url: '../Modules/Alumnos/fetch_alumnos.php',
                         dataSrc: '',
+                        data: function(d) {
+                            d.periodo = $('#periodoFilter').val();
+                        }
                     },
                     language: {
                     "decimal": ",",
@@ -132,15 +142,13 @@ include("../Modules/Alumnos/metricasAlumnos.php");
                 ]
                 });
 
-                $('#filterDate').click(function () {
+                $('#periodoFilter').on('change', function() {
+                    table.ajax.reload();
+                });
+            $('#filterDate').click(function () {
                 const startDate = $('#startDate').val();
                 const endDate = $('#endDate').val();
-
-            /*    if (startDate && endDate) {
-                    table.ajax.url(`../Modules/Contacts/api_contactos.php?start=${startDate}&end=${endDate}`).load();
-                } else {
-                    table.ajax.url('../Modules/Contacts/api_contactos.php').load();
-                }  */
+                table.ajax.reload();
             });
         });
 

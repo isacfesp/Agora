@@ -1,31 +1,19 @@
 <?php
-function fetchAlumnos()
-{
-    $host = 'localhost';
-    $user = 'root';
-    $password = '';
-    $dbname = 'agora';
+include("../../Config/conexion.php");
 
-    $conn = new mysqli($host, $user, $password, $dbname);
-    $conn->set_charset("utf8");
-    if ($conn->connect_error) {
-        die('Error de conexión: ' . $conn->connect_error);
-    }
+$periodo = isset($_GET['periodo']) ? $_GET['periodo'] : '';
 
-    $stmt = $conn->prepare("SELECT * FROM alumno");
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $data = [];
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
-
-    $stmt->close();
-    $conn->close();
-
-    header('Content-Type: application/json');
-    echo json_encode($data);
+$sql = "SELECT * FROM alumno";
+if (!empty($periodo)) {
+    $sql .= " WHERE curso = '$periodo'";
 }
-fetchAlumnos();
+
+$result = mysqli_query($connection, $sql);
+$data = array();
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $data[] = $row;
+}
+
+echo json_encode($data);
 ?>

@@ -42,7 +42,7 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                             $sql = "SELECT * FROM curso";
                             $result = mysqli_query($connection, $sql);
                             while ($row = mysqli_fetch_assoc($result)) {
-                                $curso = $row['periodo'];
+                                $curso = $row['id_periodo'];
                                 $sqlP = "SELECT * from periodo WHERE id_periodo = '$curso' ";
                                 $resultP = mysqli_query($connection, $sqlP);
                                 if (mysqli_num_rows($resultP) > 0) {
@@ -50,7 +50,7 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                                         echo '<option value="' . $row_p['id_periodo'] . '">' . $row_p['descripcion'] .  '</option>';
                                     }
                                 } else {
-                                    echo '<option value="0">No hay periodos disponibles</option>';
+                                    echo '<option value="' . $row_p['id_periodo'] . '">' . $row_p['descripcion'] .  '</option>';
                                 }
                             } ?>
                         </select>
@@ -222,24 +222,28 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
 <?php
 include '../../Config/conexion.php';
 
+// Get sequential number
 $sql = "SELECT MAX(id_alumno) FROM alumno";
 $result = $connection->query($sql);
-$matricula = $result->fetch_row()[0];
-$matriculaDB = $matricula + 1;
-if ($matriculaDB < 10) {
-    $matriculaDB = "000" . $matriculaDB;
-} elseif ($matriculaDB < 100) {
-    $matriculaDB = "00" . $matriculaDB;
-} elseif ($matriculaDB < 1000) {
-    $matriculaDB = "0" . $matriculaDB;
+$lastId = $result->fetch_row()[0];
+$secuencial = ($lastId + 1);
+if ($secuencial < 10) {
+    $secuencial = "00" . $secuencial;
+} elseif ($secuencial < 100) {
+    $secuencial = "0" . $secuencial;
 }
 
-$sql = "SELECT fecha FROM periodo WHERE id_periodo = '$curso'";
-$result = $connection->query($sql);
-$fecha = $result->fetch_row()[0];
-$horarioU = "<script>horarioU</script>";
-$matriculaU = $fecha . $horarioU . $matriculaDB;
-
+// Get year from periodo table based on selected curso
+if (isset($_POST['curso'])) {
+    $curso_id = $_POST['curso'];
+    $sqlPeriodo = "SELECT fecha FROM periodo WHERE id_periodo = '$curso_id'";
+    $resultPeriodo = $connection->query($sqlPeriodo);
+    if ($rowPeriodo = $resultPeriodo->fetch_assoc()) {
+        $year = substr($rowPeriodo['fecha'], 0, 4);
+        // Create matricula: YYYY + horario + sequential number
+        $matriculaU = $year . $_POST['horario'] . $secuencial;
+    }
+}
 ?>
 
 <script>
@@ -289,6 +293,7 @@ $matriculaU = $fecha . $horarioU . $matriculaDB;
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['submit'])) {
+
 
 
 
