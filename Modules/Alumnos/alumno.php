@@ -23,6 +23,7 @@ $e_amaterno = isset($_GET['e_amaterno']) ? $_GET['e_amaterno'] : '';
 $e_nombre = isset($_GET['e_nombre']) ? $_GET['e_nombre'] : '';
 $e_parentesco = isset($_GET['e_parentesco']) ? $_GET['e_parentesco'] : '';
 $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
+$matricula = isset($_GET['matricula']) ? $_GET['matricula'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +76,7 @@ $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Foto del Alumno">
                     <div>
                         <h2><?php echo $nombre . ' ' . $apaterno . ' ' . $amaterno ?></h2>
-                        <p>Matrícula: 02251001</p>
+                        <p>Matrícula: <?php echo $matricula ?></p>
                     </div>
                 </div>
 
