@@ -13,6 +13,7 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
     <title>Inscribir</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://unpkg.com/mexico-cp@latest/dist/mexico-cp.min.js"></script> <!-- Librería javascrript para códigos postales -->
     <link rel="stylesheet" href="../../Assets/CSS/inscribir.css">
 </head>
 
@@ -103,20 +104,30 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                 </div>
                 <h5><strong>DIRECCIÓN:</strong></h5>
                 <div class="form-group">
-                    <label for="calle">Calle y No.:</label>
-                    <input type="text" class="form-control" id="calle" name="calle" placeholder="Calle" maxlength="150" required>
-                </div>
-                <div class="form-group">
-                    <label for="colonia">Colonia:</label>
-                    <input type="text" class="form-control" id="colonia" name="colonia" placeholder="Colonia" maxlength="150" required>
-                </div>
-                <div class="form-group">
                     <label for="codpostal">C.P:</label>
-                    <input type="number" class="form-control" id="codpostal" name="codpostal" placeholder="Código Postal" title="Debe contener 5 dígitos" pattern="\d{5}" maxlength="5" required>
+                    <input type="number" class="form-control" id="codpostal" name="codpostal" placeholder="Código Postal" title="Debe contener 5 dígitos" pattern="\d{5}" maxlength="5" onchange="codigoP()" required>
                 </div>
                 <div class="form-group">
                     <label for="municipio">Municipio:</label>
-                    <input type="text" class="form-control" id="municipio" name="municipio" placeholder="Municipio" maxlength="150" required>
+                    <input type="text" class="form-control" id="municipio" name="municipio" placeholder="Municipio" maxlength="150" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="colonia">Colonia:</label>
+                    <select class="form-control" name="colonia" id="colonia" required>
+                        <option value="0"></option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                        <option value="4"></option>
+                        <option value="5"></option>
+                        <option value="6"></option>
+                        <option value="7"></option>
+                        <option value="8"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="calle">Calle y No.:</label>
+                    <input type="text" class="form-control" id="calle" name="calle" placeholder="Calle" maxlength="150" required>
                 </div>
                 <h5><strong>DATOS DEL PADRE O TUTOR:</strong></h5>
                 <div class="form-row">
@@ -270,6 +281,14 @@ if (isset($_POST['curso'])) {
             let edad = actual.getFullYear() - nacimiento.getFullYear() - 1;
             document.getElementById('edad').value = edad;
         }
+    }
+
+    function codigoP(){
+        const mexicoCP = window.mexicoCP;
+        const cp = document.getElementById('codpostal').value;
+        mexicoCP.getMunicipioByCP(cp , function(municipio){
+            document.getElementById('municipio').value = municipio;
+        }) 
     }
 
     function closePopup() {
