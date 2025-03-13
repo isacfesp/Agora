@@ -24,6 +24,38 @@ $e_nombre = isset($_GET['e_nombre']) ? $_GET['e_nombre'] : '';
 $e_parentesco = isset($_GET['e_parentesco']) ? $_GET['e_parentesco'] : '';
 $e_telefono = isset($_GET['e_telefono']) ? $_GET['e_telefono'] : '';
 $matricula = isset($_GET['matricula']) ? $_GET['matricula'] : '';
+
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "agora";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Query to get payments from caja table
+$payments = [];
+if ($matricula) {
+    $sql = "SELECT c.id_pago, c.monto, c.concepto 
+            FROM caja c
+            JOIN inscripcion i ON c.id_inscripcion = i.id_inscripcion
+            JOIN alumno a ON i.id_alumno = a.id_alumno
+            WHERE a.matricula = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $matricula);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $payments[] = $row;
+    }
+    $stmt->close();
+}
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -158,60 +190,99 @@ $matricula = isset($_GET['matricula']) ? $_GET['matricula'] : '';
 
             <!-- Sección Pagos -->
             <div class="tab-pane fade" id="pagos">
-                <div class="filter-container">
-                    <div class="row g-3 align-items-center">
+                <!-- Payment Form -->
+                <div class="data-card mb-4">
+                    <h5 class="data-header">Agregar Pago</h5>
+                    <form id="paymentForm" class="row g-3">
+                        <input type="hidden" name="id_inscripcion" value="<?php echo $matricula ?>">
+                        
                         <div class="col-md-4">
-                            <select class="form-select">
-                                <option>Filtrar por periodo</option>
-                                <option>02/25</option>
-                                <option>01/25</option>
+                            <label class="form-label">Tipo de Pago</label>
+                            <select class="form-select" id="tipoPago" name="tipoPago" required>
+                                <option value="">Seleccionar tipo</option>
+                                <option value="colegiatura">Colegiatura Mensual</option>
+                                <option value="caja">Pago de Caja</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
-                            <select class="form-select">
-                                <option>Filtrar por estatus</option>
-                                <option>Completado</option>
-                                <option>Pendiente</option>
+                        
+                        <!-- Campos para Colegiatura -->
+                        <div class="col-md-8" id="colegiaturaFields" style="display: none;">
+                            <label class="form-label">Mes de Pago</label>
+                            <select class="form-select" name="mes">
+                                <option value="Enero">Enero</option>
+                                <option value="Febrero">Febrero</option>
+                                <option value="Marzo">Marzo</option>
+                                <option value="Abril">Abril</option>
+                                <option value="Mayo">Mayo</option>
+                                <option value="Junio">Junio</option>
+                                <option value="Julio">Julio</option>
+                                <option value="Agosto">Agosto</option>
+                                <option value="Septiembre">Septiembre</option>
+                                <option value="Octubre">Octubre</option>
+                                <option value="Noviembre">Noviembre</option>
+                                <option value="Diciembre">Diciembre</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
-                            <button class="btn-primary w-100">
-                                <i class="fas fa-filter me-2"></i>Aplicar Filtros
+                        
+                        <!-- Campos para Caja -->
+                        <div id="cajaFields" style="display: none;">
+                            <div class="col-md-12">
+                                <label class="form-label">Concepto</label>
+                                <select class="form-select" id="concepto" name="concepto">
+                                    <option value="">Seleccionar concepto</option>
+                                    <option value="Inscripción" data-monto="2000">Inscripción - $2,000</option>
+                                    <option value="Seguro escolar" data-monto="600">Seguro escolar - $600</option>
+                                    <option value="Trámites administrativos" data-monto="3000">Trámites administrativos - $3,000</option>
+                                    <option value="Playera mensual" data-monto="430">Playera mensual - $430</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <label class="form-label">Monto</label>
+                                <input type="number" class="form-control" id="monto" name="monto" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 mt-3">
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save me-2"></i>Guardar Pago
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
-
+                
+                <!-- Payment History -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="data-header">Registro de Pagos</h5>
-                    <button class="btn-primary">
-                        <i class="fas fa-plus me-2"></i>Cargar Monto
+                    <h5 class="data-header">Historial de Pagos</h5>
+                    <button class="btn-primary" onclick="imprimirHistorial()">
+                        <i class="fas fa-print me-2"></i>Imprimir Historial
                     </button>
                 </div>
-
+                
                 <div class="table-responsive">
-                    <table class="table table-custom">
+                    <table class="table table-custom" id="paymentsTable">
                         <thead>
                             <tr>
                                 <th>Fecha</th>
+                                <th>Tipo</th>
                                 <th>Concepto</th>
                                 <th>Monto</th>
-                                <th>Estatus</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>16/02/2025</td>
-                                <td>Colegiatura febrero 2025</td>
-                                <td>$2,500.00</td>
-                                <td><span class="badge bg-success">Completado</span></td>
-                                <td>
-                                    <button class="btn-secondary">
-                                        <i class="fas fa-print"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php foreach ($payments as $payment): ?>
+                                <tr>
+                                    <td></td> <!-- Fecha is ignored as requested -->
+                                    <td>Caja</td>
+                                    <td><?php echo $payment['concepto']; ?></td>
+                                    <td><?php echo $payment['monto']; ?></td>
+                                    <td>
+                                        <button class="btn-secondary" onclick="imprimirRecibo(<?php echo $payment['id_pago']; ?>, 'caja')">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -314,3 +385,26 @@ $matricula = isset($_GET['matricula']) ? $_GET['matricula'] : '';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<script>
+$(document).ready(function() {
+    $('#tipoPago').change(function() {
+        if (this.value === 'colegiatura') {
+            $('#colegiaturaFields').show();
+            $('#cajaFields').hide();
+        } else if (this.value === 'caja') {
+            $('#colegiaturaFields').hide();
+            $('#cajaFields').show();
+        } else {
+            $('#colegiaturaFields').hide();
+            $('#cajaFields').hide();
+        }
+    });
+
+    $('#concepto').change(function() {
+        const monto = $(this).find(':selected').data('monto');
+        $('#monto').val(monto);
+    });
+
+});
+</script>
