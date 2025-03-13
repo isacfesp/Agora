@@ -13,7 +13,6 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
     <title>Inscribir</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://unpkg.com/mexico-cp@latest/dist/mexico-cp.min.js"></script> <!-- Librería javascrript para códigos postales -->
     <link rel="stylesheet" href="../../Assets/CSS/inscribir.css">
 </head>
 
@@ -39,21 +38,7 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                         <label for="periodo">Periodo:</label>
                         <select id="curso" name="curso" class="form-control">
                             <option value="0">Selecciona una opción</option>
-                            <?php require '../../Config/conexion.php';
-                            $sql = "SELECT * FROM curso";
-                            $result = mysqli_query($connection, $sql);
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $curso = $row['periodo'];
-                                $sqlP = "SELECT * from periodo WHERE id_periodo = '$curso' ";
-                                $resultP = mysqli_query($connection, $sqlP);
-                                if (mysqli_num_rows($resultP) > 0) {
-                                    while ($row_p = mysqli_fetch_assoc($resultP)) {
-                                        echo '<option value="' . $row_p['id_periodo'] . '">' . $row_p['descripcion'] .  '</option>';
-                                    }
-                                } else {
-                                    echo '<option value="' . $row_p['id_periodo'] . '">' . $row_p['descripcion'] .  '</option>';
-                                }
-                            } ?>
+                           
                         </select>
                     </div>
                 </div>
@@ -109,20 +94,13 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                 </div>
                 <div class="form-group">
                     <label for="municipio">Municipio:</label>
-                    <input type="text" class="form-control" id="municipio" name="municipio" placeholder="Municipio" maxlength="150" readonly>
+                    <input type="text" class="form-control" id="muni" name="municipio" placeholder="Municipio" maxlength="150" readonly>
                 </div>
                 <div class="form-group">
                     <label for="colonia">Colonia:</label>
                     <select class="form-control" name="colonia" id="colonia" required>
-                        <option value="0"></option>
-                        <option value="1"></option>
-                        <option value="2"></option>
-                        <option value="3"></option>
-                        <option value="4"></option>
-                        <option value="5"></option>
-                        <option value="6"></option>
-                        <option value="7"></option>
-                        <option value="8"></option>
+                        <option value="0">Colonias</option>
+                       <?php print_r( '<option value="" ' . $coloni . ' >' . $coloni . '</option> '); ?>
                     </select>
                 </div>
                 <div class="form-group">
@@ -196,15 +174,15 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
             <div class="form-group">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="documento1" name="documento1">
-                    <label class="form-check-label" for="documento1">Documento 1</label>
+                    <label class="form-check-label" for="documento1">Acta de Nacimiento</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="documento2" name="documento2">
-                    <label class="form-check-label" for="documento2">Documento 2</label>
+                    <label class="form-check-label" for="documento2">CURP</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="documento3" name="documento3">
-                    <label class="form-check-label" for="documento3">Documento 3</label>
+                    <label class="form-check-label" for="documento3">Comprobante de domicilio</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="documento4" name="documento4">
@@ -255,6 +233,7 @@ if (isset($_POST['curso'])) {
 }
 ?>
 
+
 <script>
     function openPDF() {
         var pdfUrl = 'solicitud.php';
@@ -283,12 +262,46 @@ if (isset($_POST['curso'])) {
         }
     }
 
-    function codigoP(){
-        const mexicoCP = window.mexicoCP;
-        const cp = document.getElementById('codpostal').value;
-        mexicoCP.getMunicipioByCP(cp , function(municipio){
-            document.getElementById('municipio').value = municipio;
-        }) 
+    function CodigoP(){
+        <?php
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $codigo= $_POST['codpostal'];
+            $consulta = "https://api.copomex.com/query/get_colonia_por_cp/$codigo?token=5ca44c82-8279-4e9c-acb6-456663c20d13";
+            $ch = curl_init($consulta);
+            curl_setopt($ch , CURLOPT_RETURNTRANSFER , 1);
+            curl_setopt($ch , CURLOPT_TIMEOUT , 10);
+            $coloniass = curl_exec($ch);
+            $httpcode = curl_getinfo($ch , CURLINFO_HTTP_CODE);
+            $error_connection = curl_error($ch);
+            curl_close($ch);
+
+            if($httpcode==200){
+               $coloni = json_decode($coloniass);
+               echo $coloni;
+                
+            } else{
+                echo "Error: " . $error_connection;
+            }
+        }
+        ?>
+        
+     /*   var codigo = document.getElementById('codpostal').value;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                var colonias = JSON.parse(this.responseText);
+                var select = document.getElementById('colonia');
+                select.innerHTML = "";
+                for(var i = 0; i < colonias.length; i ++){
+                    var option = document.createElement('option');
+                    option.value = colonias[i];
+                    option.text = colonias[i];
+                    select.appendChild(option);
+                }
+            }
+        };
+        xmlhttp.open('GET' , 'colonias.php?codpostal=' + codigo , true);
+        xmlhttp.send();  */
     }
 
     function closePopup() {
