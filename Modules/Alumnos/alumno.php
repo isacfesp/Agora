@@ -45,20 +45,41 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Query to get payments from caja table
 $payments = [];
+$existingPayments = [];
 if ($matricula) {
-    $sql = "SELECT c.id_pago, c.monto, c.concepto 
-            FROM caja c
-            JOIN inscripcion i ON c.id_inscripcion = i.id_inscripcion
-            JOIN alumno a ON i.id_alumno = a.id_alumno
-            WHERE a.matricula = ?";
+    $sql = "SELECT id_alumno FROM alumno WHERE matricula = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $matricula);
     $stmt->execute();
     $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $payments[] = $row;
+    $id_alumno = null;
+    if ($row = $result->fetch_assoc()) {
+        $id_alumno = $row['id_alumno'];
+    }
+
+    if ($id_alumno) {
+        $sql = "SELECT id_inscripcion FROM inscripcion WHERE id_alumno = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id_alumno);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $id_inscripcion = null;
+        if ($row = $result->fetch_assoc()) {
+            $id_inscripcion = $row['id_inscripcion'];
+        }
+
+        if ($id_inscripcion) {
+            $sql = "SELECT id_pago, monto, concepto FROM caja WHERE id_inscripcion = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id_inscripcion);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            while ($row = $result->fetch_assoc()) {
+                $payments[] = $row;
+                $existingPayments[] = $row['concepto'];
+            }
+        }
     }
 }
 
@@ -79,6 +100,8 @@ $conn->close();
 
 <body>
     <div class="main-container">
+        <!-- Notification Container -->
+        <div id="notification-container" class="notification-container"></div>
         <!-- Header -->
         <div class="nav-tabs">
             <ul class="nav">
@@ -202,15 +225,20 @@ $conn->close();
                 <!-- Payment Form -->
                 <div class="data-card mb-4">
                     <h5 class="data-header">Agregar Pago</h5>
-                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="row g-3">
-                        <input type="hidden" name="id_inscripcion" value="<?php echo $matricula ?>">
+                    <form method="post" action="guardar_pago.php" class="row g-3">
+                        <input type="hidden" name="id_alumno" value="<?php echo $id_alumno; ?>">
+                        <input type="hidden" name="id_inscripcion" value="<?php echo $matricula; ?>">
 
                         <div class="col-md-4">
                             <label class="form-label">Tipo de Pago</label>
                             <select class="form-select" id="tipoPago" name="tipoPago" required>
                                 <option value="">Seleccionar tipo</option>
-                                <option value="colegiatura">Colegiatura Mensual</option>
-                                <option value="caja">Pago de Caja</option>
+                                <?php if (!in_array('colegiatura', $existingPayments)): ?>
+                                    <option value="colegiatura">Colegiatura Mensual</option>
+                                <?php endif; ?>
+                                <?php if (!in_array('caja', $existingPayments)): ?>
+                                    <option value="caja">Pago de Caja</option>
+                                <?php endif; ?>
                             </select>
                         </div>
 
@@ -239,10 +267,18 @@ $conn->close();
                                 <label class="form-label">Concepto</label>
                                 <select class="form-select" id="concepto" name="concepto">
                                     <option value="">Seleccionar concepto</option>
-                                    <option value="Inscripción" data-monto="2000">Inscripción - $2,000</option>
-                                    <option value="Seguro escolar" data-monto="600">Seguro escolar - $600</option>
-                                    <option value="Trámites administrativos" data-monto="3000">Trámites administrativos - $3,000</option>
-                                    <option value="Playera mensual" data-monto="430">Playera mensual - $430</option>
+                                    <?php if (!in_array('Inscripción', $existingPayments)): ?>
+                                        <option value="Inscripción" data-monto="2000">Inscripción - $2,000</option>
+                                    <?php endif; ?>
+                                    <?php if (!in_array('Seguro escolar', $existingPayments)): ?>
+                                        <option value="Seguro escolar" data-monto="600">Seguro escolar - $600</option>
+                                    <?php endif; ?>
+                                    <?php if (!in_array('Trámites administrativos', $existingPayments)): ?>
+                                        <option value="Trámites administrativos" data-monto="3000">Trámites administrativos - $3,000</option>
+                                    <?php endif; ?>
+                                    <?php if (!in_array('Playera mensual', $existingPayments)): ?>
+                                        <option value="Playera mensual" data-monto="430">Playera mensual - $430</option>
+                                    <?php endif; ?>
                                 </select>
                             </div>
                             <div class="col-md-12 mt-3">
@@ -396,57 +432,6 @@ $conn->close();
 
 </html>
 
-
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['submit'])) {
-
-        require '../../Config/conexion.php';
-        $mat = $_POST["id_inscripcion"];
-        $sql = "SELECT * FROM alumno WHERE matricula = '$mat'";
-        $result = $connection->query($sql);
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $id_alumno = $row['id_alumno'];
-            $sql = "SELECT * FROM inscripcion WHERE id_alumno = '$id_alumno'";
-            $result = $connection->query($sql);
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $id_inscripcion = $row['id_inscripcion'];
-                $tipoPago = $_POST['tipoPago'];
-                if ($tipoPago == 'caja') {
-                    $concepto = $_POST['concepto'];
-                    $monto = $_POST['monto'];
-                    $sql = "INSERT INTO caja (id_pago, id_inscripcion, monto, concepto) VALUES (id_pago, '$id_inscripcion', '$monto', '$concepto')";
-                    if ($connection->query($sql) === TRUE) {
-                        echo "Pago registrado";
-                    } else {
-                        echo "Error: " . $sql . "<br>" . $connection->error;
-                    }
-                    header("Location: alumno.php?id_alumno=$id_alumno");
-                    exit();
-                } else {
-                    $mes = $_POST['mes'];
-                    $sql = "INSERT INTO colegiatura (id_inscripcion, mes) VALUES ('$id_inscripcion', '$mes')";
-                    if ($connection->query($sql) === TRUE) {
-                        echo "Pago registrado";
-                    } else {
-                        echo "Error: " . $sql . "<br>" . $connection->error;
-                    }
-                    header("Location: alumno.php?id_alumno=$id_alumno");
-                    exit();
-                }
-            } else {
-                echo "No se encontró la inscripción del alumno.";
-            }
-        } else {
-            echo "No se encontró el alumno.";
-        }
-    }
-}
-?>
-
-
 <script>
     $(document).ready(function() {
         $('#tipoPago').change(function() {
@@ -467,5 +452,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $('#monto').val(monto);
         });
 
+        function showNotification(message, type) {
+            const notificationContainer = $('#notification-container');
+            const notification = $('<div class="notification"></div>').addClass(type).text(message);
+            notificationContainer.append(notification);
+            setTimeout(() => {
+                notification.fadeOut(500, function() {
+                    $(this).remove();
+                });
+            }, 3000); 
+        }
+
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        if (status === 'success') {
+            showNotification('Operación exitosa', 'success');
+        } else if (status === 'error') {
+            showNotification('Error en la operación', 'error');
+        }
     });
-</script>
+</script

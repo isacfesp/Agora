@@ -1,8 +1,8 @@
 :root {
-    --primary: #2C3E50;
-    --primary-hover: #1A252F;
-    --secondary: #34495E;
-    --success: #27AE60;
+    --primary: #3C4046;
+    --primary-hover: #3C4046;
+    --secondary: #3C4046;
+    --success: #BBCD5D;
     --danger: #E74C3C;
     --warning: #F1C40F;
     --text-primary: #2C3E50;
@@ -179,4 +179,43 @@ body {
 .profile-section p {
     margin: 0;
     color: var(--text-secondary);
+}
+
+.notification-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.notification {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px 20px;
+    margin: 10px;
+    border-radius: 8px;
+    color: #fff;
+    opacity: 0.95;
+    display: flex;
+    align-items: center;
+    pointer-events: all;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification.success {
+    background-color: var(--success);
+}
+
+.notification.error {
+    background-color: var(--danger);
+}
+
+.notification i {
+    margin-right: 10px;
+    font-size: 1.5rem;
 }

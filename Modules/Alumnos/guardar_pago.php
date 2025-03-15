@@ -1,6 +1,7 @@
 <?php
-
 require '../../Config/conexion.php';
+
+$id_alumno = $_POST["id_alumno"];
 $mat = $_POST["id_inscripcion"];
 $sql = "SELECT * FROM alumno WHERE matricula = '$mat'";
 $result = $connection->query($sql);
@@ -18,24 +19,19 @@ if ($result->num_rows > 0) {
             $monto = $_POST['monto'];
             $sql = "INSERT INTO caja (id_pago, id_inscripcion, monto, concepto) VALUES (id_pago, '$id_inscripcion', '$monto', '$concepto')";
             if ($connection->query($sql) === TRUE) {
-                echo "Pago registrado";
-                
+                header("Location: alumno.php?id_alumno=$id_alumno&status=success");
             } else {
-                echo "Error: " . $sql . "<br>" . $connection->error;
+                header("Location: alumno.php?id_alumno=$id_alumno&status=error");
             }
-            echo "<script>window.location.href = 'alumno.php?id_alumno=$id_alumno;</script>";
             exit();
         } else {
             $mes = $_POST['mes'];
             $sql = "INSERT INTO colegiatura (id_colegiatura, id_inscripcion, mes) VALUES (id_colegiatura, '$id_inscripcion', '$mes')";
             if ($connection->query($sql) === TRUE) {
-                echo "Pago registrado";
-                
+                header("Location: alumno.php?id_alumno=$id_alumno&status=success");
             } else {
-                echo "Error: " . $sql . "<br>" . $connection->error;
+                header("Location: alumno.php?id_alumno=$id_alumno&status=error");
             }
-            echo "<script>window.location.href = 'alumno.php?id_alumno=$id_alumno;</script>";
-            
             exit();
         }
     } else {
@@ -44,5 +40,4 @@ if ($result->num_rows > 0) {
 } else {
     echo "No se encontró el alumno.";
 }
-
 ?>
