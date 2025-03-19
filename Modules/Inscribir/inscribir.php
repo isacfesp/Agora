@@ -89,20 +89,38 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                 </div>
                 <h5><strong>DIRECCIÓN:</strong></h5>
                 <div class="form-group">
-                    <label for="codpostal">C.P:</label>
-                    <input type="number" class="form-control" id="codpostal" name="codpostal" placeholder="Código Postal" title="Debe contener 5 dígitos" pattern="\d{5}" maxlength="5" onchange="codigoP()" required>
+                    <label for="municipio">Municipio:</label>
+                    <input type="text" class="form-control" id="muni" name="municipio" placeholder="Municipio" maxlength="150" >
                 </div>
                 <div class="form-group">
-                    <label for="municipio">Municipio:</label>
-                    <input type="text" class="form-control" id="muni" name="municipio" placeholder="Municipio" maxlength="150" readonly>
+                    <label for="codpostal">C.P:</label>
+                    <input type="number" class="form-control" id="codpostal" name="codpostal" placeholder="Código Postal" title="Debe contener 5 dígitos" pattern="\d{5}" maxlength="5" onchange="codigoP()" required>
+                    
                 </div>
                 <div class="form-group">
                     <label for="colonia">Colonia:</label>
                     <select class="form-control" name="colonia" id="colonia" required>
-                        <option value="0">Colonias</option>
-                       <?php print_r( '<option value="" ' . $coloni . ' >' . $coloni . '</option> '); ?>
                     </select>
                 </div>
+                <script>
+                    async function codigoP(){
+                        const cpInput = document.getElementById('codpostal').value;
+                                if(cpInput.length === 5){
+                                        const consulta = `https://api.copomex.com/query/get_colonia_por_cp/${cpInput}?token=5ca44c82-8279-4e9c-acb6-456663c20d13` ;
+                                        const respuesta = await fetch(consulta);
+                                        console.log("Respuesta de la API: " , respuesta);
+                                        const datos = await respuesta.json();
+                                        console.log("Datos obtenidos: " , datos);
+                                        const opciones = datos.response.colonia.map(colonia => `<option value="${colonia}">${colonia}</option>`);
+                                        const sselect = `<select>${opciones.join('')}</select>`;
+                                        console.log("HTML generado: " , sselect);
+                                        document.getElementById('colonia').innerHTML = sselect;
+                                } else {
+                                        document.getElementById('colonia').innerHTML = '';
+                                }
+                    } 
+                    
+                </script> 
                 <div class="form-group">
                     <label for="calle">Calle y No.:</label>
                     <input type="text" class="form-control" id="calle" name="calle" placeholder="Calle" maxlength="150" required>
@@ -262,47 +280,7 @@ if (isset($_POST['curso'])) {
         }
     }
 
-    function CodigoP(){
-        <?php
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $codigo= $_POST['codpostal'];
-            $consulta = "https://api.copomex.com/query/get_colonia_por_cp/$codigo?token=5ca44c82-8279-4e9c-acb6-456663c20d13";
-            $ch = curl_init($consulta);
-            curl_setopt($ch , CURLOPT_RETURNTRANSFER , 1);
-            curl_setopt($ch , CURLOPT_TIMEOUT , 10);
-            $coloniass = curl_exec($ch);
-            $httpcode = curl_getinfo($ch , CURLINFO_HTTP_CODE);
-            $error_connection = curl_error($ch);
-            curl_close($ch);
-
-            if($httpcode==200){
-               $coloni = json_decode($coloniass);
-               echo $coloni;
-                
-            } else{
-                echo "Error: " . $error_connection;
-            }
-        }
-        ?>
-        
-     /*   var codigo = document.getElementById('codpostal').value;
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                var colonias = JSON.parse(this.responseText);
-                var select = document.getElementById('colonia');
-                select.innerHTML = "";
-                for(var i = 0; i < colonias.length; i ++){
-                    var option = document.createElement('option');
-                    option.value = colonias[i];
-                    option.text = colonias[i];
-                    select.appendChild(option);
-                }
-            }
-        };
-        xmlhttp.open('GET' , 'colonias.php?codpostal=' + codigo , true);
-        xmlhttp.send();  */
-    }
+    
 
     function closePopup() {
         document.getElementById('overlay').style.display = 'none';
