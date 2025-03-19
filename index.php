@@ -73,17 +73,16 @@ $conn->close();
     <div id="main-container">
         <!-- Barra superior -->
         <div id="topbar">
-            <div>
-                <label for="btn-user"><img src="<?php echo $imagePath; ?>" alt="" class="rounded-circle border mt-3" width="50" height="50" style="object-fit: cover; display: block; margin-left: auto; margin-right: auto;"></label>
+            <div class="user-icon-container">
+                <label for="btn-user"><img src="<?php echo $imagePath; ?>" alt="" class="rounded-circle border mt-3 user-icon"></label>
                 <input type="checkbox" id="btn-user" style="display: none;">
-                <div class="container config">
+                <div class="container config" id="user-config">
                     <div class="text-center">
                         <h2>Bienvenido, <?php echo $_SESSION['nombre']; ?></h2>
                         <p><?php echo $_SESSION['email']; ?></p>
                     </div>
                     <a href="Modules/Login/logout.php" class="btn btnC">Cerrar Sesión</a>
                 </div>
-
             </div>
         </div>
 
@@ -96,6 +95,20 @@ $conn->close();
     <script>
         document.getElementById("menu-toggle").addEventListener("click", function() {
             document.getElementById("sidebar").classList.toggle("collapsed");
+        });
+
+        document.addEventListener("click", function(event) {
+            const userConfig = document.getElementById("user-config");
+            const btnUser = document.getElementById("btn-user");
+            const userIcon = document.querySelector(".user-icon-container");
+            if (!userConfig.contains(event.target) && !userIcon.contains(event.target)) {
+                btnUser.checked = false;
+            }
+        });
+
+        document.getElementById("main-frame").contentWindow.document.addEventListener("click", function() {
+            const btnUser = document.getElementById("btn-user");
+            btnUser.checked = false;
         });
     </script>
 </body>
