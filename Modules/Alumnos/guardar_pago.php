@@ -19,6 +19,11 @@ if ($result->num_rows > 0) {
             $monto = $_POST['monto'];
             $sql = "INSERT INTO caja (id_pago, id_inscripcion, monto, concepto) VALUES (id_pago, '$id_inscripcion', '$monto', '$concepto')";
             if ($connection->query($sql) === TRUE) {
+                // Actualizar el estado del alumno a 'activo' si el concepto es 'Inscripción'
+                if ($concepto === 'Inscripción') {
+                    $sql = "UPDATE alumno SET estado = 'activo' WHERE id_alumno = '$id_alumno'";
+                    $connection->query($sql);
+                }
                 header("Location: alumno.php?id_alumno=$id_alumno&status=success");
             } else {
                 header("Location: alumno.php?id_alumno=$id_alumno&status=error");

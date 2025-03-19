@@ -26,7 +26,7 @@
                 curl_close($ch);
 
                 if($httpcode==200){
-                        echo json_decode($coloniass);
+                        print_r(json_decode($coloniass));
                 } else{
                         echo "Error: " . $error_connection;
                 }
