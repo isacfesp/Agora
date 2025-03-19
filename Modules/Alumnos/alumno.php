@@ -130,6 +130,10 @@ $conn->close();
                         Opciones Administrativas
                     </a>
                 </li>
+                
+                <li>
+                    Estado: <?php echo $estado; ?>
+                </li>
             </ul>
         </div>
 
@@ -297,7 +301,7 @@ $conn->close();
                 </div>
 
                 <!-- Payment History -->
-                <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="data-card mb-4">
                     <h5 class="data-header">Historial de Pagos</h5>
                     <button class="btn-primary" onclick="imprimirHistorial()">
                         <i class="fas fa-print me-2"></i>Imprimir Historial
@@ -318,7 +322,7 @@ $conn->close();
                         <tbody>
                             <?php foreach ($payments as $payment): ?>
                                 <tr>
-                                    <td></td> <!-- Fecha is ignored as requested -->
+                                    <td></td> 
                                     <td>Caja</td>
                                     <td><?php echo $payment['concepto']; ?></td>
                                     <td><?php echo $payment['monto']; ?></td>
@@ -389,7 +393,7 @@ $conn->close();
             <div class="tab-pane fade" id="opciones">
                 <div class="alert-card alert-warning">
                     <i class="fas fa-exclamation-triangle me-2"></i>
-                    Acciones administrativas requieren autorización del departamento correspondiente
+                    xd
                 </div>
 
                 <div class="row g-4">
@@ -406,7 +410,7 @@ $conn->close();
                     <div class="col-md-4">
                         <div class="data-card h-100">
                             <h5 class="data-header">Baja Definitiva</h5>
-                            <p class="text-secondary mb-4">Egreso permanente del programa académico</p>
+                            <p class="text-secondary mb-4">Baja permanente del programa académico</p>
                             <button id="bajaDefinitivaBtn" class="btn-primary w-100 bg-danger border-danger">
                                 <i class="fas fa-times me-2"></i>Solicitar Baja
                             </button>
@@ -416,7 +420,7 @@ $conn->close();
                     <div class="col-md-4">
                         <div class="data-card h-100">
                             <h5 class="data-header">Reactivación</h5>
-                            <p class="text-secondary mb-4">Reincorporación al programa académico después de baja.</p>
+                            <p class="text-secondary mb-4">Reincorporación al programa académico después de baja</p>
                             <button id="reactivacionBtn" class="btn-primary w-100 bg-success border-success" disabled>
                                 <i class="fas fa-redo me-2"></i>Solicitar Reactivación
                             </button>
@@ -427,56 +431,58 @@ $conn->close();
         </div>
     </div>
 
-    <!-- Modals for Administrative Options -->
-    <div class="modal fade" id="bajaTemporalModal" tabindex="-1" aria-labelledby="bajaTemporalModalLabel" aria-hidden="true">
+    <!-- Modals para opciones administrativas-->
+    <div class="modal fade" id="temporal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="bajaTemporalModalLabel">Confirmar Baja Temporal</h5>
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmar Eliminación</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas solicitar una baja temporal?
+                    ¿Estás seguro de que deseas dar de baja temporal al alumno?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-warning" id="confirmBajaTemporal">Solicitar Baja</button>
+                    <button type="button" class="btn btn-danger" id="confirmBajaTemporal"></button>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="bajaDefinitivaModal" tabindex="-1" aria-labelledby="bajaDefinitivaModalLabel" aria-hidden="true">
+    <div class="modal fade" id="definitiva" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="bajaDefinitivaModalLabel">Confirmar Baja Definitiva</h5>
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmar Eliminación</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas solicitar una baja definitiva?
+                    <div class="alert-card alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Esta acción no se puede deshacer.
+                    </div>
+                    ¿Estás seguro de que deseas dar de baja <strong>DEFINITIVA</strong> al alumno?<br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="confirmBajaDefinitiva">Solicitar Baja</button>
+                    <button type="button" class="btn btn-danger" id="confirmBajaDefinitiva">Baja</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="reactivacionModal" tabindex="-1" aria-labelledby="reactivacionModalLabel" aria-hidden="true">
+    <div class="modal fade" id="reactivacion" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="reactivacionModalLabel">Confirmar Reactivación</h5>
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmar Eliminación</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas solicitar la reactivación?
+                    ¿Estás seguro de que deseas reactivar al alumno?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" id="confirmReactivacion">Solicitar Reactivación</button>
+                    <button type="button" class="btn btn-danger" id="confirmReactivacion">Reactivar</button>
                 </div>
             </div>
         </div>
@@ -487,6 +493,11 @@ $conn->close();
 </body>
 
 </html>
+
+<?php
+$codigo = "<script> document.getElementById('confirmBajaDefinitiva').value </script>";
+
+?>
 
 <script>
     $(document).ready(function() {
@@ -522,10 +533,10 @@ $conn->close();
                 notification.fadeOut(500, function() {
                     $(this).remove();
                 });
-            }, 3000); // Notification disappears after 3 seconds
+            }, 2000);
         }
 
-        // Check for status parameter in URL
+
         const urlParams = new URLSearchParams(window.location.search);
         const status = urlParams.get('status');
         if (status === 'success') {
@@ -540,61 +551,77 @@ $conn->close();
             $('#bajaTemporalBtn').prop('disabled', false);
             $('#bajaDefinitivaBtn').prop('disabled', false);
             $('#reactivacionBtn').prop('disabled', true);
-        } else if (estado === 'baja_temporal' || estado === 'baja_definitiva') {
+        } else if (estado === 'baja_temporal') {
             $('#bajaTemporalBtn').prop('disabled', true);
             $('#bajaDefinitivaBtn').prop('disabled', true);
             $('#reactivacionBtn').prop('disabled', false);
-        } else {
+        } else if (estado === 'baja_definitiva') {
             $('#bajaTemporalBtn').prop('disabled', true);
             $('#bajaDefinitivaBtn').prop('disabled', true);
             $('#reactivacionBtn').prop('disabled', true);
         }
 
         $('#bajaTemporalBtn').click(function() {
-            $('#bajaTemporalModal').modal('show');
+            $('#temporal').modal('show');
         });
 
         $('#bajaDefinitivaBtn').click(function() {
-            $('#bajaDefinitivaModal').modal('show');
+            $('#definitiva').modal('show');
         });
 
         $('#reactivacionBtn').click(function() {
-            $('#reactivacionModal').modal('show');
+            $('#reactivacion').modal('show');
         });
 
-        $('#confirmBajaTemporal').click(function() {
-            // Handle Baja Temporal
-            $.post('baja_temporal.php', { id_alumno: '<?php echo $id_alumno; ?>' }, function(response) {
-                if (response.status === 'success') {
-                    showNotification('Baja temporal solicitada con éxito', 'success');
-                } else {
-                    showNotification('Error al solicitar baja temporal', 'error');
-                }
-                $('#bajaTemporalModal').modal('hide');
-            }, 'json');
-        });
+
+
 
         $('#confirmBajaDefinitiva').click(function() {
-            // Handle Baja Definitiva
-            $.post('baja_definitiva.php', { id_alumno: '<?php echo $id_alumno; ?>' }, function(response) {
+            $.post('baja_definitiva.php', {
+                id_alumno: '<?php echo $id_alumno; ?>'
+            }, function(response) {
                 if (response.status === 'success') {
-                    showNotification('Baja definitiva solicitada con éxito', 'success');
+                    showNotification('Baja definitiva realizada con éxito', 'success');
                 } else {
                     showNotification('Error al solicitar baja definitiva', 'error');
                 }
-                $('#bajaDefinitivaModal').modal('hide');
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);
+                $('#definitiva').modal('hide');
+            }, 'json');
+        });
+
+        $('#confirmBajaTemporal').click(function() {
+            $.post('baja_temporal.php', {
+                id_alumno: '<?php echo $id_alumno; ?>'
+            }, function(response) {
+                if (response.status === 'success') {
+                    showNotification('Baja temporal realizada con éxito', 'success');
+                } else {
+                    showNotification('Error al solicitar baja definitiva', 'error');
+                }
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);
+                
+                $('#temporal').modal('hide');
             }, 'json');
         });
 
         $('#confirmReactivacion').click(function() {
-            // Handle Reactivación
-            $.post('reactivacion.php', { id_alumno: '<?php echo $id_alumno; ?>' }, function(response) {
+            $.post('reactivacion.php', {
+                id_alumno: '<?php echo $id_alumno; ?>'
+            }, function(response) {
                 if (response.status === 'success') {
-                    showNotification('Reactivación solicitada con éxito', 'success');
+                    showNotification('Reactivación realizada con éxito', 'success');
                 } else {
                     showNotification('Error al solicitar reactivación', 'error');
                 }
-                $('#reactivacionModal').modal('hide');
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);
+                $('#reactivacion').modal('hide');
             }, 'json');
         });
     });
