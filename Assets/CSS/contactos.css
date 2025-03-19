@@ -1,8 +1,22 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f9fb;
+:root {
+    --primary: #3C4046;
+    --primary-hover: #3C4046;
+    --secondary: #3C4046;
+    --success: #BBCD5D;
+    --danger: #DC3545;
+    --warning: #F1C40F;
+    --text-primary: #2C3E50;
+    --text-secondary: #7F8C8D;
+    --border: #BDC3C7;
+    --surface: #FFFFFF;
+    --background: #f7f9fb;
 }
 
+body {
+    background: var(--background);
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--text-primary);
+}
 .container {
     background: #ffffff;
     max-width: 95%;
@@ -13,7 +27,7 @@ body {
 }
 
 h2 {
-    color: #343a40;
+    color: var(--text-primary);
     font-size: 24px;
     font-weight: bold;
 }
@@ -66,17 +80,20 @@ td {
 }
 
 .delete-btn {
-    background-color: #dc3545;
+    background-color: var(--danger);
     border: none;
 }
 
 .inscribir-btn{
-    background-color: darkgreen;
+    background-color: var(--primary);
     border: none;
+    color: white;
 }
 
 .btn-basic:hover{
-    background-color: rgb(2, 133, 2);
+    background-color: var(--primary);
+    opacity: 0.8;
+    color: #fff;
 }
 
 .edit-btn:hover,
@@ -178,7 +195,7 @@ td {
 
 
 .popup .btn-secondary {
-    background-color: #dc3545;
+    background-color: var(--danger);
     color: white;
 }
 

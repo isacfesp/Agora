@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   display: flex;
   height: 100vh;
   background-color: #ffffff;
@@ -136,20 +136,21 @@ body {
 
 .btnC {
   font-weight: 600;
-  background-color: #ff0505;
+  background-color: #fff;
   text-decoration: none;
-  color: #fff;
+  color: #DC3545;
   padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: inline-block;
   margin-top: 20px;
+  border: 2px solid #DC3545;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btnC:hover {
-  background-color: #e00404;
+  background-color: #DC3545;
+  color: #fff;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 

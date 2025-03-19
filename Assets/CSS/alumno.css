@@ -3,13 +3,13 @@
     --primary-hover: #3C4046;
     --secondary: #3C4046;
     --success: #BBCD5D;
-    --danger: #E74C3C;
+    --danger: #DC3545;
     --warning: #F1C40F;
     --text-primary: #2C3E50;
     --text-secondary: #7F8C8D;
     --border: #BDC3C7;
     --surface: #FFFFFF;
-    --background: #ECF0F1;
+    --background: #f7f9fb;
 }
 
 body {
@@ -76,6 +76,19 @@ body {
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border);
 }
+.btn {
+    font-size: 12px;
+}
+
+.btn-secondary {
+    background-color: #3C4046;
+    border-color: #3C4046;
+}
+
+.btn-secondary:hover {
+    background-color: #3C4046;
+    border-color: #3C4046;
+}
 
 .btn-primary {
     background: var(--primary);
@@ -92,14 +105,7 @@ body {
     transform: translateY(-1px);
 }
 
-.btn-secondary {
-    background: #F0F2F5;
-    border: 1px solid var(--border);
-    color: var(--text-primary);
-    padding: 10px 20px; /* Adjusted padding */
-    font-size: 12px; /* Adjusted font size */
-    border-radius: 6px;
-}
+
 
 .table-custom {
     border: 1px solid var(--border);
@@ -222,81 +228,4 @@ body {
     font-size: 1.5rem;
 }
 
-.modal-content {
-    border-radius: 8px;
-}
 
-.modal-header {
-    border-bottom: 1px solid var(--border);
-}
-
-.modal-footer {
-    border-top: 1px solid var(--border);
-}
-
-.modal-title {
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.btn-close {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--text-secondary);
-}
-
-.btn-close:hover {
-    color: var(--text-primary);
-}
-
-.popup button {
-    padding: 10px 20px; /* Adjusted padding */
-    font-size: 12px; /* Adjusted font size */
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-}
-
-.popup .btn-warning {
-    background-color: var(--warning);
-    border: var(--warning);
-    color: #fff;
-}
-
-.popup .btn-warning:hover {
-    background-color: #e1b700;
-    border-color: #e1b700;
-}
-
-.popup .btn-danger {
-    background-color: var(--danger);
-    border: var(--danger);
-    color: #fff;
-}
-
-.popup .btn-danger:hover {
-    background-color: #c0392b;
-    border-color: #c0392b;
-}
-
-.popup .btn-success {
-    background-color: var(--success);
-    border: var(--success);
-    color: #fff;
-}
-
-.popup .btn-success:hover {
-    background-color: #aabb57;
-    border-color: #aabb57;
-}
-
-.popup .btn-secondary {
-    background-color: #6c757d;
-    color: white;
-}
-
-.popup .btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #545b62;
-}

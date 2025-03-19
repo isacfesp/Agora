@@ -1,5 +1,21 @@
+:root {
+    --primary: #3C4046;
+    --primary-hover: #3C4046;
+    --secondary: #3C4046;
+    --success: #BBCD5D;
+    --danger: #DC3545;
+    --warning: #F1C40F;
+    --text-primary: #2C3E50;
+    --text-secondary: #7F8C8D;
+    --border: #BDC3C7;
+    --surface: #FFFFFF;
+    --background: #f7f9fb;
+}
+
 body {
-    background-color: #f7f9fb;
+    background: var(--background);
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--text-primary);
 }
 
 .custom-container {
@@ -15,7 +31,7 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
-    background-color: red;
+    background-color: var(--danger);
     color: white;
 }
 
