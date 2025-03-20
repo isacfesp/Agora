@@ -35,25 +35,25 @@ body {
 }
 
 .nav-link {
-    color: var(--text-secondary);
-    font-weight: 500;
-    border: none;
-    padding: 1rem 2rem;
-    transition: all 0.2s ease;
-    position: relative;
-    margin: 0 0.25rem;
+    color: var(--text-secondary) !important;
+    font-weight: 500 !important;
+    border: none !important;
+    padding: 1rem 2rem !important;
+    transition: all 0.2s ease !important;
+    position: relative !important;
+    margin: 0 0.25rem !important;
 }
 
 .nav-link.active {
-    background: var(--primary);
-    color: var(--surface);
-    border-radius: 8px 8px 0 0;
-    border: none;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.03);
+    background: var(--primary) !important;
+    color: var(--surface) !important;
+    border-radius: 8px 8px 0 0 !important;
+    border: none !important;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.03) !important;
 }
 
 .nav-link:hover:not(.active) {
-    background: #F5F5F5;
+    background: #F5F5F5 !important;
 }
 
 .tab-content {
@@ -81,31 +81,126 @@ body {
 }
 
 .btn-secondary {
-    background-color: #3C4046;
-    border-color: #3C4046;
+    background: var(--primary) !important;
+    border: none !important;
+    color: var(--surface) !important;
+    padding: 10px 20px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
 }
 
 .btn-secondary:hover {
-    background-color: #3C4046;
-    border-color: #3C4046;
+    background: var(--primary-hover) !important;
+    transform: translateY(-1px) !important;
 }
 
 .btn-primary {
-    background: var(--primary);
-    border: none;
-    color: var(--surface);
-    padding: 10px 20px; /* Adjusted padding */
-    font-size: 12px; /* Adjusted font size */
-    border-radius: 6px;
-    transition: all 0.2s ease;
+    background: var(--primary) !important;
+    border: none !important;
+    color: var(--surface) !important;
+    padding: 10px 20px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
 }
 
 .btn-primary:hover {
-    background: var(--primary-hover);
-    transform: translateY(-1px);
+    background: var(--primary-hover) !important;
+    transform: translateY(-1px) !important;
 }
 
+/* Botones de opciones administrativas */
+.btn-admin-success {
+    background: var(--success) !important;
+    border: none !important;
+    color: var(--surface) !important;
+    padding: 10px 20px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+}
 
+.btn-admin-success:hover {
+    background: #A3B745 !important; /* Ajusta el color de hover aquí */
+    transform: translateY(-1px) !important;
+}
+
+.btn-admin-warning {
+    background: var(--warning) !important;
+    border: none !important;
+    color: var(--surface) !important;
+    padding: 10px 20px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-admin-warning:hover {
+    background: #D4A60A !important; /* Ajusta el color de hover aquí */
+    transform: translateY(-1px) !important;
+}
+
+.btn-admin-danger {
+    background: var(--danger) !important;
+    border: none !important;
+    color: var(--surface) !important;
+    padding: 10px 20px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-admin-danger:hover {
+    background: #C12F3A !important; /* Ajusta el color de hover aquí */
+    transform: translateY(-1px) !important;
+}
+
+/* Botones de confirmación en los modals */
+.modal-confirm .btn-success {
+    background: var(--success) !important;
+    border: none !important;
+    color: var(--surface) !important;
+    padding: 10px 20px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+}
+
+.modal-confirm .btn-success:hover {
+    background: #A3B745 !important; /* Ajusta el color de hover aquí */
+    transform: translateY(-1px) !important;
+}
+
+.modal-confirm .btn-warning {
+    background: var(--warning) !important;
+    border: none !important;
+    color: var(--surface) !important;
+    padding: 10px 20px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+}
+
+.modal-confirm .btn-warning:hover {
+    background: #D4A60A !important; /* Ajusta el color de hover aquí */
+    transform: translateY(-1px) !important;
+}
+
+.modal-confirm .btn-danger {
+    background: var(--danger) !important;
+    border: none !important;
+    color: var(--surface) !important;
+    padding: 10px 20px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+}
+
+.modal-confirm .btn-danger:hover {
+    background: #C12F3A !important; /* Ajusta el color de hover aquí */
+    transform: translateY(-1px) !important;
+}
 
 .table-custom {
     border: 1px solid var(--border);
@@ -121,34 +216,34 @@ body {
 .table-custom th {
     font-weight: 600;
     color: var(--text-secondary);
-    padding: 1rem;
+    padding: 1rem !important;
 }
 
 .table-custom td {
-    padding: 1rem;
-    vertical-align: middle;
+    padding: 1rem !important;
+    vertical-align: middle !important;
 }
 
 .alert-card {
-    padding: 1.5rem;
-    border-left: 4px solid;
-    border-radius: 6px;
-    margin-bottom: 1.5rem;
+    padding: 1.5rem !important;
+    border-left: 4px solid !important;
+    border-radius: 6px !important;
+    margin-bottom: 1.5rem !important;
 }
 
 .alert-warning {
-    border-color: var(--warning);
-    background: #FFF9E6;
+    border-color: var(--warning) !important;
+    background: #FFF9E6 !important;
 }
 
 .alert-danger {
-    border-color: var(--danger);
-    background: #FCE8E8;
+    border-color: var(--danger) !important;
+    background: #FCE8E8 !important;
 }
 
 .alert-success {
-    border-color: var(--success);
-    background: #E8F5E9;
+    border-color: var(--success) !important;
+    background: #E8F5E9 !important;
 }
 
 .filter-container {
@@ -228,4 +323,29 @@ body {
     font-size: 1.5rem;
 }
 
+.estado-alumno {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+.estado-alumno .estado-circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.estado-activo {
+    background-color: var(--success);
+}
+
+.estado-baja-temporal {
+    background-color: var(--warning);
+}
+
+.estado-baja-definitiva {
+    background-color: var(--danger);
+}
 

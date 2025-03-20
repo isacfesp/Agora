@@ -47,7 +47,7 @@ $conn->close();
 <body>
 
     <!-- Menú lateral -->
-    <div id="sidebar">
+    <div id="sidebar" class="collapsed">
         <button id="menu-toggle"><i class="fas fa-bars"></i></button>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/home.php'">
             <i class="fas fa-home"></i><span>Inicio</span>
@@ -94,21 +94,35 @@ $conn->close();
 
     <script>
         document.getElementById("menu-toggle").addEventListener("click", function() {
-            document.getElementById("sidebar").classList.toggle("collapsed");
-        });
-
-        document.addEventListener("click", function(event) {
-            const userConfig = document.getElementById("user-config");
-            const btnUser = document.getElementById("btn-user");
-            const userIcon = document.querySelector(".user-icon-container");
-            if (!userConfig.contains(event.target) && !userIcon.contains(event.target)) {
-                btnUser.checked = false;
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("collapsed");
+            
+            if (window.innerWidth <= 768) {
+                const menuItems = document.querySelectorAll('.menu-item');
+                menuItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        sidebar.classList.remove('collapsed');
+                    });
+                });
             }
         });
-
-        document.getElementById("main-frame").contentWindow.document.addEventListener("click", function() {
-            const btnUser = document.getElementById("btn-user");
-            btnUser.checked = false;
+    
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById("sidebar");
+            const menuToggle = document.getElementById("menu-toggle");
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(event.target) && 
+                !menuToggle.contains(event.target)) {
+                sidebar.classList.remove('collapsed');
+            }
+        });
+    
+        document.getElementById("main-frame").addEventListener("load", function() {
+            this.contentWindow.document.addEventListener("click", function() {
+                const btnUser = document.getElementById("btn-user");
+                btnUser.checked = false;
+            });
         });
     </script>
 </body>

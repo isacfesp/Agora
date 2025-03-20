@@ -131,8 +131,9 @@ $conn->close();
                     </a>
                 </li>
                 
-                <li>
-                    Estado: <?php echo $estado; ?>
+                <li class="nav-item estado-alumno">
+                    <span class="estado-circle <?php echo 'estado-' . str_replace('_', '-', $estado); ?>"></span>
+                    Estado: <?php echo ucfirst(str_replace('_', ' ', $estado)); ?>
                 </li>
             </ul>
         </div>
@@ -401,7 +402,7 @@ $conn->close();
                         <div class="data-card h-100">
                             <h5 class="data-header">Baja Temporal</h5>
                             <p class="text-secondary mb-4">Suspensión temporal de actividades académicas</p>
-                            <button id="bajaTemporalBtn" class="btn-primary w-100">
+                            <button id="bajaTemporalBtn" class="btn-admin-warning w-100">
                                 <i class="fas fa-pause me-2"></i>Solicitar Baja
                             </button>
                         </div>
@@ -411,7 +412,7 @@ $conn->close();
                         <div class="data-card h-100">
                             <h5 class="data-header">Baja Definitiva</h5>
                             <p class="text-secondary mb-4">Baja permanente del programa académico</p>
-                            <button id="bajaDefinitivaBtn" class="btn-primary w-100 bg-danger border-danger">
+                            <button id="bajaDefinitivaBtn" class="btn-admin-danger w-100">
                                 <i class="fas fa-times me-2"></i>Solicitar Baja
                             </button>
                         </div>
@@ -421,7 +422,7 @@ $conn->close();
                         <div class="data-card h-100">
                             <h5 class="data-header">Reactivación</h5>
                             <p class="text-secondary mb-4">Reincorporación al programa académico después de baja</p>
-                            <button id="reactivacionBtn" class="btn-primary w-100 bg-success border-success" disabled>
+                            <button id="reactivacionBtn" class="btn-admin-success w-100" disabled>
                                 <i class="fas fa-redo me-2"></i>Solicitar Reactivación
                             </button>
                         </div>
@@ -483,6 +484,63 @@ $conn->close();
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-danger" id="confirmReactivacion">Reactivar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para Baja Temporal -->
+    <div class="modal fade" id="bajaTemporalModal" tabindex="-1" aria-labelledby="bajaTemporalModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bajaTemporalModalLabel">Confirmar Baja Temporal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas solicitar una baja temporal?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-admin-warning">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para Baja Definitiva -->
+    <div class="modal fade" id="bajaDefinitivaModal" tabindex="-1" aria-labelledby="bajaDefinitivaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bajaDefinitivaModalLabel">Confirmar Baja Definitiva</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas solicitar una baja definitiva?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-admin-danger">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para Reactivación -->
+    <div class="modal fade" id="reactivacionModal" tabindex="-1" aria-labelledby="reactivacionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reactivacionModalLabel">Confirmar Reactivación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas solicitar la reactivación?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-admin-success">Confirmar</button>
                 </div>
             </div>
         </div>
