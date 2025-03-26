@@ -94,31 +94,55 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                 </div>
                 <div class="form-group">
                     <label for="codpostal">C.P:</label>
-                    <input type="number" class="form-control" id="codpostal" name="codpostal" placeholder="Código Postal" title="Debe contener 5 dígitos" pattern="\d{5}" maxlength="5" onchange="codigoP()" required>
+                    <input type="number" class="form-control" id="codpostal" name="codpostal" placeholder="Código Postal" title="Debe contener 5 dígitos" pattern="\d{5}" maxlength="5" onchange="codigoPos()" required>
                     
                 </div>
                 <div class="form-group">
                     <label for="colonia">Colonia:</label>
                     <select class="form-control" name="colonia" id="colonia" required>
+                        <option value="">Colonia</option>
                     </select>
+                    <input type="text" placeholder="Escriba su colonia" id="otra" name="otra" style="display: none;">
                 </div>
                 <script>
-                    async function codigoP(){
-                        const cpInput = document.getElementById('codpostal').value;
-                                if(cpInput.length === 5){
-                                        const consulta = `https://api.copomex.com/query/get_colonia_por_cp/${cpInput}?token=5ca44c82-8279-4e9c-acb6-456663c20d13` ;
-                                        const respuesta = await fetch(consulta);
-                                        console.log("Respuesta de la API: " , respuesta);
-                                        const datos = await respuesta.json();
-                                        console.log("Datos obtenidos: " , datos);
-                                        const opciones = datos.response.colonia.map(colonia => `<option value="${colonia}">${colonia}</option>`);
-                                        const sselect = `<select>${opciones.join('')}</select>`;
-                                        console.log("HTML generado: " , sselect);
-                                        document.getElementById('colonia').innerHTML = sselect;
-                                } else {
-                                        document.getElementById('colonia').innerHTML = '';
-                                }
-                    } 
+                    function codigoPos() {
+                        const codigo = document.getElementById('codpostal').value;
+                        if (codigo != null) {
+                                console.log("Sí se recibe un cp");
+                                var client = new XMLHttpRequest();
+                                client.open("GET", `http://api.zippopotam.us/mx/${codigo}`, true);
+                                client.onreadystatechange = function() {
+                                        if (client.readyState == 4) {
+                                                const respuesta = JSON.parse(client.responseText);
+                                                const colonias = respuesta.places.map(colonia => colonia['place name']);
+                                                const coloniasss = document.getElementById('colonia');
+                                                coloniasss.innerHTML = '';
+                                                const opcion = '';
+                                                colonias.forEach(colonia => {
+                                                        const option = document.createElement('option');
+                                                        
+                                                        option.value = colonia;
+                                                        option.text = colonia;
+                                                       
+                                                        coloniasss.appendChild(option);
+                                                        
+                                                });  
+                                                const option2 = document.createElement('option');    
+                                                option2.value = 'Otro';
+                                                option2.text = 'Otro'; 
+                                                coloniasss.appendChild(option2);
+                                                
+                                                if(coloniasss.value == 'Otro'){
+                                                    console.log("El valor sí se obtiene")
+                                                    document.getElementById('otra').style.display = "flex";
+                                                }
+                                        }
+                                };
+                                client.send();
+                        } else {
+                                console.log("No se encuentra un código postal");
+                        }
+                }
                     
                 </script> 
                 <div class="form-group">
