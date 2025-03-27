@@ -142,12 +142,18 @@ $conn->close();
         <div class="tab-content">
             <!-- Sección Datos -->
             <div class="tab-pane fade show active" id="datos">
-                <div class="profile-section">
-                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Foto del Alumno">
-                    <div>
-                        <h2><?php echo $nombre . ' ' . $apaterno . ' ' . $amaterno ?></h2>
-                        <p>Matrícula: <?php echo $matricula ?></p>
+                <div class="profile-section d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Foto del Alumno">
+                        <div>
+                            <h2><?php echo $nombre . ' ' . $apaterno . ' ' . $amaterno ?></h2>
+                            <p>Matrícula: <?php echo $matricula ?></p>
+                        </div>
                     </div>
+                    <!-- Botón de Imprimir Solicitud -->
+                    <button id="ImprimirSolicitud" class="btn btn-secondary">
+                        <i class="fas fa-print"></i>
+                    </button>
                 </div>
 
                 <div class="row g-4">
@@ -632,8 +638,6 @@ $codigo = "<script> document.getElementById('confirmBajaDefinitiva').value </scr
         });
 
 
-
-
         $('#confirmBajaDefinitiva').click(function() {
             $.post('baja_definitiva.php', {
                 id_alumno: '<?php echo $id_alumno; ?>'
@@ -682,5 +686,11 @@ $codigo = "<script> document.getElementById('confirmBajaDefinitiva').value </scr
                 $('#reactivacion').modal('hide');
             }, 'json');
         });
+
+
+        $('#ImprimirSolicitud').click(function solicitud(){
+            window.open('../../Modules/Inscribir/solicitudLlenado.php?id_alumno=<?php echo $id_alumno; ?>', '_blank');
+        });
+
     });
 </script>

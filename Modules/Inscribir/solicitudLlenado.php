@@ -1,9 +1,26 @@
 <?php
 session_start();
 require('../../Config/fpdf/fpdf.php');
+require('../../Config/conexion.php');
 
 
-$datos = $_SESSION['datos'];
+$id_alumno = $_GET['id_alumno'];
+$sql = "SELECT * FROM alumno WHERE id_alumno = '$id_alumno'";
+$result = mysqli_query($connection, $sql);
+$datos = array();
+if (mysqli_num_rows($result) > 0) {
+    $datos = mysqli_fetch_array($result); 
+}else{
+    echo "Error al obtener los datos del alumno";
+    exit();
+}
+
+if($datos['horario'] == '1'){
+    $datos['horario'] = 'Semanal';
+}else{
+    $datos['horario'] = 'Sabatino';
+}
+
 
 class PDF extends FPDF
 {
@@ -92,7 +109,7 @@ class PDF extends FPDF
 
         $this->SetFont('Times', '', 9);
         $this->Cell(90, 0, ' ' . $fechaNac, 0, 1, 'C');
-        $this->Cell(190, 0, ' ' . $datos['edad'], 0, 1, 'C');
+        $this->Cell(190, 0, utf8_decode(' ' . $datos['edad'] . ' años'), 0, 1, 'C');
         $this->Cell(295, 0, utf8_decode(' ' . $datos['curp']), 0, 1, 'C');
         $this->SetFont('Arial', '', 9);
         $this->Cell(50, 2, '                     ________________________________________________________________________________________ ', 0, 1);
@@ -106,8 +123,8 @@ class PDF extends FPDF
 
 
         $this->SetFont('Times', '', 9);
-        $this->Cell(90, 0, ' ' . $datos['telfijo'], 0, 1, 'C');
-        $this->Cell(190, 0, ' ' . $datos['celular'], 0, 1, 'C');
+        $this->Cell(90, 0, ' ' . $datos['tel_fijo'], 0, 1, 'C');
+        $this->Cell(190, 0, ' ' . $datos['tel_celular'], 0, 1, 'C');
         $this->Cell(300, 0, utf8_decode(' ' . $datos['email']), 0, 1, 'C');
         $this->SetFont('Arial', '', 9);
         $this->Cell(50, 2, '                     ________________________________________________________________________________________ ', 0, 1);
@@ -123,7 +140,7 @@ class PDF extends FPDF
         $this->SetFont('Times', '', 9);
         $this->Cell(80, 0, utf8_decode(' ' . $datos['calle']), 0, 1, 'C');
         $this->Cell(150, 0, utf8_decode(' ' . $datos['colonia']), 0, 1, 'C');
-        $this->Cell(230, 0, ' ' . $datos['codpostal'], 0, 1, 'C');
+        $this->Cell(230, 0, ' ' . $datos['cp'], 0, 1, 'C');
         $this->Cell(300, 0, utf8_decode(' ' . $datos['municipio']), 0, 1, 'C');
         $this->SetFont('Arial', '', 9);
         $this->Cell(50, 2, '                     ________________________________________________________________________________________ ', 0, 1);
@@ -149,8 +166,8 @@ class PDF extends FPDF
         $this->Cell(45, 5, '                                                                         Nombre(s)', 0, 1);
         $this->Ln(8);
         $this->SetFont('Times', '', 9);
-        $this->Cell(90, 0, ' ' . $datos['tutor_telfijo'], 0, 1, 'C');
-        $this->Cell(190, 0, ' ' . $datos['tutor_celular'], 0, 1, 'C');
+        $this->Cell(90, 0, ' ' . $datos['tutor_tel_fijo'], 0, 1, 'C');
+        $this->Cell(190, 0, ' ' . $datos['tutor_tel_celular'], 0, 1, 'C');
         $this->Cell(300, 0, utf8_decode(' ' . $datos['tutor_email']), 0, 1, 'C');
         $this->SetFont('Arial', '', 9);
         $this->Cell(50, 2, '                     ________________________________________________________________________________________ ', 0, 1);;
@@ -176,8 +193,8 @@ class PDF extends FPDF
         $this->Ln(5);
 
         $this->SetFont('Times', '', 9);
-        $this->Cell(90, 0, ' ' . $datos['parentesco'], 0, 1, 'C');
-        $this->Cell(190, 0, ' ' . $datos['emergencia_telefono'], 0, 1, 'C');
+        $this->Cell(90, 0, ' ' . $datos['emergencia_parentesco'], 0, 1, 'C');
+        $this->Cell(190, 0, ' ' . $datos['emergencia_tel'], 0, 1, 'C');
         $this->SetFont('Arial', '', 9);
         $this->Cell(50, 2, '                     ________________________________________________________________________________________ ', 0, 1);
         $this->SetFont('Times', 'B', 8);
