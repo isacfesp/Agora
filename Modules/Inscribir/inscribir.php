@@ -117,7 +117,6 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                                                 const colonias = respuesta.places.map(colonia => colonia['place name']);
                                                 const coloniasss = document.getElementById('colonia');
                                                 coloniasss.innerHTML = '';
-                                                const opcion = '';
                                                 colonias.forEach(colonia => {
                                                         const option = document.createElement('option');
                                                         
@@ -142,7 +141,7 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                         } else {
                                 console.log("No se encuentra un código postal");
                         }
-                }
+                    }
                     
                 </script> 
                 <div class="form-group">

@@ -1,6 +1,14 @@
-form{
-    display: flex;
+.btn-primary{
+    background-color: #BBCD5D;
+    border: solid 10px #BBCD5D;
 }
-label, input, select, button{
+.btn-primary :hover{
+    background-color: #BBCD5D;
+    border: solid 10px #BBCD5D;
+}
+table{
+    margin-top: 2.5%;
+}
+th{
     margin-left: 1.2%;
 }

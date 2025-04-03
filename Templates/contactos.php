@@ -37,13 +37,11 @@ include "../Modules/Contacts/metricasContactos.php";
         </div>
         <div class="filter-container mb-3 d-flex justify-content-between align-items-center">
             <a href="../Modules/Contacts/Crear.php" class="btn btn-primary" id="addRecord"><i
-                    class="fas fa-user-plus"></i> Crear
-                Contacto</a>
+                    class="fas fa-user-plus"></i> Crear Contacto</a>
             <a href="" class="btn btn-danger" id="printPDF"><i class="fas fa-file-pdf"></i> Imprimir</a>
             <div class="d-flex">
                 <input type="date" id="startDate" class="form-control me-2" style="width: 160px;" placeholder="Desde">
-                <input type="date" id="endDate" class="form-control me-2" style="width: 160px;" placeholder="Hasta"
-                    disabled>
+                <input type="date" id="endDate" class="form-control me-2" style="width: 160px;" placeholder="Hasta" disabled>
                 <button class="btn btn-success" id="filterDate"><i class="fas fa-filter"></i> Filtrar</button>
             </div>
         </div>

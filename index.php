@@ -56,7 +56,7 @@ $conn->close();
             <i class="fas fa-user"></i><span>Contactos</span>
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/Gestion_usuarios.html'">
-            <i class="fas fa-chart-line"></i><span>Gestión de usuarios</span>
+        <i class="fa-solid fa-users"></i><span>Gestión de usuarios</span>
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Inscribir/inscribir.php'">
             <i class="fa-solid fa-file"></i><span>Inscribir</span>
