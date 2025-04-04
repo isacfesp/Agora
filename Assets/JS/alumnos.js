@@ -23,13 +23,29 @@ $(document).ready(function () {
             endDateInput.val('');
         }
     });
-    
-    let table = $('#alumnostable').DataTable({
+
+
+    $.getJSON('../Modules/Alumnos/get_filters.php', function (data) {
+        data.periodos.forEach(periodo => {
+            $('#periodoFilter').append(`<option value="${periodo.id_periodo}">${periodo.fecha}</option>`);
+        });
+        data.grupos.forEach(grupo => {
+            $('#grupoFilter').append(`<option value="${grupo.id_grupo}">Grupo ${grupo.id_grupo}</option>`);
+        });
+        data.grados.forEach(grado => {
+            $('#gradoFilter').append(`<option value="${grado.id_grado}">${grado.descripcion}</option>`);
+        });
+    });
+
+  
+    const table = $('#alumnostable').DataTable({
         ajax: {
             url: '../Modules/Alumnos/fetch_alumnos.php',
             dataSrc: '',
-            data: function(d) {
+            data: function (d) {
                 d.periodo = $('#periodoFilter').val();
+                d.grupo = $('#grupoFilter').val();
+                d.grado = $('#gradoFilter').val();
             }
         },
         language: {
@@ -71,13 +87,22 @@ $(document).ready(function () {
         ]
     });
 
-    $('#periodoFilter').on('change', function() {
+
+    $('#periodoFilter, #grupoFilter, #gradoFilter').on('change', function () {
         table.ajax.reload();
     });
 
     $('#filterDate').click(function () {
         const startDate = $('#startDate').val();
         const endDate = $('#endDate').val();
+        table.ajax.reload();
+    });
+
+    // Reset filters and reload table
+    $('#resetFilters').click(function () {
+        $('#grupoFilter').val('');
+        $('#periodoFilter').val('');
+        $('#gradoFilter').val('');
         table.ajax.reload();
     });
 });
