@@ -207,6 +207,16 @@ $conn->close();
                 alert('Por favor, selecciona una imagen antes de guardar.');
             }
         });
+
+        // Add click event handler for logout button
+        document.querySelector('.btn-logout').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.parent) {
+                window.parent.location.href = '../../Modules/Login/logout.php';
+            } else {
+                window.location.href = '../../Modules/Login/logout.php';
+            }
+        });
     </script>
 </body>
 
