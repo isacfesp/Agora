@@ -33,8 +33,11 @@ $(document).ready(function() {
                 render: function(data, type, row) {
                     return `
                         <div class="d-flex gap-2">
-                            <button class="btn btn-sm btn-warning edit-btn" data-id="${row.id_usuario}" title="Editar usuario">
+                            <button class="btn btn-sm btn-warning edit-btn" data-id="${row.id_usuario}" onclick="EditarUsuario('${row.id_usuario}')" title="Editar usuario">
                                 <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-btn" data id="${row.id_usuario}" onclick="EliminarUsuario('${row.id_usuario}')" title="Eliminar usuario">
+                                <i class="fas fa-trash-alt"></i>
                             </button>
                             <button class="btn btn-sm view-btn" style="background-color: #3C4046; color: white;" data-id="${row.id_usuario}" title="Ver detalles">
                                 <i class="fas fa-circle-info"></i>
@@ -67,4 +70,11 @@ $(document).ready(function() {
         // Implement add user functionality
         console.log('Add new user');
     });
+
 });
+
+function EditarUsuario(){
+    $.getJSON(``, function (row){
+    ('#editarU').show();
+    })
+}
