@@ -23,24 +23,26 @@
             <br>
             <h2 style="font-weight: 600; margin: 40px 0; font-size: 1.5rem;">Gestión de Usuarios</h2>
         </div>
-        <div class="filter-container mb-3 d-flex justify-content-between align-items-center">
-            <a href="#" class="btn btn-primary" id="addUser"><i class="fas fa-user-plus"></i> Crear Usuario</a>
+        <div class="filter-container mb-3 d-flex flex-wrap justify-content-between align-items-center">
+            <a href="#" class="btn btn-primary mb-2" id="addUser"><i class="fas fa-user-plus"></i> Crear Usuario</a>
         </div>
-        <table id="usuariosTable" class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Email</th>
-                    <th>Nombre Completo</th>
-                    <th>Estado</th>
-                    <th>Tipo de Usuario</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Los datos se cargarán dinámicamente -->
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="usuariosTable" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Nombre Completo</th>
+                        <th>Estado</th>
+                        <th>Tipo de Usuario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Datos dinámicos -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div id="editarU">

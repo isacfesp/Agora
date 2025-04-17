@@ -17,19 +17,19 @@
             <h2 style="font-weight: 600; margin: 40px 0; font-size: 1.5rem;">Gestión de Alumnos</h2>
         </div>
 
-        <div class="filter-container mb-3 d-flex justify-content-between align-items-center">
-            <div class="d-flex">
-                <div class="me-2">
+        <div class="filter-container mb-3 d-flex flex-wrap justify-content-between align-items-center">
+            <div class="d-flex flex-wrap">
+                <div class="me-2 mb-2">
                     <select id="grupoFilter" class="form-select" aria-label="Selecciona grupo">
                         <option value="">Grupo</option>
                     </select>
                 </div>
-                <div class="me-2">
+                <div class="me-2 mb-2">
                     <select id="periodoFilter" class="form-select" aria-label="Selecciona periodo">
                         <option value="">Periodo</option>
                     </select>
                 </div>
-                <div class="me-2 d-flex align-items-center">
+                <div class="me-2 d-flex align-items-center mb-2">
                     <select id="gradoFilter" class="form-select" aria-label="Selecciona grado">
                         <option value="">Grado</option>
                     </select>
@@ -40,21 +40,23 @@
             </div>
         </div>
 
-        <table id="alumnostable" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Matrícula</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
-                    <th>Nombre</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-    
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="alumnostable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Matrícula</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Datos dinámicos -->
+                </tbody>
+            </table>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

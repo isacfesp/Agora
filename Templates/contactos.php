@@ -35,34 +35,35 @@ include "../Modules/Contacts/metricasContactos.php";
                 <div class="metric-label">Nuevos este mes</div>
             </div>
         </div>
-        <div class="filter-container mb-3 d-flex justify-content-between align-items-center">
-            <a href="../Modules/Contacts/Crear.php" class="btn btn-primary" id="addRecord"><i
-                    class="fas fa-user-plus"></i> Crear Contacto</a>
-            <a href="" class="btn btn-danger" id="printPDF"><i class="fas fa-file-pdf"></i> Imprimir</a>
-            <div class="d-flex">
-                <input type="date" id="startDate" class="form-control me-2" style="width: 160px;" placeholder="Desde">
-                <input type="date" id="endDate" class="form-control me-2" style="width: 160px;" placeholder="Hasta" disabled>
-                <button class="btn btn-success" id="filterDate"><i class="fas fa-filter"></i> Filtrar</button>
+        <div class="filter-container mb-3 d-flex flex-wrap justify-content-between align-items-center">
+            <a href="../Modules/Contacts/Crear.php" class="btn btn-primary mb-2" id="addRecord"><i class="fas fa-user-plus"></i> Crear Contacto</a>
+            <a href="" class="btn btn-danger mb-2" id="printPDF"><i class="fas fa-file-pdf"></i> Imprimir</a>
+            <div class="d-flex flex-wrap">
+                <input type="date" id="startDate" class="form-control me-2 mb-2" style="width: 160px;" placeholder="Desde">
+                <input type="date" id="endDate" class="form-control me-2 mb-2" style="width: 160px;" placeholder="Hasta" disabled>
+                <button class="btn btn-success mb-2" id="filterDate"><i class="fas fa-filter"></i> Filtrar</button>
             </div>
         </div>
-        <table id="contactosTable" class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
-                    <th>Número Telefónico</th>
-                    <th>WhatsApp</th>
-                    <th>Formato</th>
-                    <th>Fecha Creación</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí se llenarán los datos xd -->
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="contactosTable" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Número Telefónico</th>
+                        <th>WhatsApp</th>
+                        <th>Formato</th>
+                        <th>Fecha Creación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Datos dinámicos -->
+                </tbody>
+            </table>
+        </div>
     </div>
     <center>
 
