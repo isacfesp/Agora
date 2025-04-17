@@ -56,13 +56,13 @@ $conn->close();
             <i class="fas fa-user"></i><span>Contactos</span>
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/Gestion_usuarios.html'">
-        <i class="fa-solid fa-users"></i><span>Gestión de usuarios</span>
+            <i class="fa-solid fa-users"></i><span>Gestión de usuarios</span>
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Inscribir/inscribir.php'">
             <i class="fa-solid fa-file"></i><span>Inscribir</span>
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/alumnos.php'">
-        <i class="fa-solid fa-person"></i><span>Alumnos</span>
+            <i class="fa-solid fa-person"></i><span>Alumnos</span>
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Config_User/config.php'">
             <i class="fas fa-cog"></i><span>Configuraciones</span>
@@ -73,6 +73,7 @@ $conn->close();
     <div id="main-container">
         <!-- Barra superior -->
         <div id="topbar">
+            <button id="mobile-menu-toggle" class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
             <div class="user-icon-container">
                 <label for="btn-user"><img src="<?php echo $imagePath; ?>" alt="" class="rounded-circle border mt-3 user-icon"></label>
                 <input type="checkbox" id="btn-user" style="display: none;">
@@ -86,42 +87,35 @@ $conn->close();
             </div>
         </div>
 
+        <!-- Menú desplegable para móviles -->
+        <div id="mobile-menu" class="mobile-menu">
+            <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/home.php'">
+                <i class="fas fa-home"></i><span>Inicio</span>
+            </div>
+            <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/contactos.php'">
+                <i class="fas fa-user"></i><span>Contactos</span>
+            </div>
+            <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/Gestion_usuarios.html'">
+                <i class="fa-solid fa-users"></i><span>Gestión de usuarios</span>
+            </div>
+            <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Inscribir/inscribir.php'">
+                <i class="fa-solid fa-file"></i><span>Inscribir</span>
+            </div>
+            <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/alumnos.php'">
+                <i class="fa-solid fa-person"></i><span>Alumnos</span>
+            </div>
+            <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Config_User/config.php'">
+                <i class="fas fa-cog"></i><span>Configuraciones</span>
+            </div>
+        </div>
+
         <!-- Frame principal para mostrar el contenido -->
         <iframe id="main-frame" src="Templates/home.php"></iframe>
     </div>
 
-
-
-    <script>
-        document.getElementById("menu-toggle").addEventListener("click", function() {
-            const sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("collapsed");
-            
-            if (window.innerWidth <= 768) {
-                const menuItems = document.querySelectorAll('.menu-item');
-                menuItems.forEach(item => {
-                    item.addEventListener('click', () => {
-                        sidebar.classList.remove('collapsed');
-                    });
-                });
-            }
-        });
-    
-        document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById("sidebar");
-            const menuToggle = document.getElementById("menu-toggle");
-            
-            if (window.innerWidth <= 768 && 
-                !sidebar.contains(event.target) && 
-                !menuToggle.contains(event.target)) {
-                sidebar.classList.remove('collapsed');
-            }
-        });
-    
-        document.getElementById("main-frame").addEventListener("load", function() {
-            this.contentWindow.document.addEventListener("click", function() {
-                const btnUser = document.getElementById("btn-user");
-                btnUser.checked = false;
-            });
-        });
+    <script src="Assets/JS/index.js">
+        
     </script>
+</body>
+
+</html>

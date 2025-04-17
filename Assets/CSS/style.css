@@ -154,15 +154,59 @@ body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* Ocultar el menú superior y el botón en pantallas grandes */
+#mobile-menu,
+#mobile-menu-toggle {
+  display: none;
+}
+
 /* Estilo responsive para pantallas pequeñas */
 @media (max-width: 767px) {
-  .config {
-    font-size: 14px;
-    width: 80%;
-    max-width: 280px;
-    padding: 20px;
-    top: 70px;
-    right: 10px;
+ 
+
+  #sidebar {
+    display: none;
+  }
+
+  #mobile-menu-toggle {
+    display: block;
+    position: absolute;
+    left: 20px; /* Mover el botón a la izquierda */
+    top: 20px;
+    font-size: 24px;
+    color: #ffffff;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  #mobile-menu {
+    display: none;
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 10px 0;
+  }
+
+  #mobile-menu .menu-item {
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  #mobile-menu .menu-item:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-menu-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #ffffff;
+    cursor: pointer;
   }
 }
 
