@@ -3,6 +3,12 @@ $apaterno = isset($_GET['apaterno']) ? $_GET['apaterno'] : '';
 $amaterno = isset($_GET['amaterno']) ? $_GET['amaterno'] : '';
 $nombre = isset($_GET['nombre']) ? $_GET['nombre'] : '';
 $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
+
+include '../../Config/conexion.php';
+
+// Obtener los periodos disponibles
+$sqlPeriodos = "SELECT id_periodo, fecha FROM periodo";
+$resultPeriodos = $connection->query($sqlPeriodos);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,13 +20,16 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../../Assets/CSS/inscribir.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
 </head>
 
 <body>
     <div class="container mt-5">
         <div class="custom-container p-4">
-            <button class="btn print-button" onclick="openPDF()"><i class="fas fa-file-pdf"></i> Imprimir</button>
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <button class="btn btn-success btn-aceptar mb-2" onclick="openCamera()">
+                <i class="fas fa-camera"></i>
+            </button>
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Carrera/Especialidad/Cursos:</label> <br>
                     <label>Mecánica en Reparación de Motocicletas</label>
@@ -36,9 +45,15 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                     </div>
                     <div class="form-group col-md-6">
                         <label for="periodo">Periodo:</label>
-                        <select id="curso" name="curso" class="form-control">
-                            <option value="0">Selecciona una opción</option>
-                           
+                        <select id="curso" name="curso" class="form-control" required>
+                            <option value="">Selecciona una opción</option>
+                            <?php
+                            if ($resultPeriodos->num_rows > 0) {
+                                while ($row = $resultPeriodos->fetch_assoc()) {
+                                    echo "<option value='" . $row['id_periodo'] . "'>" . $row['fecha'] . "</option>";
+                                }
+                            }
+                            ?>
                         </select>
                     </div>
                 </div>
@@ -207,6 +222,8 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                     </div>
 
                 </div>
+                <!-- Campo oculto para la imagen capturada -->
+                <input type="file" id="imageFile" name="imageFile" style="display: none;">
                 <div class="form-group col-md-6 mt-3 d-flex justify-content-start">
                     <button type="submit" class="btn btn-success btn-aceptar mr-2" name="submit">Guardar</button>
                 </div>
@@ -238,44 +255,145 @@ $celular = isset($_GET['celular']) ? $_GET['celular'] : '';
                     <label class="form-check-label" for="documento6">Documento 6</label>
                 </div>
             </div>
+            <!-- Modal para la cámara -->
+            <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="cameraModalLabel">Capturar Imagen</h5>
+                            <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <video id="cameraStream" autoplay playsinline style="width: 100%; border-radius: 5px;"></video>
+                            <canvas id="cameraCanvas" style="display: none;"></canvas>
+                            <div id="imageEditor" style="display: none;">
+                                <img id="capturedImage" style="max-width: 100%; display: block; margin: auto;">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                            <button type="button" class="btn btn-success btn-aceptar mr-2" id="captureButton" onclick="captureImage()">
+                                <i class="fas fa-camera"></i> Capturar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-aceptar mr-2" id="saveButton" style="display: none;" onclick="saveEditedImage()">
+                                <i class="fas fa-save"></i> Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Bootstrap JS -->
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <!-- Agregar el script de Cropper.js -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </body>
 
 
 <script>
     const horarioU = document.getElementById('horario');
-</script>
 
-<?php
-include '../../Config/conexion.php';
+    let videoStream;
+    let cropper;
 
-
-$sql = "SELECT MAX(id_alumno) FROM alumno";
-$result = $connection->query($sql);
-$lastId = $result->fetch_row()[0];
-$secuencial = ($lastId + 1);
-if ($secuencial < 10) {
-    $secuencial = "00" . $secuencial;
-} elseif ($secuencial < 100) {
-    $secuencial = "0" . $secuencial;
-}
-
-if (isset($_POST['curso'])) {
-    $curso_id = $_POST['curso'];
-    $sqlPeriodo = "SELECT fecha FROM periodo WHERE id_periodo = '$curso_id'";
-    $result = mysqli_query($connection, $sqlPeriodo);
-    if ($rowPeriodo =mysqli_fetch_assoc($result)) {
-        $fecha = $rowPeriodo['fecha'];
-        $matriculaU = $fecha . $_POST['horario'] . $secuencial;
+    function openCamera() {
+        const video = document.getElementById('cameraStream');
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                videoStream = stream;
+                video.srcObject = stream;
+                $('#cameraModal').modal('show');
+            })
+            .catch((error) => {
+                console.error('Error al acceder a la cámara:', error);
+                alert('No se pudo acceder a la cámara.');
+            });
     }
-}
-?>
 
+    function captureImage() {
+        const video = document.getElementById('cameraStream');
+        const canvas = document.getElementById('cameraCanvas');
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-<script>
+        // Mostrar la imagen capturada en el área de edición
+        const imageData = canvas.toDataURL('image/png');
+        const capturedImage = document.getElementById('capturedImage');
+        capturedImage.src = imageData;
+
+        // Ocultar el video y mostrar el editor
+        document.getElementById('cameraStream').style.display = 'none';
+        document.getElementById('cameraCanvas').style.display = 'none';
+        document.getElementById('imageEditor').style.display = 'block';
+
+        // Inicializar Cropper.js con un recuadro fijo
+        cropper = new Cropper(capturedImage, {
+            aspectRatio: 3 / 4, // Relación de aspecto para tamaño infantil
+            viewMode: 1,
+            dragMode: 'move', // Permitir mover la imagen
+            zoomable: true, // Permitir zoom
+            scalable: false, // No permitir escalar
+            cropBoxResizable: false, // Deshabilitar el cambio de tamaño del recuadro
+            cropBoxMovable: false, // Fijar el recuadro
+            background: false, // Ocultar el fondo fuera del área de recorte
+        });
+
+        // Cambiar los botones
+        document.getElementById('captureButton').style.display = 'none';
+        document.getElementById('saveButton').style.display = 'inline-block';
+    }
+
+    function saveEditedImage() {
+        // Obtener la imagen recortada según el recuadro fijo
+        const croppedCanvas = cropper.getCroppedCanvas({
+            width: 300, // Ancho del tamaño infantil
+            height: 400, // Alto del tamaño infantil
+        });
+
+        croppedCanvas.toBlob(function (blob) {
+            const file = new File([blob], "capturedImage.png", { type: "image/png" });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            document.getElementById('imageFile').files = dataTransfer.files;
+
+            console.log('Imagen lista para enviar:', file);
+        });
+
+        // Detener la cámara y cerrar el modal
+        closeCamera();
+    }
+
+    function closeCamera() {
+        if (videoStream) {
+            const tracks = videoStream.getTracks();
+            tracks.forEach((track) => track.stop());
+        }
+        $('#cameraModal').modal('hide');
+
+        // Limpiar Cropper.js
+        if (cropper) {
+            cropper.destroy();
+            cropper = null;
+        }
+
+        // Restaurar el estado inicial
+        document.getElementById('cameraStream').style.display = 'block';
+        document.getElementById('cameraCanvas').style.display = 'none';
+        document.getElementById('imageEditor').style.display = 'none';
+        document.getElementById('captureButton').style.display = 'inline-block';
+        document.getElementById('saveButton').style.display = 'none';
+    }
+
+    // Detener la cámara al cerrar el modal
+    $('#cameraModal').on('hidden.bs.modal', closeCamera);
+
     function openPDF() {
         var pdfUrl = 'solicitud.php';
         window.open(pdfUrl, '_blank');
@@ -328,13 +446,38 @@ if (isset($_POST['curso'])) {
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['submit'])) {
+        // Obtener los datos del formulario
+        $curso_id = $_POST['curso'];
+        $horario = $_POST['horario'];
 
+        // Obtener la fecha del periodo seleccionado
+        $sqlPeriodo = "SELECT fecha FROM periodo WHERE id_periodo = '$curso_id'";
+        $resultPeriodo = $connection->query($sqlPeriodo);
+        $fecha = '';
+        if ($rowPeriodo = $resultPeriodo->fetch_assoc()) {
+            $fecha = $rowPeriodo['fecha']; // Fecha completa del periodo
+        }
 
+        // Extraer los primeros 4 dígitos de la matrícula (MMYY)
+        $mes = date('m', strtotime($fecha)); // Mes en formato 2 dígitos
+        $anio = date('y', strtotime($fecha)); // Año en formato 2 dígitos
+        $periodoMatricula = $mes . $anio; // Concatenar MMYY
 
+        // Obtener el siguiente ID del alumno
+        $sqlMaxId = "SELECT MAX(id_alumno) AS max_id FROM alumno";
+        $resultMaxId = $connection->query($sqlMaxId);
+        $lastId = 0;
+        if ($rowMaxId = $resultMaxId->fetch_assoc()) {
+            $lastId = $rowMaxId['max_id'];
+        }
+        $secuencial = str_pad($lastId + 1, 3, '0', STR_PAD_LEFT); // Formato de 3 dígitos
 
+        // Construir la matrícula
+        $matriculaU = $periodoMatricula . $horario . $secuencial;
 
+        // Preparar los datos del alumno
         $datos = [
-            'horario' => $_POST['horario'],
+            'horario' => $horario,
             'matricula' => $matriculaU,
             'apaterno' => $_POST['apaterno'],
             'amaterno' => $_POST['amaterno'],
@@ -360,27 +503,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'emergencia_nombre' => $_POST['emergencia_nombre'],
             'parentesco' => $_POST['parentesco'],
             'emergencia_telefono' => $_POST['emergencia_telefono'],
-            'curso' => $_POST['curso'],
             'estado' => 0,
         ];
 
-        include "../../Config/conexion.php";
+        // Insertar en la tabla alumno
+        $sqlAlumno = "INSERT INTO alumno (horario, matricula, apaterno, amaterno, nombre, nacimiento, edad, curp, tel_fijo, tel_celular, email, calle, colonia, cp, municipio, tutor_apaterno, tutor_amaterno, tutor_nombre, tutor_tel_fijo, tutor_tel_celular, tutor_email, emergencia_apaterno, emergencia_amaterno, emergencia_nombre, emergencia_parentesco, emergencia_tel, estado) 
+        VALUES ('" . $datos['horario'] . "', '" . $datos['matricula'] . "', '" . $datos['apaterno'] . "', '" . $datos['amaterno'] . "', '" . $datos['nombre'] . "', '" . $datos['nacimiento'] . "', '" . $datos['edad'] . "', '" . $datos['curp'] . "', '" . $datos['telfijo'] . "', '" . $datos['celular'] . "', '" . $datos['email'] . "', '" . $datos['calle'] . "', '" . $datos['colonia'] . "', '" . $datos['codpostal'] . "', '" . $datos['municipio'] . "', '" . $datos['tutor_apaterno'] . "', '" . $datos['tutor_amaterno'] . "', '" . $datos['tutor_nombre'] . "', '" . $datos['tutor_telfijo'] . "', '" . $datos['tutor_celular'] . "', '" . $datos['tutor_email'] . "', '" . $datos['emergencia_apaterno'] . "', '" . $datos['emergencia_amaterno'] . "', '" . $datos['emergencia_nombre'] . "', '" . $datos['parentesco'] . "', '" . $datos['emergencia_telefono'] . "', '" . $datos['estado'] . "')";
 
-        $sql = "INSERT INTO alumno (horario, matricula, apaterno, amaterno, nombre, nacimiento, edad, curp, tel_fijo, tel_celular, email, calle, colonia, cp, municipio, tutor_apaterno, tutor_amaterno, tutor_nombre, tutor_tel_fijo, tutor_tel_celular, tutor_email, emergencia_apaterno, emergencia_amaterno, emergencia_nombre, emergencia_parentesco, emergencia_tel, estado, curso) 
-VALUES ('" . $datos['horario'] . "', '" . $datos['matricula'] . "', '" . $datos['apaterno'] . "', '" . $datos['amaterno'] . "', '" . $datos['nombre'] . "', '" . $datos['nacimiento'] . "', '" . $datos['edad'] . "', '" . $datos['curp'] . "', '" . $datos['telfijo'] . "', '" . $datos['celular'] . "', '" . $datos['email'] . "', '" . $datos['calle'] . "', '" . $datos['colonia'] . "',
- '" . $datos['codpostal'] . "', '" . $datos['municipio'] . "', '" . $datos['tutor_apaterno'] . "', '" . $datos['tutor_amaterno'] . "', '" . $datos['tutor_nombre'] . "', '" . $datos['tutor_telfijo'] . "', '" . $datos['tutor_celular'] . "', '" . $datos['tutor_email'] . "', '" . $datos['emergencia_apaterno'] . "', '" . $datos['emergencia_amaterno'] . "', '" . $datos['emergencia_nombre'] . "',
-  '" . $datos['parentesco'] . "', '" . $datos['emergencia_telefono'] . "', '" . $datos['estado'] . "', '" . $datos['curso'] . "')";
+        if ($connection->query($sqlAlumno) === TRUE) {
+            // Obtener el ID del alumno recién insertado
+            $idAlumno = $connection->insert_id;
 
-        if ($connection->query($sql) === TRUE) {
-            $_SESSION['datos'] = $datos;
+            // Insertar en la tabla inscripcion
+            $sqlInscripcion = "INSERT INTO inscripcion (id_alumno, id_periodo) VALUES ('$idAlumno', '$curso_id')";
+            if ($connection->query($sqlInscripcion) === TRUE) {
+                // Mover la imagen al servidor
+                if (isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] === UPLOAD_ERR_OK) {
+                    $imageTmpPath = $_FILES['imageFile']['tmp_name'];
+                    $imagePath = "../../BD/Photos/{$datos['matricula']}.png";
 
-            echo "<script>
-        window.onload = function() {
-            document.getElementById('overlay').style.display = 'flex';
-        }
-        </script>";
+                    if (move_uploaded_file($imageTmpPath, $imagePath)) {
+                        echo "Imagen guardada correctamente.";
+                    } else {
+                        echo "Error al guardar la imagen.";
+                    }
+                }
+
+                echo "<script>
+                window.onload = function() {
+                    document.getElementById('overlay').style.display = 'flex';
+                }
+                </script>";
+            } else {
+                echo "Error al insertar en la tabla inscripcion: " . $connection->error;
+            }
         } else {
-            echo "Error: " . $sql . "<br>" . $connection->error;
+            echo "Error al insertar en la tabla alumno: " . $connection->error;
         }
 
         $connection->close();
