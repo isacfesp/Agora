@@ -5,7 +5,27 @@ $(document).ready(function() {
             dataSrc: ''
         },
         language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+            "decimal": ",",
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+            "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+            "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+            "lengthMenu": "Mostrar _MENU_ entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "No se han encontrado resultados",
+            "paginate": {
+                "first": "Primera",
+                "last": "Última",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": activar para ordenar la columna de manera ascendente",
+                "sortDescending": ": activar para ordenar la columna de manera descendente"
+            }
+         //   url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
         },
         columns: [
             { data: 'id_usuario' },
@@ -33,13 +53,13 @@ $(document).ready(function() {
                 render: function(data, type, row) {
                     return `
                         <div class="d-flex gap-2">
-                            <button class="btn btn-sm btn-warning edit-btn" data-id="${row.id_usuario}" onclick="EditarUsuario('${row.id_usuario}')" title="Editar usuario">
+                            <button class="btn btn-sm btn-warning edit-btn" data-id="${data.id_usuario}" onclick="EditarUsuario('${data.id_usuario}')" title="Editar usuario">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger delete-btn" data id="${row.id_usuario}" onclick="EliminarUsuario('${row.id_usuario}')" title="Eliminar usuario">
+                            <button class="btn btn-sm btn-danger delete-btn" data id="${data.id_usuario}" onclick="EliminarUsuario('${data.id_usuario}')" title="Eliminar usuario">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
-                            <button class="btn btn-sm view-btn" style="background-color: #3C4046; color: white;" data-id="${row.id_usuario}" title="Ver detalles">
+                            <button class="btn btn-sm view-btn" style="background-color: #3C4046; color: white;" data-id="${data.id_usuario}" title="Ver detalles">
                                 <i class="fas fa-circle-info"></i>
                             </button>
                         </div>
@@ -73,8 +93,23 @@ $(document).ready(function() {
 
 });
 
-function EditarUsuario(){
-    $.getJSON(``, function (row){
-    ('#editarU').show();
-    })
+function EditarUsuario(id){
+    $.getJSON(`../Modules/Gestion_Usuarios/fetch_usuario.php?id=${id}`, function (data, type, row){
+        $('#email').val(data.email);
+        $('#nombre').val(row.nombre + '' + row.apaterno + '' + row.amaterno);
+        $('#tipo').val(data.tipo_usuario);
+        $('#editarU').show();
+    });
+}
+
+function guardarE(){
+    let formE = $('#formE').serialize();
+    $.post('../Modules/Gestion_Usuarios/actualizar_usuario.php', formE, function () {
+        $('#editarU').hide();
+        $('#usuariosTable').DataTable().ajax.reload();
+    });
+}
+
+function cancelarE(){
+    $('#editarU').hide();
 }
