@@ -290,7 +290,6 @@ $resultPeriodos = $connection->query($sqlPeriodos);
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-            <!-- Agregar el script de Cropper.js -->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </body>
 
@@ -323,38 +322,36 @@ $resultPeriodos = $connection->query($sqlPeriodos);
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        // Mostrar la imagen capturada en el área de edición
         const imageData = canvas.toDataURL('image/png');
         const capturedImage = document.getElementById('capturedImage');
         capturedImage.src = imageData;
 
-        // Ocultar el video y mostrar el editor
         document.getElementById('cameraStream').style.display = 'none';
         document.getElementById('cameraCanvas').style.display = 'none';
         document.getElementById('imageEditor').style.display = 'block';
 
-        // Inicializar Cropper.js con un recuadro fijo
+
         cropper = new Cropper(capturedImage, {
-            aspectRatio: 3 / 4, // Relación de aspecto para tamaño infantil
+            aspectRatio: 3 / 4, 
             viewMode: 1,
-            dragMode: 'move', // Permitir mover la imagen
-            zoomable: true, // Permitir zoom
-            scalable: false, // No permitir escalar
-            cropBoxResizable: false, // Deshabilitar el cambio de tamaño del recuadro
-            cropBoxMovable: false, // Fijar el recuadro
-            background: false, // Ocultar el fondo fuera del área de recorte
+            dragMode: 'move',
+            zoomable: true, 
+            scalable: false,
+            cropBoxResizable: false, 
+            cropBoxMovable: false,
+            background: false,
         });
 
-        // Cambiar los botones
+
         document.getElementById('captureButton').style.display = 'none';
         document.getElementById('saveButton').style.display = 'inline-block';
     }
 
     function saveEditedImage() {
-        // Obtener la imagen recortada según el recuadro fijo
+
         const croppedCanvas = cropper.getCroppedCanvas({
-            width: 300, // Ancho del tamaño infantil
-            height: 400, // Alto del tamaño infantil
+            width: 300, 
+            height: 400, 
         });
 
         croppedCanvas.toBlob(function (blob) {
@@ -366,7 +363,7 @@ $resultPeriodos = $connection->query($sqlPeriodos);
             console.log('Imagen lista para enviar:', file);
         });
 
-        // Detener la cámara y cerrar el modal
+  
         closeCamera();
     }
 
@@ -377,13 +374,13 @@ $resultPeriodos = $connection->query($sqlPeriodos);
         }
         $('#cameraModal').modal('hide');
 
-        // Limpiar Cropper.js
+
         if (cropper) {
             cropper.destroy();
             cropper = null;
         }
 
-        // Restaurar el estado inicial
+
         document.getElementById('cameraStream').style.display = 'block';
         document.getElementById('cameraCanvas').style.display = 'none';
         document.getElementById('imageEditor').style.display = 'none';
@@ -391,7 +388,7 @@ $resultPeriodos = $connection->query($sqlPeriodos);
         document.getElementById('saveButton').style.display = 'none';
     }
 
-    // Detener la cámara al cerrar el modal
+
     $('#cameraModal').on('hidden.bs.modal', closeCamera);
 
     function openPDF() {
@@ -446,36 +443,34 @@ $resultPeriodos = $connection->query($sqlPeriodos);
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['submit'])) {
-        // Obtener los datos del formulario
         $curso_id = $_POST['curso'];
         $horario = $_POST['horario'];
 
-        // Obtener la fecha del periodo seleccionado
         $sqlPeriodo = "SELECT fecha FROM periodo WHERE id_periodo = '$curso_id'";
         $resultPeriodo = $connection->query($sqlPeriodo);
         $fecha = '';
         if ($rowPeriodo = $resultPeriodo->fetch_assoc()) {
-            $fecha = $rowPeriodo['fecha']; // Fecha completa del periodo
+            $fecha = $rowPeriodo['fecha']; 
         }
 
-        // Extraer los primeros 4 dígitos de la matrícula (MMYY)
-        $mes = date('m', strtotime($fecha)); // Mes en formato 2 dígitos
-        $anio = date('y', strtotime($fecha)); // Año en formato 2 dígitos
-        $periodoMatricula = $mes . $anio; // Concatenar MMYY
 
-        // Obtener el siguiente ID del alumno
+        $mes = date('m', strtotime($fecha)); 
+        $anio = date('y', strtotime($fecha)); 
+        $periodoMatricula = $mes . $anio; 
+
+
         $sqlMaxId = "SELECT MAX(id_alumno) AS max_id FROM alumno";
         $resultMaxId = $connection->query($sqlMaxId);
         $lastId = 0;
         if ($rowMaxId = $resultMaxId->fetch_assoc()) {
             $lastId = $rowMaxId['max_id'];
         }
-        $secuencial = str_pad($lastId + 1, 3, '0', STR_PAD_LEFT); // Formato de 3 dígitos
+        $secuencial = str_pad($lastId + 1, 3, '0', STR_PAD_LEFT); 
 
-        // Construir la matrícula
+
         $matriculaU = $periodoMatricula . $horario . $secuencial;
 
-        // Preparar los datos del alumno
+ 
         $datos = [
             'horario' => $horario,
             'matricula' => $matriculaU,
@@ -503,21 +498,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'emergencia_nombre' => $_POST['emergencia_nombre'],
             'parentesco' => $_POST['parentesco'],
             'emergencia_telefono' => $_POST['emergencia_telefono'],
-            'estado' => 0,
+            'estado' => 'inactivo',
         ];
 
-        // Insertar en la tabla alumno
+
         $sqlAlumno = "INSERT INTO alumno (horario, matricula, apaterno, amaterno, nombre, nacimiento, edad, curp, tel_fijo, tel_celular, email, calle, colonia, cp, municipio, tutor_apaterno, tutor_amaterno, tutor_nombre, tutor_tel_fijo, tutor_tel_celular, tutor_email, emergencia_apaterno, emergencia_amaterno, emergencia_nombre, emergencia_parentesco, emergencia_tel, estado) 
         VALUES ('" . $datos['horario'] . "', '" . $datos['matricula'] . "', '" . $datos['apaterno'] . "', '" . $datos['amaterno'] . "', '" . $datos['nombre'] . "', '" . $datos['nacimiento'] . "', '" . $datos['edad'] . "', '" . $datos['curp'] . "', '" . $datos['telfijo'] . "', '" . $datos['celular'] . "', '" . $datos['email'] . "', '" . $datos['calle'] . "', '" . $datos['colonia'] . "', '" . $datos['codpostal'] . "', '" . $datos['municipio'] . "', '" . $datos['tutor_apaterno'] . "', '" . $datos['tutor_amaterno'] . "', '" . $datos['tutor_nombre'] . "', '" . $datos['tutor_telfijo'] . "', '" . $datos['tutor_celular'] . "', '" . $datos['tutor_email'] . "', '" . $datos['emergencia_apaterno'] . "', '" . $datos['emergencia_amaterno'] . "', '" . $datos['emergencia_nombre'] . "', '" . $datos['parentesco'] . "', '" . $datos['emergencia_telefono'] . "', '" . $datos['estado'] . "')";
 
         if ($connection->query($sqlAlumno) === TRUE) {
-            // Obtener el ID del alumno recién insertado
+
             $idAlumno = $connection->insert_id;
 
-            // Insertar en la tabla inscripcion
+
             $sqlInscripcion = "INSERT INTO inscripcion (id_alumno, id_periodo) VALUES ('$idAlumno', '$curso_id')";
             if ($connection->query($sqlInscripcion) === TRUE) {
-                // Mover la imagen al servidor
+
                 if (isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] === UPLOAD_ERR_OK) {
                     $imageTmpPath = $_FILES['imageFile']['tmp_name'];
                     $imagePath = "../../BD/Photos/{$datos['matricula']}.png";

@@ -27,12 +27,13 @@ class PDF extends FPDF
     // Encabezado
     function Header()
     {
-        //Linea Horizontal
+        global $datos;
+
+        // Línea Horizontal
         $this->SetDrawColor(187, 205, 93);
         $this->SetLineWidth(1.3);
         $this->Line(55, 15, 205, 15);
         $this->Ln(8);
-
 
         // Logo
         $this->Image('../../Assets/Images/LogoTrans.png', 5, 0, 50);
@@ -44,14 +45,25 @@ class PDF extends FPDF
         $this->Cell(0, 4, 'C.P. 78395', 0, 1, 'R');
         $this->Cell(0, 4, 'Tel. 444-873-34-2', 0, 1, 'R');
 
-        // Cuadro para fotografía
+        // Cuadro o Imagen para fotografía
         $this->SetFont('Times', '', 10);
         $this->SetLineWidth(0.3);
         $this->SetDrawColor(0, 0, 0);
-        $this->SetXY(95, 17);
-        $this->Cell(25, 30, '', 1, 1, 'C');
-        $this->SetXY(93, 40);
-        $this->Cell(30, 5, 'FOTOGRAFIA', 0, 1, 'C');
+
+      
+        $photoPath = '../../BD/Photos/' . $datos['matricula'] . '.png';
+        if (file_exists($photoPath)) {
+                    
+            $this->Image($photoPath, 95, 17, 25, 32);
+            $this->Ln(7);
+        } else {
+
+            $this->SetXY(95, 17);
+            $this->Cell(25, 30, '', 1, 1, 'C');
+            $this->SetXY(93, 40);
+            $this->Cell(30, 5, 'FOTOGRAFIA', 0, 1, 'C');
+        }
+
         $this->Ln(10);
     }
 
