@@ -96,7 +96,8 @@ $(document).ready(function() {
 function EditarUsuario(id){
     $.getJSON(`../Modules/Gestion_Usuarios/fetch_usuario.php?id=${id}`, function (data, type, row){
         $('#email').val(data.email);
-        $('#nombre').val(row.nombre + '' + row.apaterno + '' + row.amaterno);
+        $('#nombre').val(data.nombre + '' + data.apaterno + '' + data.amaterno);
+        $('estado').val(data.estado);
         $('#tipo').val(data.tipo_usuario);
         $('#editarU').show();
     });
@@ -112,4 +113,8 @@ function guardarE(){
 
 function cancelarE(){
     $('#editarU').hide();
+}
+
+function EliminarUsuario(id){
+    
 }

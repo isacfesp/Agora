@@ -44,18 +44,28 @@
             </table>
         </div>
     </div>
-
+        <!-- Editar usuario -->
     <center>
         <div id="editarU" class="overlay">
             <div class="popup">
                 <h2>Edición de Datos</h2>
                 <form id="formE">
                     <label>Email</label>
-                    <input type="text" id="email" name="email" required>
+                    <input type="text" id="email" name="email" required readonly>
                     <label>Nombre Completo</label>
-                    <input type="text" id="nombre" name="nombre" required>
+                    <input type="text" id="nombre" name="nombre" readonly>
+                    <label for="">Estado</label>
+                    <select name="estado" id="estado" class="inputt">
+                        <option value="1">Activo</option>
+                        <option value="2">Inactivo</option>
+                    </select>
                     <label>Tipo de Usuario</label>
-                    <input type="number" id="tipo" name="tipo" required>
+                    <select name="tipo" id="tipo" class="inputt">
+                        <option value="1">Administrador</option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                        <option value="4"></option>
+                    </select>
                     <div>
                         <button type="button" class="btn btn-success" onclick="guardarE()">Guardar</button>
                         <button type="button" class="btn btn-secondary" onclick="cancelarE()">Cancelar</button>
@@ -64,6 +74,24 @@
             </div>
         </div>
     </center>
+        <!-- Eliminar usuario -->
+    <div class="modal fade" id="borrar" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este contacto?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts necesarios -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
