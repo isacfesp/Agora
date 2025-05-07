@@ -56,7 +56,7 @@ unset($_SESSION['error']);
             </button>
 
             <div class="text-center mt-4">
-                <a href="#" class="text-decoration-none text-muted small">
+                <a href="reset_password.html" class="text-decoration-none text-muted small">
                     ¿Olvidó su Contraseña?
                 </a>
             </div>
