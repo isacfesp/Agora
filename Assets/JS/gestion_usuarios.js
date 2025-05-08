@@ -116,5 +116,16 @@ function cancelarE(){
 }
 
 function EliminarUsuario(id){
-    
+    $('#borrar').show();
+}
+
+function eliminarU(id){
+    $.post(`../Modules/Gestion_Usuarios/eliminar_usuario.php`, {id}, function(){
+        $('#borrar').hide();
+        $('#usuariosTable').DataTable().ajax.reload();
+    });
+}
+
+function cancelarD(){
+    $('#borrar').hide();
 }
