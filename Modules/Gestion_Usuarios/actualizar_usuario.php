@@ -10,14 +10,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$email = $_POST['email'];
-$nombre = $_POST['nombre'];
+$id_usuario = $_POST['id_usuario'];
 $estado = $_POST['estado'];
 $tipo_usuario = $_POST['tipo'];
 
-$sql = "UPDATE usuario SET email = ?, nombre = ?, apaterno = ?, amaterno = ?, estado = ?, tipo = ? WHERE id_usuario = ?";
+$sql = "UPDATE usuario SET estado = ?, tipo_usuario = ? WHERE id_usuario = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssssii", $email, $nombre, $estado, $tipo_usuario);
+$stmt->bind_param("iii",  $estado, $tipo_usuario, $id_usuario);
 
 if ($stmt->execute()) {
     echo "Contacto actualizado correctamente";

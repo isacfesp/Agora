@@ -56,7 +56,7 @@ $(document).ready(function() {
                             <button class="btn btn-sm btn-warning edit-btn" data-id="${data.id_usuario}" onclick="EditarUsuario('${data.id_usuario}')" title="Editar usuario">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger delete-btn" data id="${data.id_usuario}" onclick="EliminarUsuario('${data.id_usuario}')" title="Eliminar usuario">
+                            <button class="btn btn-sm btn-danger delete-btn" data-id="${data.id_usuario}" onclick="EliminarUsuario('${data.id_usuario}')" title="Eliminar usuario">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                             <button class="btn btn-sm view-btn" style="background-color: #3C4046; color: white;" data-id="${data.id_usuario}" title="Ver detalles">
@@ -95,16 +95,20 @@ $(document).ready(function() {
 
 function EditarUsuario(id){
     $.getJSON(`../Modules/Gestion_Usuarios/fetch_usuario.php?id=${id}`, function (data, type, row){
+        $('#id_usuario').val(data.id_usuario);
         $('#email').val(data.email);
         $('#nombre').val(data.nombre + '' + data.apaterno + '' + data.amaterno);
-        $('estado').val(data.estado);
+        $('#estado').val(data.estado);
         $('#tipo').val(data.tipo_usuario);
         $('#editarU').show();
+        $('#formE').data('usuario-id', data.id_usuario); //Guarda el id 
     });
 }
 
 function guardarE(){
     let formE = $('#formE').serialize();
+    let id_usuario = $('#formE').data('usuario-id');
+    formE += `&id_usuario=${id_usuario}`;
     $.post('../Modules/Gestion_Usuarios/actualizar_usuario.php', formE, function () {
         $('#editarU').hide();
         $('#usuariosTable').DataTable().ajax.reload();
@@ -115,17 +119,17 @@ function cancelarE(){
     $('#editarU').hide();
 }
 
-function EliminarUsuario(id){
-    $('#borrar').show();
-}
 
-function eliminarU(id){
-    $.post(`../Modules/Gestion_Usuarios/eliminar_usuario.php`, {id}, function(){
-        $('#borrar').hide();
-        $('#usuariosTable').DataTable().ajax.reload();
+function EliminarUsuario(id) {
+    $('#confirmDelete').off().on('click', function () {
+        $.post(`../Modules/Gestion_Usuarios/eliminar_usuario.php`, { id }, function () {
+            $('#borrar').modal('hide');
+            $('#usuariosTable').DataTable().ajax.reload();
+        });
     });
+    $('#borrar').modal('show');
 }
 
-function cancelarD(){
-    $('#borrar').hide();
+function cancelarD() {
+    $('#borrar').modal('hide');
 }
