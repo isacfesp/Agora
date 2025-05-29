@@ -117,9 +117,19 @@ $resultPeriodos = $connection->query($sqlPeriodos);
                     <select class="form-control" name="colonia" id="colonia" required>
                         <option value="">Colonia</option>
                     </select>
-                    <input type="text" placeholder="Escriba su colonia" id="otra" name="otra" style="display: none;">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Escriba su colonia" id="otra" name="otra" style="display: none;">
                 </div>
                 <script>
+                    document.getElementById('colonia').addEventListener('change', function() {
+                        if (this.value === 'Otro') {
+                            document.getElementById('otra').style.display = "block";
+                        } else {
+                            document.getElementById('otra').style.display = "none";
+                        }
+                    });
+
                     function codigoPos() {
                         const codigo = document.getElementById('codpostal').value;
                         if (codigo != null) {

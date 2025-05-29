@@ -86,7 +86,7 @@ $(document).ready(function() {
 
     // Add new user button handler
     $('#addUser').on('click', function(e) {
-        e.preventDefault();
+       // e.preventDefault();
         // Implement add user functionality
         console.log('Add new user');
     });
