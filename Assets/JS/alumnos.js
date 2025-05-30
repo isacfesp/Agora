@@ -24,7 +24,6 @@ $(document).ready(function () {
         }
     });
 
-
     $.getJSON('../Modules/Alumnos/get_filters.php', function (data) {
         data.periodos.forEach(periodo => {
             $('#periodoFilter').append(`<option value="${periodo.id_periodo}">${periodo.fecha}</option>`);
@@ -37,7 +36,6 @@ $(document).ready(function () {
         });
     });
 
-  
     const table = $('#alumnostable').DataTable({
         ajax: {
             url: '../Modules/Alumnos/fetch_alumnos.php',
@@ -76,8 +74,12 @@ $(document).ready(function () {
             { data: 'apaterno' },
             { data: 'amaterno' },
             { data: 'nombre' },
+            { data: 'id_grupo' },      // Grupo
+            { data: 'grado' },         // Grado
+            { data: 'periodo' },       // Periodo
             {
                 data: null,
+                orderable: false,
                 render: function (data) {
                     return `
                         <button class="btn btn-default btn-sm historial-btn" data-id="${data.id_alumno}" onclick="historial('${data.id_alumno}')"><i class="fa-solid fa-sliders"></i></button>
@@ -86,7 +88,6 @@ $(document).ready(function () {
             }
         ]
     });
-
 
     $('#periodoFilter, #grupoFilter, #gradoFilter').on('change', function () {
         table.ajax.reload();
@@ -98,12 +99,28 @@ $(document).ready(function () {
         table.ajax.reload();
     });
 
-    // Reset filters and reload table
-    $('#resetFilters').click(function () {
-        $('#grupoFilter').val('');
-        $('#periodoFilter').val('');
-        $('#gradoFilter').val('');
+    // Eliminar la función resetFilters existente y mantener solo limpiarFiltros
+    $('#limpiarFiltros').click(function() {
+        // Limpiar todos los filtros
+        $('#periodoFilter').val('').trigger('change');
+        $('#grupoFilter').val('').trigger('change');
+        $('#gradoFilter').val('').trigger('change');
+        $('#startDate').val('');
+        $('#endDate').val('');
+        endDateInput.prop('disabled', true);
+
+        // Limpiar la búsqueda de DataTables
+        table.search('');
+        
+        // Limpiar la búsqueda en cada columna
+        table.columns().every(function() {
+            let column = this;
+            column.search('');
+        });
+
+        // Recargar y redibujar la tabla
         table.ajax.reload();
+        table.draw();
     });
 });
 

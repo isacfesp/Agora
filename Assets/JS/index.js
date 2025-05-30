@@ -1,3 +1,15 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebar = document.getElementById("sidebar");
+    
+    // Remover la clase collapsed si existe
+    if (sidebar.classList.contains("collapsed")) {
+        sidebar.classList.remove("collapsed");
+    }
+    
+    // Guardar el estado en localStorage si quieres persistencia
+    localStorage.setItem('sidebarState', 'expanded');
+});
+
 document.getElementById("menu-toggle").addEventListener("click", function() {
     const sidebar = document.getElementById("sidebar");
     sidebar.classList.toggle("collapsed");

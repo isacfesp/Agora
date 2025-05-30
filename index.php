@@ -47,7 +47,7 @@ $conn->close();
 <body>
 
     <!-- Menú lateral -->
-    <div id="sidebar" class="collapsed">
+    <div id="sidebar">
         <button id="menu-toggle"><i class="fas fa-bars"></i></button>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/home.php'">
             <i class="fas fa-home"></i><span>Inicio</span>
@@ -63,6 +63,9 @@ $conn->close();
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/alumnos.php'">
             <i class="fa-solid fa-person"></i><span>Alumnos</span>
+        </div>
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/grupos.php'">
+            <i class="fa-solid fa-chalkboard-user"></i><span>Grupos</span>
         </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Config_User/config.php'">
             <i class="fas fa-cog"></i><span>Configuraciones</span>
@@ -103,6 +106,9 @@ $conn->close();
             </div>
             <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/alumnos.php'">
                 <i class="fa-solid fa-person"></i><span>Alumnos</span>
+            </div>
+            <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/grupos.php'">
+                <i class="fa-solid fa-users-rectangle"></i><span>Grupos</span>
             </div>
             <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Config_User/config.php'">
                 <i class="fas fa-cog"></i><span>Configuraciones</span>

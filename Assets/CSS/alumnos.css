@@ -18,6 +18,17 @@ body {
     color: var(--text-primary);
 }
 
+.btn-outline-secondary {
+    color: var(--secondary);
+    border-color: var(--secondary);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+    color: white;
+}
+
 .container {
     background: #ffffff;
     max-width: 95%;

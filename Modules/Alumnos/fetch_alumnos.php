@@ -5,7 +5,15 @@ $periodo = isset($_GET['periodo']) ? $_GET['periodo'] : '';
 $grupo = isset($_GET['grupo']) ? $_GET['grupo'] : '';
 $grado = isset($_GET['grado']) ? $_GET['grado'] : '';
 
-$sql = "SELECT alumno.id_alumno, alumno.matricula, alumno.apaterno, alumno.amaterno, alumno.nombre 
+$sql = "SELECT 
+            alumno.id_alumno, 
+            alumno.matricula, 
+            alumno.apaterno, 
+            alumno.amaterno, 
+            alumno.nombre,
+            grupo.id_grupo,
+            grado.descripcion AS grado,
+            DATE_FORMAT(periodo.fecha, '%Y-%m-%d') AS periodo
         FROM alumno
         JOIN alumno_grupo ON alumno.id_alumno = alumno_grupo.id_alumno
         JOIN grupo ON alumno_grupo.id_grupo = grupo.id_grupo

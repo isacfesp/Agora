@@ -17,26 +17,28 @@
             <h2 style="font-weight: 600; margin: 40px 0; font-size: 1.5rem;">Gestión de Alumnos</h2>
         </div>
 
-        <div class="filter-container mb-3 d-flex flex-wrap justify-content-between align-items-center">
-            <div class="d-flex flex-wrap">
-                <div class="me-2 mb-2">
-                    <select id="grupoFilter" class="form-select" aria-label="Selecciona grupo">
-                        <option value="">Grupo</option>
-                    </select>
-                </div>
-                <div class="me-2 mb-2">
-                    <select id="periodoFilter" class="form-select" aria-label="Selecciona periodo">
-                        <option value="">Periodo</option>
-                    </select>
-                </div>
-                <div class="me-2 d-flex align-items-center mb-2">
-                    <select id="gradoFilter" class="form-select" aria-label="Selecciona grado">
-                        <option value="">Grado</option>
-                    </select>
-                    <span id="resetFilters" class="ms-2 text-secondary" role="button" title="Reiniciar Filtros">
-                        <i class="fas fa-sync-alt"></i>
-                    </span>
-                </div>
+        
+
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <select id="grupoFilter" class="form-select form-select-sm">
+                    <option value="">Todos los grupos</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="periodoFilter" class="form-select form-select-sm">
+                    <option value="">Todos los periodos</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select id="gradoFilter" class="form-select form-select-sm">
+                    <option value="">Todos los grados</option>
+                </select>
+            </div>
+            <div class="col-md-5 text-end">
+                <button id="limpiarFiltros" type="button" class="btn btn-outline-secondary btn-sm me-2">
+                    <i class="fas fa-eraser"></i> Limpiar
+                </button>
             </div>
         </div>
 
@@ -49,6 +51,9 @@
                         <th>Apellido Paterno</th>
                         <th>Apellido Materno</th>
                         <th>Nombre</th>
+                        <th>Grupo</th>
+                        <th>Grado</th>
+                        <th>Periodo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
