@@ -241,27 +241,27 @@ $resultPeriodos = $connection->query($sqlPeriodos);
             <h5><strong>VALIDACIÓN DE DOCUMENTOS:</strong></h5>
             <div class="form-group">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="documento1" name="documento1">
+                    <input class="form-check-input" type="checkbox" id="doc1" name="doc1" value="1">
                     <label class="form-check-label" for="documento1">Acta de Nacimiento</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="documento2" name="documento2">
+                    <input class="form-check-input" type="checkbox" id="doc2" name="doc2" value="1">
                     <label class="form-check-label" for="documento2">CURP</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="documento3" name="documento3">
+                    <input class="form-check-input" type="checkbox" id="doc3" name="doc3" value="1">
                     <label class="form-check-label" for="documento3">Comprobante de domicilio</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="documento4" name="documento4">
+                    <input class="form-check-input" type="checkbox" id="doc4" name="doc4" value="1">
                     <label class="form-check-label" for="documento4">Documento 4</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="documento5" name="documento5">
+                    <input class="form-check-input" type="checkbox" id="doc5" name="doc5">
                     <label class="form-check-label" for="documento5">Documento 5</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="documento6" name="documento6">
+                    <input class="form-check-input" type="checkbox" id="doc6" name="doc6">
                     <label class="form-check-label" for="documento6">Documento 6</label>
                 </div>
             </div>
@@ -480,6 +480,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $matriculaU = $periodoMatricula . $horario . $secuencial;
 
+        $acta = isset($_POST['doc1']) ? 1 : 0;
+        $curp = isset($_POST['doc2']) ? 1 : 0;
+        $domicilio = isset($_POST['doc3']) ? 1 : 0;
  
         $datos = [
             'horario' => $horario,
@@ -494,7 +497,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'celular' => $_POST['celular'],
             'email' => $_POST['email'],
             'calle' => $_POST['calle'],
-            'colonia' => $_POST['colonia'],
+            'colonia' => ($_POST['colonia'] === 'Otro' && !empty($_POST['otra'])) ? $_POST['otra'] : $_POST['colonia'],
             'codpostal' => $_POST['codpostal'],
             'municipio' => $_POST['municipio'],
             'tutor_apaterno' => $_POST['tutor_apaterno'],
@@ -519,6 +522,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $idAlumno = $connection->insert_id;
 
+            $sqlDocumentacion = "INSERT INTO documentacion (id_alumno, acta_nacimiento, curp, domicilio) VALUES ('$idAlumno', '$acta', '$curp', '$domicilio')";
+            if ($connection->query($sqlDocumentacion) !== TRUE) {
+                echo "Error al insertar en la tabla documentacion: " . $connection->error;
+            }
 
             $sqlInscripcion = "INSERT INTO inscripcion (id_alumno, id_periodo) VALUES ('$idAlumno', '$curso_id')";
             if ($connection->query($sqlInscripcion) === TRUE) {

@@ -11,17 +11,18 @@ if ($conn->connect_error) {
 }
 
 $id_usuario = $_POST['id_usuario'];
+$email = $_POST['email'];
 $estado = $_POST['estado'];
 $tipo_usuario = $_POST['tipo'];
 
-$sql = "UPDATE usuario SET estado = ?, tipo_usuario = ? WHERE id_usuario = ?";
+$sql = "UPDATE usuario SET email = ?, estado = ?, tipo_usuario = ? WHERE id_usuario = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("iii",  $estado, $tipo_usuario, $id_usuario);
+$stmt->bind_param("siii", $email, $estado, $tipo_usuario, $id_usuario);
 
 if ($stmt->execute()) {
-    echo "Contacto actualizado correctamente";
+    echo "Usuario actualizado correctamente";
 } else {
-    echo "Error al actualizar contacto: " . $stmt->error;
+    echo "Error al actualizar usuario: " . $stmt->error;
 }
 
 $stmt->close();
