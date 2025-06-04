@@ -22,6 +22,8 @@ if (mysqli_num_rows($result) > 0) {
             $_SESSION['email'] = $mail;
             $_SESSION['apaterno'] = $colum['apaterno'];
             $_SESSION['amaterno'] = $colum['amaterno'];
+            $_SESSION['tipo_usuario'] = $colum['tipo_usuario']; 
+            $_SESSION['usuario'] = $mail; 
 
             header('Location: ../../index.php');
             exit();
