@@ -254,7 +254,7 @@ $resultPeriodos = $connection->query($sqlPeriodos);
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="doc4" name="doc4" value="1">
-                    <label class="form-check-label" for="documento4">Documento 4</label>
+                    <label class="form-check-label" for="documento4">INE</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="doc5" name="doc5">
@@ -483,6 +483,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $acta = isset($_POST['doc1']) ? 1 : 0;
         $curp = isset($_POST['doc2']) ? 1 : 0;
         $domicilio = isset($_POST['doc3']) ? 1 : 0;
+        $ine = isset($_POST['doc4']) ? 1 : 0;
  
         $datos = [
             'horario' => $horario,
@@ -522,7 +523,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $idAlumno = $connection->insert_id;
 
-            $sqlDocumentacion = "INSERT INTO documentacion (id_alumno, acta_nacimiento, curp, domicilio) VALUES ('$idAlumno', '$acta', '$curp', '$domicilio')";
+            $sqlDocumentacion = "INSERT INTO documentacion (id_alumno, acta_nacimiento, curp, domicilio, ine) VALUES ('$idAlumno', '$acta', '$curp', '$domicilio', '$ine')";
             if ($connection->query($sqlDocumentacion) !== TRUE) {
                 echo "Error al insertar en la tabla documentacion: " . $connection->error;
             }
