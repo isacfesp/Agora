@@ -66,6 +66,7 @@ $(document).ready(function() {
         columns: [
             { 
                 data: 'id_grupo',
+                title: 'Grupo',
                 render: function(data) {
                     return 'Grupo ' + data;
                 }
@@ -73,9 +74,16 @@ $(document).ready(function() {
             { data: 'grado' },
             { data: 'profesor' },
             { data: 'periodo' },
-            { data: 'total_alumnos' },
+            { 
+                data: 'total_alumnos',
+                title: 'Total Alumnos',
+                className: 'text-center'
+            },
             {
                 data: null,
+                orderable: false,
+                searchable: false,
+                className: 'text-center',
                 render: function(data, type, row) {
                     return `
                         <button class="btn btn-sm btn-info" onclick="editarGrupo(${row.id_grupo})">

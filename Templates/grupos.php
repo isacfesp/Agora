@@ -47,11 +47,11 @@
             <table id="gruposTable" class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Grupo</th>
                         <th>Grado</th>
                         <th>Profesor</th>
                         <th>Periodo</th>
+                        <th>Total Alumnos</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>

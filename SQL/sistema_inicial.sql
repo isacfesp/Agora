@@ -12,20 +12,19 @@ SET FOREIGN_KEY_CHECKS=0;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Drop and recreate database
+
 DROP DATABASE IF EXISTS agora;
 CREATE DATABASE agora DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE agora;
 
--- Create all tables
--- Table structure for table tipo_usuario
+
 CREATE TABLE tipo_usuario (
   id_tipo int(11) NOT NULL AUTO_INCREMENT,
   descripcion varchar(150) NOT NULL,
   PRIMARY KEY (id_tipo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Table structure for table usuario
+
 CREATE TABLE usuario (
   id_usuario int(11) NOT NULL AUTO_INCREMENT,
   email varchar(150) NOT NULL,
@@ -290,7 +289,7 @@ CREATE TABLE `tipo_usuario_permiso` (
   CONSTRAINT `tipo_usuario_permiso_ibfk_2` FOREIGN KEY (`id_permiso`) REFERENCES `permisos` (`id_permiso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Agregar la tabla promociones
+
 CREATE TABLE `promociones` (
   `id_promocion` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,

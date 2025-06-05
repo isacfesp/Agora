@@ -67,6 +67,9 @@ $conn->close();
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/grupos.php'">
             <i class="fa-solid fa-chalkboard-user"></i><span>Grupos</span>
         </div>
+        <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/caja.php'">
+            <i class="fa-solid fa-cash-register"></i><span>Caja</span>
+        </div>
         <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Config_User/config.php'">
             <i class="fas fa-cog"></i><span>Configuraciones</span>
         </div>
@@ -109,6 +112,9 @@ $conn->close();
             </div>
             <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/grupos.php'">
                 <i class="fa-solid fa-users-rectangle"></i><span>Grupos</span>
+            </div>
+            <div class="menu-item" onclick="document.getElementById('main-frame').src='Templates/caja.php'">
+                <i class="fa-solid fa-cash-register"></i><span>Caja</span>
             </div>
             <div class="menu-item" onclick="document.getElementById('main-frame').src='Modules/Config_User/config.php'">
                 <i class="fas fa-cog"></i><span>Configuraciones</span>
