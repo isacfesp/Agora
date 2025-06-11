@@ -237,34 +237,36 @@ $resultPeriodos = $connection->query($sqlPeriodos);
                 <div class="form-group col-md-6 mt-3 d-flex justify-content-start">
                     <button type="submit" class="btn btn-success btn-aceptar mr-2" name="submit">Guardar</button>
                 </div>
+
+                <h5><strong>VALIDACIÓN DE DOCUMENTOS:</strong></h5>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="doc1" name="doc1" value="1">
+                        <label class="form-check-label" for="documento1">Acta de Nacimiento</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="doc2" name="doc2" value="1">
+                        <label class="form-check-label" for="documento2">CURP</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="doc3" name="doc3" value="1">
+                        <label class="form-check-label" for="documento3">Comprobante de domicilio</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="doc4" name="doc4" value="1">
+                        <label class="form-check-label" for="documento4">INE</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="doc5" name="doc5">
+                        <label class="form-check-label" for="documento5">Documento 5</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="doc6" name="doc6">
+                        <label class="form-check-label" for="documento6">Documento 6</label>
+                    </div>
+                </div>
             </form>
-            <h5><strong>VALIDACIÓN DE DOCUMENTOS:</strong></h5>
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="doc1" name="doc1" value="1">
-                    <label class="form-check-label" for="documento1">Acta de Nacimiento</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="doc2" name="doc2" value="1">
-                    <label class="form-check-label" for="documento2">CURP</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="doc3" name="doc3" value="1">
-                    <label class="form-check-label" for="documento3">Comprobante de domicilio</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="doc4" name="doc4" value="1">
-                    <label class="form-check-label" for="documento4">INE</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="doc5" name="doc5">
-                    <label class="form-check-label" for="documento5">Documento 5</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="doc6" name="doc6">
-                    <label class="form-check-label" for="documento6">Documento 6</label>
-                </div>
-            </div>
+            
             <!-- Modal para la cámara -->
             <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">

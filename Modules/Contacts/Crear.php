@@ -51,12 +51,12 @@
                     <label for="formato">Formato:</label>
                     <select class="form-control" id="whatsapp" required name="formato">
                         <option value="">Selecciona una opción</option>
-                        <option value="Sí">Facebook</option>
-                        <option value="No">Familiar</option>
-                        <option value="No">Instagram</option>
-                        <option value="No">Tik Tok</option>
-                        <option value="No">Conocido</option>
-                        <option value="No">Otro</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Familiar">Familiar</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="TikTok">TikTok</option>
+                        <option value="Amigo">Amigo</option>
+                        <option value="Otro">Otro</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block" name="submit">Guardar</button>
