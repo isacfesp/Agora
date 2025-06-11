@@ -41,6 +41,10 @@ th {
     font-size: 14px;
 }
 
+#enlace{
+    text-decoration: none;
+}
+
 td {
     font-size: 13px;
 }

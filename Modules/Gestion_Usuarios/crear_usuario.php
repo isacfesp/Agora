@@ -23,7 +23,7 @@ include "../../Config/conexion.php";
                     <label for="email">Correo electrónico:</label>
                     <input type="email" class="form-control" id="email" placeholder="Ingresa el correo" required name="email">
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label for="password">Contraseña:</label>
                     <input type="password" class="form-control" id="password" placeholder="Ingresa la contraseña" required name="password">
                 </div>
@@ -38,12 +38,11 @@ include "../../Config/conexion.php";
                 <div class="form-group">
                     <label for="amaterno">Apellido Materno:</label>
                     <input type="text" class="form-control" id="amaterno" placeholder="Ingresa el apellido materno" required name="amaterno">
-                </div>
-                <div class="form-group">
+                </div> -->
+                <div class="form-group" style="display: none;">
                     <label for="estado">Estado:</label>
                     <select class="form-control" id="estado" required name="estado">
-                        <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
+                        <option value="1">Inactivo</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -68,17 +67,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require '../../Config/conexion.php';
 
         $email = $_POST["email"];
-        $password = $_POST["password"];
-        $nombre = $_POST["nombre"];
-        $apaterno = $_POST["apaterno"];
-        $amaterno = $_POST["amaterno"];
         $estado = $_POST["estado"];
         $tipo_usuario = $_POST["tipo_usuario"];
 
         // Hash de la contraseña
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = mysqli_query($connection, "INSERT INTO usuario (email, password, nombre, apaterno, amaterno, estado, tipo_usuario) VALUES ('$email', '$password_hash', '$nombre', '$apaterno', '$amaterno', '$estado', '$tipo_usuario')");
+        $sql = mysqli_query($connection, "INSERT INTO usuario (email, estado, tipo_usuario) VALUES ('$email', '$estado', '$tipo_usuario')");
         if ($sql) {
             echo "<script>
                 window.onload = function() {
