@@ -18,7 +18,8 @@ include "../../Config/conexion.php";
                 <i class="fas fa-arrow-left"></i> Regresar
             </a>
             <!-- Formulario -->
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="crearUsuarioForm">
+                <div id="alerta" class="alert d-none" role="alert"></div>
                 <div class="form-group">
                     <label for="email">Correo electrónico:</label>
                     <input type="email" class="form-control" id="email" placeholder="Ingresa el correo" required name="email">
@@ -54,10 +55,75 @@ include "../../Config/conexion.php";
                         <option value="4"></option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" name="submit">Guardar</button>
+                <div class="form-group">
+                    <label for="permisos" id="permisos">Permisos: A</label> <!-- El permiso del administrador aparece por default :) -->
+                </div>
+                    <script>
+                        document.getElementById('tipo_usuario').addEventListener('change', function() {
+                            const mensaje = document.getElementById('permisos');
+                            switch (this.value) {
+                                case '1':
+                                    mensaje.textContent = 'Permisos: A';
+                                    break;
+                                case '2':
+                                    mensaje.textContent = 'Permisos: B';
+                                    break;
+                                case '3':
+                                    mensaje.textContent = 'Permisos: C';
+                                    break;
+                                case '4':
+                                    mensaje.textContent = 'Permisos: D';
+                                    break;
+                                default:
+                                    mensaje.textContent = '';
+                            }
+                        });
+                    </script>
+                
+                <button type="submit" class="btn btn-primary btn-block" name="submit" id="validar">Guardar</button>
             </form>
         </div>
     </div>
+
+    <script>
+    document.getElementById('crearUsuarioForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const alerta = document.getElementById('alerta');
+        alerta.classList.add('d-none');
+
+        // Validación básica de formato de correo
+        if (!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)) {
+            alerta.textContent = 'Por favor, ingresa un correo válido.';
+            alerta.className = 'alert alert-danger';
+            alerta.classList.remove('d-none');
+            return;
+        }
+
+        // Petición al backend para validar si el correo existe
+        fetch('validar_email.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ correo_usuario: email })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                // Si el correo es válido, envía el formulario
+                event.target.submit();
+            } else {
+                alerta.textContent = data.mensaje || 'El correo no está registrado.';
+                alerta.className = 'alert alert-danger';
+                alerta.classList.remove('d-none');
+            }
+        })
+        .catch(() => {
+            alerta.textContent = 'Error de conexión.';
+            alerta.className = 'alert alert-danger';
+            alerta.classList.remove('d-none');
+        });
+    });
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 
