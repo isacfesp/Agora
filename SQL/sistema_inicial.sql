@@ -90,7 +90,7 @@ CREATE TABLE `alumno_grupo` (
 CREATE TABLE `anuncios` (
   `id_anuncio` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(200) NOT NULL,
-  `contenido` text NOT NULL,
+  `contenido` varchar(200) NOT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
   `fecha_publicacion` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
@@ -114,26 +114,27 @@ CREATE TABLE `backups` (
 
 CREATE TABLE `caja` (
   `id_pago` int(11) NOT NULL AUTO_INCREMENT,
-  `id_inscripcion` int(11) NOT NULL,
+  `id_alumno` int(11) NOT NULL,
   `monto` decimal(10,0) NOT NULL,
   `fecha_pago` date NOT NULL,
   `metodo_pago` varchar(50) NOT NULL,
   `concepto` varchar(150) NOT NULL,
   PRIMARY KEY (`id_pago`),
-  KEY `id_inscripcion` (`id_inscripcion`),
-  CONSTRAINT `caja_ibfk_1` FOREIGN KEY (`id_inscripcion`) REFERENCES `inscripcion` (`id_inscripcion`)
+  KEY `id_alumno` (`id_alumno`),
+  CONSTRAINT `caja_ibfk_1` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `colegiatura` (
   `id_colegiatura` int(11) NOT NULL AUTO_INCREMENT,
-  `id_inscripcion` int(11) NOT NULL,
+  `id_alumno` int(11) NOT NULL,
   `mes` varchar(150) NOT NULL,
   `fecha_pago` date NOT NULL,
   `metodo_pago` varchar(50) NOT NULL,
+  `monto` decimal(10,0) NOT NULL,
   PRIMARY KEY (`id_colegiatura`),
-  KEY `id_inscripcion` (`id_inscripcion`),
-  CONSTRAINT `colegiatura_ibfk_1` FOREIGN KEY (`id_inscripcion`) REFERENCES `inscripcion` (`id_inscripcion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `id_alumno` (`id_alumno`),
+  CONSTRAINT `colegiatura_ibfk_1` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id_alumno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `contacto` (
   `id_contacto` int(11) NOT NULL AUTO_INCREMENT,
@@ -292,21 +293,23 @@ CREATE TABLE `tipo_usuario_permiso` (
 
 CREATE TABLE `promociones` (
   `id_promocion` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) NOT NULL,
-  `descripcion` text,
-  `tipo` varchar(50) NOT NULL,
-  `descuento` decimal(5,2) NOT NULL,
-  `fecha_inicio` date NOT NULL,
-  `fecha_fin` date NOT NULL,
-  `estado` tinyint(1) DEFAULT '1',
-  PRIMARY KEY (`id_promocion`)
+  `id_concepto` int(11) NOT NULL,
+  `descuento` decimal(10, 2) NOT NULL, -- Descuento en monto fijo
+  PRIMARY KEY (`id_promocion`),
+  FOREIGN KEY (`id_concepto`) REFERENCES `conceptos` (`id_concepto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Agregar LOCK TABLES para promociones
+CREATE TABLE conceptos (
+    id_concepto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(150) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL
+);
+
+/* Agregar LOCK TABLES para promociones
 LOCK TABLES `promociones` WRITE;
 /*!40000 ALTER TABLE `promociones` DISABLE KEYS */;
 /*!40000 ALTER TABLE `promociones` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK TABLES;*/
 
 INSERT INTO tipo_usuario (descripcion) VALUES ('Administrador');
 
