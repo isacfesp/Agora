@@ -37,8 +37,8 @@
                 <button id="btnLimpiarFiltros" type="button" class="btn btn-outline-secondary btn-sm me-2">
                     <i class="fas fa-eraser"></i> Limpiar
                 </button>
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalGrupo">
-                    <i class="fas fa-plus"></i> Nuevo
+               <a href="../Modules/Grupos/asignar_grupo.php" id="enlace"><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalGrupo">
+                    <i class="fas fa-plus"></i> Nuevo </a>
                 </button>
             </div>
         </div>

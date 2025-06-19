@@ -18,12 +18,13 @@ include "../../Config/conexion.php";
                 <i class="fas fa-arrow-left"></i> Regresar
             </a>
             <!-- Formulario -->
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="crearUsuarioForm">
+                <div id="alerta" class="alert d-none" role="alert"></div>
                 <div class="form-group">
                     <label for="email">Correo electrónico:</label>
                     <input type="email" class="form-control" id="email" placeholder="Ingresa el correo" required name="email">
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label for="password">Contraseña:</label>
                     <input type="password" class="form-control" id="password" placeholder="Ingresa la contraseña" required name="password">
                 </div>
@@ -38,12 +39,11 @@ include "../../Config/conexion.php";
                 <div class="form-group">
                     <label for="amaterno">Apellido Materno:</label>
                     <input type="text" class="form-control" id="amaterno" placeholder="Ingresa el apellido materno" required name="amaterno">
-                </div>
-                <div class="form-group">
+                </div> -->
+                <div class="form-group" style="display: none;">
                     <label for="estado">Estado:</label>
                     <select class="form-control" id="estado" required name="estado">
-                        <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
+                        <option value="1">Inactivo</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -55,10 +55,75 @@ include "../../Config/conexion.php";
                         <option value="4"></option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" name="submit">Guardar</button>
+                <div class="form-group">
+                    <label for="permisos" id="permisos">Permisos: A</label> <!-- El permiso del administrador aparece por default :) -->
+                </div>
+                    <script>
+                        document.getElementById('tipo_usuario').addEventListener('change', function() {
+                            const mensaje = document.getElementById('permisos');
+                            switch (this.value) {
+                                case '1':
+                                    mensaje.textContent = 'Permisos: A';
+                                    break;
+                                case '2':
+                                    mensaje.textContent = 'Permisos: B';
+                                    break;
+                                case '3':
+                                    mensaje.textContent = 'Permisos: C';
+                                    break;
+                                case '4':
+                                    mensaje.textContent = 'Permisos: D';
+                                    break;
+                                default:
+                                    mensaje.textContent = '';
+                            }
+                        });
+                    </script>
+                
+                <button type="submit" class="btn btn-primary btn-block" name="submit" id="validar">Guardar</button>
             </form>
         </div>
     </div>
+
+    <script>
+    document.getElementById('crearUsuarioForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const alerta = document.getElementById('alerta');
+        alerta.classList.add('d-none');
+
+        // Validación básica de formato de correo
+        if (!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)) {
+            alerta.textContent = 'Por favor, ingresa un correo válido.';
+            alerta.className = 'alert alert-danger';
+            alerta.classList.remove('d-none');
+            return;
+        }
+
+        // Petición al backend para validar si el correo existe
+        fetch('validar_email.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ correo_usuario: email })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                // Si el correo es válido, envía el formulario
+                event.target.submit();
+            } else {
+                alerta.textContent = data.mensaje || 'El correo no está registrado.';
+                alerta.className = 'alert alert-danger';
+                alerta.classList.remove('d-none');
+            }
+        })
+        .catch(() => {
+            alerta.textContent = 'Error de conexión.';
+            alerta.className = 'alert alert-danger';
+            alerta.classList.remove('d-none');
+        });
+    });
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 
@@ -68,17 +133,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require '../../Config/conexion.php';
 
         $email = $_POST["email"];
-        $password = $_POST["password"];
-        $nombre = $_POST["nombre"];
-        $apaterno = $_POST["apaterno"];
-        $amaterno = $_POST["amaterno"];
         $estado = $_POST["estado"];
         $tipo_usuario = $_POST["tipo_usuario"];
 
         // Hash de la contraseña
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = mysqli_query($connection, "INSERT INTO usuario (email, password, nombre, apaterno, amaterno, estado, tipo_usuario) VALUES ('$email', '$password_hash', '$nombre', '$apaterno', '$amaterno', '$estado', '$tipo_usuario')");
+        $sql = mysqli_query($connection, "INSERT INTO usuario (email, estado, tipo_usuario) VALUES ('$email', '$estado', '$tipo_usuario')");
         if ($sql) {
             echo "<script>
                 window.onload = function() {
