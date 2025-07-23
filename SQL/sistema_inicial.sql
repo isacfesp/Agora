@@ -322,14 +322,16 @@ INSERT INTO usuario (
     estado,
     tipo_usuario
 ) VALUES (
-    'dev@gmail.com',
-    'password',
-    'Developer',
+    'dev@gmail.com', /* Cambia este email por el que desees */
+    'password', /* Cambia esta contraseña por la que desees, en estado funcional debe ser segura y mencionada al usuario */
+    'Developer', /* Cambia este nombre por el que desees */
     '',
     '',
     1,
     1
 );
+
+
 
 SET FOREIGN_KEY_CHECKS=1;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

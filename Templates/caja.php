@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -183,8 +182,8 @@
     <script src="../Assets/JS/caja.js"></script>
 </body>
 </html>
-=======
+
 <?php
 
 ?>
->>>>>>> 4515e08590704eaa1a6999874f38c4c3ea44c3c0
+

@@ -1,5 +1,4 @@
 <?php
-<?php
 include("../../Config/conexion.php");
 
 try {

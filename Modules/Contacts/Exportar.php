@@ -1,4 +1,8 @@
 <?php
+
+// Archivo para exportar datos de la tabla contacto a un archivo Excel
+// Asegúrate de tener la biblioteca PhpSpreadsheet instalada y configurada correctamente
+// Este código falló, encutra el error xd.
 $host = 'localhost';
 $dbname = 'Agora';
 $username = 'root';

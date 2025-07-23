@@ -1,4 +1,9 @@
 <?php
+
+/*Este archivo requiere ser modificado y creado de una manera distinta, de cualquier modo está este código que puedes
+ utilizar como base para crear un portal académico para alumnos, donde se muestre su información personal, historial de pagos y opciones administrativas.
+suerte */
+
 $id_alumno = isset($_GET['id_alumno']) ? $_GET['id_alumno'] : '';
 require_once '../../Config/conexion.php';
 $sql = "SELECT * FROM alumno WHERE id_alumno = '$id_alumno'";

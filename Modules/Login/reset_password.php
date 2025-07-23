@@ -86,10 +86,14 @@ try {
     $mail->Host = 'smtp.gmail.com';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
-    $mail->Username = "morenopachecocarlosmanuel@gmail.com";
-    $mail->Password = "hesj bvqx vwjv kttk";
+    $mail->Username = "correo@gmail.com"; // Cambia esto por tu correo
+    // Asegúrate de que la contraseña sea correcta y que el acceso a aplicaciones menos seguras esté habilitado en tu cuenta de Gmail.
+    // Si usas autenticación de dos factores, necesitarás una contraseña de aplicación.
+    $mail->Password = "tu_contraseña"; // Cambia esto por tu contraseña
+    // Si usas autenticación de dos factores, necesitarás una contraseña de aplicación.
+    // Lo antes mencionado aplica si estás usando Gmail como dominio.
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->setFrom('morenopachecocarlosmanuel@gmail.com', 'AGORA');
+    $mail->setFrom('Nombre del remitente', 'AGORA');
     $mail->addAddress($data['correo_usuario']);
     $mail->CharSet = 'UTF-8';
     $mail->isHTML(true);

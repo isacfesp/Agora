@@ -2,6 +2,8 @@
 require('../../Config/fpdf/fpdf.php');
 include("../../Config/conexion.php");
 
+// El siguiente código genera un reporte PDF del historial de pagos de un alumno específico.
+// El código está incompleto, no sé por qué no dió.
 class PDF extends FPDF {
     function Header() {
         $this->SetFont('Arial', 'B', 15);

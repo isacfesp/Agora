@@ -1,5 +1,9 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- Este archivo solo es una prueba de la API Zippopotam para mostrar colonias mediante el código postal. -->
 
 <head>
         <meta charset="UTF-8">

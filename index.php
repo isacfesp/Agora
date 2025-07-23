@@ -1,4 +1,8 @@
 <?php
+
+/*En algunos archivos se adjuntan instricciones para el desarrollo del sistema.
+La persona que esté encargado de esto le pido que lea detenidamente, no escribo esto por gusto.
+Este es el archivo principal que carga el sistema de gestión de usuarios de Agora. */
 session_start();
 if (!isset($_SESSION['nombre'])) {
     header('Location: Templates/login.php');

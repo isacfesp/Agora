@@ -1,4 +1,6 @@
 <?php
+
+// Este archivo ya no es funcional, se ha cambiado a un archivo PHP que recibe los datos del formulario y para insertarlos en la base de datos.
 $servername = "localhost";
 $username = "root";
 $password = ""; 

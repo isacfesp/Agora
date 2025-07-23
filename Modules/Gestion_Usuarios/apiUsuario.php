@@ -2,7 +2,7 @@
 session_start();
 include "../../Config/conexion.php";
 
-// Get all users
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $sql = "SELECT id_usuario, email, nombre, apaterno, amaterno, estado, tipo_usuario FROM usuario";
     $result = mysqli_query($connection, $sql);
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($users);
 }
 
-// Toggle user status
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'toggle_status') {
     $userId = $_POST['user_id'];
     $currentStatus = $_POST['current_status'];

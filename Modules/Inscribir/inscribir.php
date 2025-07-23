@@ -561,4 +561,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+<!--- Verificar la insercción de datos en la base de datos y eliminar lo innecesario. -->
+
 </html>
+

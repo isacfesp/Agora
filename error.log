@@ -1,6 +1,0 @@
-[12-Jun-2025 07:17:54 Europe/Berlin] Starting get_pagos.php with id_alumno: 4
-[12-Jun-2025 07:17:54 Europe/Berlin] Preparing caja query
-[12-Jun-2025 07:17:54 Europe/Berlin] Error in get_pagos.php: Unknown column 'id_alumno' in 'where clause'
-[12-Jun-2025 07:18:50 Europe/Berlin] Starting get_pagos.php with id_alumno: 4
-[12-Jun-2025 07:18:50 Europe/Berlin] Preparing caja query
-[12-Jun-2025 07:18:50 Europe/Berlin] Error in get_pagos.php: Unknown column 'id_alumno' in 'where clause'

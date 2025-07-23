@@ -205,7 +205,6 @@ $sabatino = isset($sabado) ? intval($sabado) : 0;
     </div>
   </div>
   <script>
-    // Pass PHP variables to JavaScript
     const inscritosTotal = <?php echo $inscritos; ?>;
     const interesadosTotal = <?php echo $interesados; ?>;
     const semanalTotal = <?php echo $semanal; ?>;

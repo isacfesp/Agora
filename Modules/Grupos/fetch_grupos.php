@@ -46,7 +46,7 @@ try {
         $grupos[] = array(
             'id_grupo' => $row['id_grupo'],
             'grado' => $row['grado'] ?? 'Sin asignar',
-            'profesor' => $row['profesor_nombre'] ?? 'Sin asignar',  // Note the mapping here
+            'profesor' => $row['profesor_nombre'] ?? 'Sin asignar', 
             'periodo' => $row['periodo'] ?? 'Sin asignar',
             'total_alumnos' => (int)$row['total_alumnos']
         );
