@@ -1,3 +1,54 @@
+<?php
+// Incluye el archivo de conexión de forma segura
+require __DIR__ . '../../Config/conexion.php';
+
+// Verifica si la solicitud es un POST
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    
+    // 1. Sanitizar y validar los datos del formulario
+    $name = htmlspecialchars(trim($_POST["name"]));
+    $apaterno = htmlspecialchars(trim($_POST["apaterno"]));
+    $amaterno = htmlspecialchars(trim($_POST["amaterno"]));
+    $num = htmlspecialchars(trim($_POST["num"]));
+    $whatsapp = htmlspecialchars(trim($_POST["whatsapp"]));
+    $formato = htmlspecialchars(trim($_POST["formato"]));
+
+    // Validaciones básicas (opcional pero recomendado)
+    if (empty($name) || empty($apaterno) || empty($amaterno) || empty($num) || empty($whatsapp) || empty($formato)) {
+        die("Todos los campos son obligatorios.");
+    }
+    
+    // 2. Usar declaraciones preparadas para prevenir inyección SQL
+    $sql = "INSERT INTO contacto (nombre, apaterno, amaterno, numero_telefonico, whatsapp, formato) VALUES (?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $connection->prepare($sql);
+    
+    // Manejo de error al preparar la consulta
+    if ($stmt === false) {
+        die("Error al preparar la consulta: " . $connection->error);
+    }
+    
+    // 3. Vincular los parámetros con sus tipos
+    // 'ssssss' significa 6 parámetros de tipo string
+    $stmt->bind_param("ssssss", $name, $apaterno, $amaterno, $num, $whatsapp, $formato);
+    
+    // 4. Ejecutar la declaración
+    if ($stmt->execute()) {
+        // Redirige al usuario en lugar de usar un script inline.
+        // Esto previene el reenvío accidental del formulario si se recarga la página.
+        header("Location: contactos.php?status=success");
+        exit();
+    } else {
+        echo "Error: No se pudo crear el contacto. " . $stmt->error;
+    }
+    
+    // 5. Cerrar la declaración
+    $stmt->close();
+}
+
+$connection->close();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -64,39 +115,7 @@
         </div>
     </div>
 
-
-
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['submit'])) {
-
-            require '../../Config/conexion.php';
-
-            $name = $_POST["name"];
-            $apaterno = $_POST["apaterno"];
-            $amaterno = $_POST["amaterno"];
-            $num = $_POST["num"];
-            $whatsapp = $_POST["whatsapp"];
-            $formato = $_POST["formato"];
-
-            $sql = mysqli_query($connection, "INSERT INTO contacto (nombre, apaterno, amaterno, numero_telefonico, whatsapp, formato) values ('$name', '$apaterno', '$amaterno', '$num', '$whatsapp', '$formato') ");
-            if ($sql) {
-                echo "<script>
-        window.onload = function() {
-            document.getElementById('overlay').style.display = 'flex';
-        }
-        </script>";
-            } else {
-                echo "No se creó el contacto";
-            }
-        }
-    }
-    ?>
-
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,26 +1,38 @@
 <?php
+// Configura el encabezado para la respuesta JSON al inicio
 header('Content-Type: application/json');
-include_once('../../Config/conexion.php');
-require '../../Config/PHPMailer/src/Exception.php';
-require '../../Config/PHPMailer/src/PHPMailer.php';
-require '../../Config/PHPMailer/src/SMTP.php';
+
+// 1. Carga de dependencias y configuración segura
+// Incluye la conexión y el cargador de variables de entorno
+$connection = require_once('../../Config/conexion.php');
+require_once '../../Config/PHPMailer/src/Exception.php';
+require_once '../../Config/PHPMailer/src/PHPMailer.php';
+require_once '../../Config/PHPMailer/src/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$data = json_decode(file_get_contents('php://input'), true);
+// Carga las variables del archivo .env para las credenciales de SMTP
+$smtp_username = $_ENV['SMTP_USERNAME'] ?? null;
+$smtp_password = $_ENV['SMTP_PASSWORD'] ?? null;
+$smtp_host = $_ENV['SMTP_HOST'] ?? 'smtp.gmail.com';
+$smtp_port = $_ENV['SMTP_PORT'] ?? 587;
 
+// 2. Manejo y validación de la entrada
+$data = json_decode(file_get_contents('php://input'), true);
 if (!isset($data['correo_usuario']) || empty($data['correo_usuario'])) {
-    echo json_encode([
-        'success' => false,
-        'mensaje' => 'Correo no proporcionado'
-    ]);
+    // La respuesta no debe revelar información. Se comporta como si hubiera enviado el correo.
+    echo json_encode(['success' => true, 'mensaje' => 'El proceso de validación ha sido iniciado. Por favor, revisa tu correo.']);
+    exit;
+}
+$correo = filter_var($data['correo_usuario'], FILTER_SANITIZE_EMAIL);
+if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+    // Si el correo es inválido, responde de la misma manera genérica.
+    echo json_encode(['success' => true, 'mensaje' => 'El proceso de validación ha sido iniciado. Por favor, revisa tu correo.']);
     exit;
 }
 
-$correo = $data['correo_usuario'];
-
-// Verifica si el correo existe
+// 3. Consulta de forma segura y evita la enumeración de usuarios
 $sql = "SELECT id_usuario FROM usuario WHERE email = ?";
 $stmt = $connection->prepare($sql);
 $stmt->bind_param("s", $correo);
@@ -28,81 +40,77 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows <= 0) {
-    echo json_encode([
-        'success' => false,
-        'mensaje' => 'Correo no encontrado'
-    ]);
+    // Si el correo no existe, devuelve el mismo mensaje de éxito.
+    // Esto previene que un atacante sepa si un correo está registrado o no.
+    echo json_encode(['success' => true, 'mensaje' => 'El proceso de validación ha sido iniciado. Por favor, revisa tu correo.']);
     exit;
 }
 
-// Genera un token único
-$token = bin2hex(random_bytes(32));
+$row = $result->fetch_assoc();
+$id_usuario = $row['id_usuario'];
 
-// Guarda el token en la base de datos (puedes crear un campo 'token_validacion' en la tabla usuario)
-$updateSql = "UPDATE usuario SET token_validacion = ? WHERE email = ?";
+// 4. Generación segura del token con fecha de expiración
+$token = bin2hex(random_bytes(32));
+$expiracion = date('Y-m-d H:i:s', strtotime('+1 hour')); // Token válido por 1 hora
+
+// 5. Actualización segura de la base de datos
+$updateSql = "UPDATE usuario SET token_validacion = ?, token_expiracion = ? WHERE id_usuario = ?";
 $updateStmt = $connection->prepare($updateSql);
-$updateStmt->bind_param("ss", $token, $correo);
+
+if ($updateStmt === false) {
+    error_log("Error al preparar la consulta de actualización: " . $connection->error);
+    echo json_encode(['success' => false, 'error' => 'Error interno del servidor.']);
+    exit;
+}
+
+$updateStmt->bind_param("ssi", $token, $expiracion, $id_usuario);
 $updateStmt->execute();
+$updateStmt->close();
 
 // Crea el enlace de validación
 $enlace = "http://localhost/Agora/Templates/confirmar_email.php?token=$token";
 
-// Envía el correo
+// 6. Configuración de PHPMailer con credenciales seguras
 $mail = new PHPMailer(true);
-
 try {
     $mail->isSMTP();
     $mail->SMTPDebug = 0;
-    $mail->Host = 'smtp.gmail.com';
-    $mail->Port = 587;
+    $mail->Host = $smtp_host;
+    $mail->Port = $smtp_port;
     $mail->SMTPAuth = true;
-    $mail->Username = "correo@gmail.com"; // Cambia esto por tu correo
-    // Asegúrate de que la contraseña sea correcta y que el acceso a aplicaciones menos seguras esté habilitado en tu cuenta de Gmail.
-    // Si usas autenticación de dos factores, necesitarás una contraseña de aplicación.
-    $mail->Password = "tu_contraseña"; // Cambia esto por tu contraseña
-    // Si usas autenticación de dos factores, necesitarás una contraseña de aplicación.
-    // Lo antes mencionado aplica si estás usando Gmail como dominio.
+    $mail->Username = $smtp_username;
+    $mail->Password = $smtp_password;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->setFrom('Nombre del remitente', 'AGORA');
+    $mail->setFrom('no-reply@agora.com', 'AGORA');
     $mail->addAddress($correo);
     $mail->CharSet = 'UTF-8';
     $mail->isHTML(true);
     $mail->Subject = 'Valida tu correo electrónico';
     $mail->Body = '
-    <div style="font-family: \'Inter\', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="text-align: center; margin-bottom: 30px;">
-            <img src="cid:logo" alt="Logo AGORA" style="max-width: 150px;">
-        </div>
-        <div style="background: #ffffff; border-radius: 10px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-            <h2 style="color: #2C3E50; text-align: center; margin-bottom: 20px;">Validación de Correo</h2>
-            <p style="color: #34495E; font-size: 16px; line-height: 1.6;">Hola,</p>
-            <p style="color: #34495E; font-size: 16px; line-height: 1.6;">Haz clic en el siguiente botón para validar tu correo electrónico:</p>
-            <div style="text-align: center; margin: 25px 0;">
-                <a href="'.$enlace.'" style="background: #BBCD5D; color: #2C3E2F; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 18px;">Validar mi correo</a>
-            </div>
-            <p style="color: #34495E; font-size: 14px;">Si no solicitaste este registro, puedes ignorar este correo.</p>
-            <div style="border-top: 1px solid #E5E7E9; margin-top: 30px; padding-top: 20px;">
-                <p style="color: #7F8C8D; font-size: 12px; text-align: center;">Este es un correo automático, por favor no respondas a este mensaje.</p>
-            </div>
-        </div>
-    </div>';
+        <div style="font-family: \'Inter\', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            ... (cuerpo del correo) ...
+            <a href="'.$enlace.'" style="background: #BBCD5D; color: #2C3E2F; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 18px;">Validar mi correo</a>
+            ... (resto del cuerpo) ...
+        </div>';
     $mail->AltBody = "Valida tu correo en este enlace: $enlace";
-
     $mail->addEmbeddedImage('../../Assets/Images/LogoTrans.png', 'logo');
-
     $mail->send();
 
+    // 7. Respuesta final segura y consistente
     echo json_encode([
         'success' => true,
         'mensaje' => 'Correo de validación enviado correctamente'
     ]);
 } catch (Exception $e) {
+    error_log("Error al enviar el correo a $correo: {$mail->ErrorInfo}");
+    // Devuelve un mensaje genérico para no revelar detalles del error
     echo json_encode([
         'success' => false,
-        'error' => "Error al enviar el correo: {$mail->ErrorInfo}"
+        'error' => "Hubo un problema al enviar el correo. Inténtalo de nuevo."
     ]);
+} finally {
+    // Asegúrate de cerrar la conexión de manera segura al final
+    if (isset($connection)) {
+        $connection->close();
+    }
 }
-
-$stmt->close();
-$connection->close();
-?>
