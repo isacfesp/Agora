@@ -1,161 +1,172 @@
-        /* Variables y estilos globales */
-        :root {
-            --primary-color: #5d5cff;
-            --secondary-color: #b1aaff;
-            --form-bg: rgba(255, 255, 255, 0.2);
-            --form-border: rgba(255, 255, 255, 0.3);
-            --form-shadow: rgba(0, 0, 0, 0.1);
-            --text-light: #f5f5f5;
-            --text-dark: #2c2c2c;
-            --accent-color: #8a7aff;
-        }
+/* Variables y estilos globales */
+:root {
+    --primary-color: #5d5cff;
+    --primary-color-dark: #4a49cc;
+    --background-color: #1a1a2e; /* Fondo oscuro como el original */
+    --container-bg: #ffffff;
+    --text-dark: #2c2c2c;
+    --text-light: #6c757d;
+    --border-color: #dee2e6;
+    --input-bg: #f8f9fa;
+}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            background: #1a1a2e; /* Fondo oscuro sólido */
-            overflow: hidden; /* Oculta el desbordamiento del canvas */
-        }
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: var(--background-color);
+    overflow: hidden; /* Oculta el desbordamiento del canvas si todavía lo usas */
+}
 
-        /* Estilo del contenedor principal con glassmorphism */
-        .auth-container {
-            position: relative;
-            z-index: 10;
-            background: var(--form-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--form-border);
-            border-radius: 2rem;
-            box-shadow: 0 8px 32px var(--form-shadow);
-            max-width: 450px; /* Ancho ajustado para una mejor estética */
-            width: 100%;
-            padding: 3rem;
-            text-align: center;
-            animation: fadeIn 1s ease-out;
-        }
+/* Estilo del contenedor principal minimalista */
+.auth-container {
+    position: relative;
+    z-index: 10;
+    background: var(--container-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    max-width: 360px; /* Ancho máximo reducido para hacerlo más pequeño */
+    width: 100%;
+    padding: 2rem; /* Relleno ajustado para el nuevo tamaño */
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-        /* Títulos y texto dentro del formulario */
-        .auth-container h1, .auth-container p, .auth-container a {
-            color: var(--text-light);
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        }
+/* Títulos y texto dentro del formulario */
+.auth-container h1, .auth-container p, .auth-container a {
+    color: var(--text-dark); /* Texto oscuro para contraste con el fondo blanco */
+}
 
-        .auth-container h1 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            font-size: 2.5rem;
-            line-height: 1.2;
-            margin-bottom: 0.5rem;
-        }
+.auth-container h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
 
-        .auth-container p {
-            font-size: 1rem;
-            margin-bottom: 2.5rem; /* Margen ajustado */
-        }
+.auth-container p {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    color: var(--text-light); /* Un gris más suave para el subtítulo */
+}
 
-        /* Estilo de los campos de entrada */
-        .input-group {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease-in-out;
-        }
+/* Estilo de los campos de entrada */
+.input-group {
+    display: flex;
+    align-items: center;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease-in-out;
+}
 
-        .input-group:hover,
-        .input-group:focus-within {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 4px rgba(177, 170, 255, 0.3);
-        }
+.input-group:hover {
+    border-color: var(--primary-color);
+}
 
-        .input-icon {
-            padding: 0 1.25rem;
-            color: var(--secondary-color);
-        }
+.input-group:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(93, 92, 255, 0.2);
+}
 
-        .form-input {
-            width: 100%;
-            border: none;
-            background: transparent;
-            padding: 1rem 0.5rem;
-            outline: none;
-            color: var(--text-light);
-            font-size: 1rem;
-        }
+.input-icon {
+    padding: 0 1.25rem;
+    color: var(--text-light);
+}
 
-        /* Password toggle */
-        .password-toggle {
-            padding: 0 1.25rem;
-            cursor: pointer;
-            color: rgba(255, 255, 255, 0.5);
-            transition: color 0.3s ease;
-        }
+.form-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 1rem 0.5rem;
+    outline: none;
+    color: var(--text-dark);
+    font-size: 1rem;
+}
 
-        .password-toggle:hover {
-            color: var(--secondary-color);
-        }
+/* Password toggle */
+.password-toggle {
+    padding: 0 1.25rem;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
 
-        /* Placeholder styling */
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
+.password-toggle:hover {
+    color: var(--primary-color);
+}
 
-        /* Botón de acceso */
-        .btn-login {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            font-weight: 600;
-            font-size: 1.125rem;
-            border-radius: 0.75rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(93, 92, 255, 0.4);
-            margin-top: 1rem; /* Margen superior para separarlo del campo de contraseña */
-        }
+/* Placeholder styling */
+.form-input::placeholder {
+    color: #a1a1a1;
+}
 
-        .btn-login:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(93, 92, 255, 0.6);
-        }
+/* Botón de acceso */
+.btn-login {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    font-size: 1.125rem;
+    border-radius: 0.75rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(93, 92, 255, 0.25);
+    margin-top: 1rem;
+}
 
-        /* Enlace de contraseña olvidada */
-        .text-link {
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-            display: inline-block; /* Para que el margen funcione correctamente */
-            margin-top: 1.5rem; /* Margen superior para separarlo del botón */
-        }
+.btn-login:hover {
+    background: var(--primary-color-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(93, 92, 255, 0.35);
+}
 
-        .text-link:hover {
-            color: var(--secondary-color);
-        }
+/* Enlace de contraseña olvidada */
+.text-link {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+    margin-top: 1.5rem;
+}
 
-        /* Mensaje de error (CSS de Tailwind) */
-        #error-message {
-            font-weight: 500;
-        }
+.text-link:hover {
+    text-decoration: underline;
+    color: var(--primary-color-dark);
+}
 
-        /* Estilos del canvas para las partículas de fondo */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
+/* Mensaje de error (CSS de Tailwind) */
+#error-message {
+    font-weight: 500;
+}
+
+/* Estilos del canvas para las partículas de fondo */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 1.75rem;
+    }
+}
